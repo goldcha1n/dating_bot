@@ -14,7 +14,7 @@ def create_api(settings: Settings) -> FastAPI:
     engine = create_engine(settings.database_url)
     sessionmaker = create_sessionmaker(engine)
 
-    app = FastAPI(title="Admin Panel")
+    app = FastAPI(title="Адмін панель")
     app.state.settings = settings
     app.state.engine = engine
     app.state.sessionmaker = sessionmaker

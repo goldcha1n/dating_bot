@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Profiles</h1>
+<h1>Профілі</h1>
 <form method="get" action="/admin/profiles" class="toolbar">
-    <input type="text" name="q" value="{{ q }}" placeholder="Keywords in \"About me\"" />
-    <button type="submit" class="btn">Search</button>
+    <input type="text" name="q" value="{{ q }}" placeholder="Ключові слова з \"Про себе\"" />
+    <button type="submit" class="btn">Шукати</button>
 </form>
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
             <th>TG ID</th>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Looking for</th>
-            <th>City</th>
-            <th>About</th>
-            <th>Created</th>
+            <th>Нікнейм</th>
+            <th>Ім’я</th>
+            <th>Вік</th>
+            <th>Стать</th>
+            <th>Шукає</th>
+            <th>Місто</th>
+            <th>Про себе</th>
+            <th>Створено</th>
         </tr>
     </thead>
     <tbody>
@@ -43,19 +43,19 @@
         {% endfor %}
         {% if profiles|length == 0 %}
         <tr>
-            <td colspan="10" class="empty">No profiles found</td>
+            <td colspan="10" class="empty">Профілів не знайдено</td>
         </tr>
         {% endif %}
     </tbody>
 </table>
 <div class="pagination">
-    <span>Page {{ page }} of {{ total_pages }}</span>
+    <span>Сторінка {{ page }} з {{ total_pages }}</span>
     <div class="pager">
         {% if page > 1 %}
-        <a href="/admin/profiles?page={{ page - 1 }}&q={{ q }}">Prev</a>
+        <a href="/admin/profiles?page={{ page - 1 }}&q={{ q }}">Назад</a>
         {% endif %}
         {% if page < total_pages %}
-        <a href="/admin/profiles?page={{ page + 1 }}&q={{ q }}">Next</a>
+        <a href="/admin/profiles?page={{ page + 1 }}&q={{ q }}">Далі</a>
         {% endif %}
     </div>
 </div>

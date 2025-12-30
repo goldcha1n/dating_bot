@@ -658,3 +658,1350 @@ aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat 
 2025-12-31 01:08:18,242 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
 2025-12-31 01:08:18,243 [INFO] __main__: Shutdown requested, cancelling services...
 2025-12-31 01:08:18,252 [INFO] __main__: Shutdown complete
+2025-12-31 01:15:15,221 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:15:15,222 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:15:15,222 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:15:15,222 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:15:15,247 [INFO] __main__: api started
+2025-12-31 01:15:15,277 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:15:15,464 [INFO] app.bot: bot started
+2025-12-31 01:15:15,464 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:15:15,466 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 24284.5s
+2025-12-31 01:15:15,476 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:15:15,624 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:15:15,866 [INFO] aiogram.event: Update id=99609636 is handled. Duration 203 ms by bot id=8308846710
+2025-12-31 01:16:08,451 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [WinError 121] Превышен таймаут семафора
+2025-12-31 01:16:08,451 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-31 01:16:21,183 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 01:16:21,183 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 01:16:21,184 [INFO] __main__: Shutdown complete
+2025-12-31 01:16:21,185 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:16:21,373 [ERROR] asyncio: Task was destroyed but it is pending!
+task: <Task cancelling name='Task-51' coro=<notify_user() running at C:\Python_Projects\dating_bot\app\api\admin.py:35> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[gather.<locals>._done_callback() at C:\Users\JK\anaconda3\envs\dating_bot\Lib\asyncio\tasks.py:764]>
+2025-12-31 01:16:21,373 [ERROR] asyncio: Task was destroyed but it is pending!
+task: <Task cancelling name='Task-58' coro=<notify_user() running at C:\Python_Projects\dating_bot\app\api\admin.py:35> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[gather.<locals>._done_callback() at C:\Users\JK\anaconda3\envs\dating_bot\Lib\asyncio\tasks.py:764]>
+2025-12-31 01:16:25,386 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:16:25,387 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:16:25,387 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:16:25,388 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:16:25,413 [INFO] __main__: api started
+2025-12-31 01:16:25,442 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:16:25,627 [INFO] app.bot: bot started
+2025-12-31 01:16:25,627 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:16:25,629 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 24214.4s
+2025-12-31 01:16:25,639 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:16:45,914 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 01:16:46,182 [ERROR] __main__: Service crashed, stopping services...
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\connector.py", line 1283, in _wrap_create_connection
+    return await self._loop.create_connection(*args, **kwargs, sock=sock)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\asyncio\base_events.py", line 1113, in create_connection
+    transport, protocol = await self._create_connection_transport(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\asyncio\base_events.py", line 1146, in _create_connection_transport
+    await waiter
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\asyncio\proactor_events.py", line 286, in _loop_reading
+    length = fut.result()
+             ^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\asyncio\windows_events.py", line 854, in _poll
+    value = callback(transferred, key, ov)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\asyncio\windows_events.py", line 494, in finish_recv
+    return ov.getresult()
+           ^^^^^^^^^^^^^^
+OSError: [WinError 121] Превышен таймаут семафора
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 177, in make_request
+    async with session.post(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\client.py", line 1488, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\client.py", line 770, in _request
+    resp = await handler(req)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\client.py", line 725, in _connect_and_send_request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\connector.py", line 642, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\connector.py", line 1209, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\connector.py", line 1581, in _create_direct_connection
+    raise last_exc
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\connector.py", line 1550, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\connector.py", line 1291, in _wrap_create_connection
+    raise client_error(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Превышен таймаут семафора]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\run.py", line 71, in main
+    await asyncio.gather(*tasks)
+  File "C:\Python_Projects\dating_bot\app\bot.py", line 70, in start_bot
+    await dp.start_polling(bot, cfg=settings)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 591, in start_polling
+    await asyncio.gather(*done)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 362, in _polling
+    user: User = await bot.me()
+                 ^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 357, in me
+    self._me = await self.get_me()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 1797, in get_me
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 184, in make_request
+    raise TelegramNetworkError(method=method, message=f"{type(e).__name__}: {e}")
+aiogram.exceptions.TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Превышен таймаут семафора]
+2025-12-31 01:16:46,194 [INFO] __main__: Shutdown complete
+2025-12-31 01:17:16,644 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:17:16,644 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:17:16,645 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:17:16,645 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:17:16,671 [INFO] __main__: api started
+2025-12-31 01:17:16,702 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:17:16,910 [INFO] app.bot: bot started
+2025-12-31 01:17:16,910 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:17:16,912 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 24163.1s
+2025-12-31 01:17:16,923 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:17:17,083 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:17:17,323 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 63, in complaint_start
+    await call.answer()
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid
+2025-12-31 01:17:17,334 [INFO] aiogram.event: Update id=99609639 is handled. Duration 202 ms by bot id=8308846710
+2025-12-31 01:17:17,365 [INFO] aiogram.event: Update id=99609638 is handled. Duration 235 ms by bot id=8308846710
+2025-12-31 01:17:17,386 [INFO] aiogram.event: Update id=99609637 is not handled. Duration 250 ms by bot id=8308846710
+2025-12-31 01:17:17,386 [ERROR] aiogram.event: Cause exception while process update id=99609637 by bot id=8308846710
+TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 63, in complaint_start
+    await call.answer()
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 111, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 124, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 146, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 63, in complaint_start
+    await call.answer()
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid
+2025-12-31 01:18:47,379 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-12-31 01:18:47,379 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-31 01:19:13,530 [INFO] aiogram.dispatcher: Connection established (tryings = 1, bot id = 8308846710)
+2025-12-31 01:19:15,522 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 01:19:15,523 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 01:19:15,523 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-12-31 01:19:15,523 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-31 01:19:15,524 [INFO] __main__: Shutdown complete
+2025-12-31 01:19:15,525 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:19:21,636 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:19:21,636 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:19:21,637 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:19:21,637 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:19:21,664 [INFO] __main__: api started
+2025-12-31 01:19:21,695 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:19:21,886 [INFO] app.bot: bot started
+2025-12-31 01:19:21,886 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:19:21,888 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 24038.1s
+2025-12-31 01:19:21,899 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:19:22,039 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:19:23,209 [INFO] aiogram.event: Update id=99609640 is handled. Duration 202 ms by bot id=8308846710
+2025-12-31 01:19:25,963 [INFO] aiogram.event: Update id=99609641 is handled. Duration 108 ms by bot id=8308846710
+2025-12-31 01:19:33,468 [ERROR] app.api.admin: Failed to notify user tg_id=2000010001
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\app\api\admin.py", line 31, in notify_user
+    await bot.send_message(tg_id, text)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 2925, in send_message
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 01:19:34,057 [ERROR] app.api.admin: Failed to notify user tg_id=2000010001
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\app\api\admin.py", line 31, in notify_user
+    await bot.send_message(tg_id, text)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 2925, in send_message
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 01:19:36,059 [INFO] aiogram.event: Update id=99609642 is handled. Duration 94 ms by bot id=8308846710
+2025-12-31 01:19:38,341 [ERROR] app.api.admin: Failed to notify user tg_id=2000010001
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\app\api\admin.py", line 31, in notify_user
+    await bot.send_message(tg_id, text)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 2925, in send_message
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 01:19:39,611 [INFO] aiogram.event: Update id=99609643 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:19:41,859 [ERROR] app.api.admin: Failed to notify user tg_id=2000010001
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\app\api\admin.py", line 31, in notify_user
+    await bot.send_message(tg_id, text)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 2925, in send_message
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 01:19:47,695 [INFO] aiogram.event: Update id=99609644 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 01:19:54,067 [INFO] db: Ignore update from banned user tg_id=8322042070
+2025-12-31 01:19:54,067 [INFO] aiogram.event: Update id=99609645 is handled. Duration 0 ms by bot id=8308846710
+2025-12-31 01:19:55,289 [INFO] db: Ignore update from banned user tg_id=8322042070
+2025-12-31 01:19:55,290 [INFO] aiogram.event: Update id=99609646 is handled. Duration 14 ms by bot id=8308846710
+2025-12-31 01:19:58,506 [INFO] aiogram.event: Update id=99609647 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 01:20:03,197 [INFO] aiogram.event: Update id=99609648 is handled. Duration 140 ms by bot id=8308846710
+2025-12-31 01:20:59,460 [INFO] aiogram.event: Update id=99609649 is handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:21:03,668 [INFO] aiogram.event: Update id=99609650 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 01:26:56,584 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:26:56,584 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:26:56,585 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:26:56,585 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:26:56,610 [INFO] __main__: api started
+2025-12-31 01:26:56,638 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:26:56,822 [INFO] app.bot: bot started
+2025-12-31 01:26:56,823 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:26:56,824 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 23583.2s
+2025-12-31 01:26:56,834 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:26:57,014 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:27:08,966 [INFO] aiogram.event: Update id=99609651 is handled. Duration 186 ms by bot id=8308846710
+2025-12-31 01:27:11,091 [INFO] aiogram.event: Update id=99609652 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:27:15,896 [INFO] aiogram.event: Update id=99609653 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 01:27:19,131 [INFO] aiogram.event: Update id=99609654 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:27:21,084 [INFO] aiogram.event: Update id=99609655 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:27:23,362 [INFO] aiogram.event: Update id=99609656 is handled. Duration 62 ms by bot id=8308846710
+2025-12-31 01:27:27,623 [INFO] aiogram.event: Update id=99609657 is handled. Duration 78 ms by bot id=8308846710
+2025-12-31 01:27:30,902 [INFO] aiogram.event: Update id=99609658 is handled. Duration 78 ms by bot id=8308846710
+2025-12-31 01:27:41,720 [INFO] aiogram.event: Update id=99609659 is handled. Duration 155 ms by bot id=8308846710
+2025-12-31 01:27:50,320 [INFO] aiogram.event: Update id=99609660 is handled. Duration 62 ms by bot id=8308846710
+2025-12-31 01:27:52,719 [INFO] aiogram.event: Update id=99609661 is handled. Duration 92 ms by bot id=8308846710
+2025-12-31 01:27:54,394 [INFO] aiogram.event: Update id=99609662 is handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:27:59,051 [INFO] aiogram.event: Update id=99609663 is handled. Duration 139 ms by bot id=8308846710
+2025-12-31 01:28:01,784 [INFO] aiogram.event: Update id=99609664 is handled. Duration 360 ms by bot id=8308846710
+2025-12-31 01:28:07,265 [ERROR] services.matching: Failed to send like notification
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\services\matching.py", line 96, in _send_like_notification
+    await bot.send_photo(chat_id=to_user.tg_id, photo=photo_id, caption=text, reply_markup=kb)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 3001, in send_photo
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 01:28:07,358 [INFO] aiogram.event: Update id=99609665 is handled. Duration 562 ms by bot id=8308846710
+2025-12-31 01:28:41,906 [INFO] aiogram.event: Update id=99609666 is handled. Duration 78 ms by bot id=8308846710
+2025-12-31 01:28:43,819 [INFO] aiogram.event: Update id=99609667 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 01:28:44,859 [INFO] aiogram.event: Update id=99609668 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 01:28:45,995 [INFO] aiogram.event: Update id=99609669 is handled. Duration 157 ms by bot id=8308846710
+2025-12-31 01:28:47,544 [INFO] aiogram.event: Update id=99609670 is handled. Duration 421 ms by bot id=8308846710
+2025-12-31 01:28:50,637 [INFO] aiogram.event: Update id=99609671 is handled. Duration 827 ms by bot id=8308846710
+2025-12-31 01:28:54,550 [INFO] aiogram.event: Update id=99609672 is handled. Duration 514 ms by bot id=8308846710
+2025-12-31 01:29:00,198 [INFO] aiogram.event: Update id=99609673 is handled. Duration 1110 ms by bot id=8308846710
+2025-12-31 01:29:04,916 [INFO] aiogram.event: Update id=99609674 is handled. Duration 828 ms by bot id=8308846710
+2025-12-31 01:29:08,709 [INFO] aiogram.event: Update id=99609675 is handled. Duration 639 ms by bot id=8308846710
+2025-12-31 01:29:09,988 [ERROR] services.matching: Failed to send like notification
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\services\matching.py", line 96, in _send_like_notification
+    await bot.send_photo(chat_id=to_user.tg_id, photo=photo_id, caption=text, reply_markup=kb)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 3001, in send_photo
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 01:29:10,524 [INFO] aiogram.event: Update id=99609676 is handled. Duration 703 ms by bot id=8308846710
+2025-12-31 01:29:11,828 [INFO] aiogram.event: Update id=99609677 is handled. Duration 218 ms by bot id=8308846710
+2025-12-31 01:29:13,164 [INFO] aiogram.event: Update id=99609678 is handled. Duration 139 ms by bot id=8308846710
+2025-12-31 01:29:56,491 [INFO] aiogram.event: Update id=99609679 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 01:29:58,043 [INFO] aiogram.event: Update id=99609680 is handled. Duration 546 ms by bot id=8308846710
+2025-12-31 01:29:59,899 [INFO] aiogram.event: Update id=99609681 is handled. Duration 672 ms by bot id=8308846710
+2025-12-31 01:30:01,622 [INFO] aiogram.event: Update id=99609682 is handled. Duration 500 ms by bot id=8308846710
+2025-12-31 01:30:03,853 [INFO] aiogram.event: Update id=99609683 is handled. Duration 843 ms by bot id=8308846710
+2025-12-31 01:30:05,149 [ERROR] services.matching: Failed to send like notification
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\services\matching.py", line 96, in _send_like_notification
+    await bot.send_photo(chat_id=to_user.tg_id, photo=photo_id, caption=text, reply_markup=kb)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 3001, in send_photo
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 01:30:05,799 [INFO] aiogram.event: Update id=99609684 is handled. Duration 796 ms by bot id=8308846710
+2025-12-31 01:30:07,024 [INFO] aiogram.event: Update id=99609685 is handled. Duration 485 ms by bot id=8308846710
+2025-12-31 01:30:08,202 [INFO] aiogram.event: Update id=99609686 is handled. Duration 452 ms by bot id=8308846710
+2025-12-31 01:30:09,054 [INFO] aiogram.event: Update id=99609687 is handled. Duration 500 ms by bot id=8308846710
+2025-12-31 01:30:09,963 [INFO] aiogram.event: Update id=99609688 is handled. Duration 514 ms by bot id=8308846710
+2025-12-31 01:30:10,745 [INFO] aiogram.event: Update id=99609689 is handled. Duration 422 ms by bot id=8308846710
+2025-12-31 01:30:11,795 [INFO] aiogram.event: Update id=99609690 is handled. Duration 656 ms by bot id=8308846710
+2025-12-31 01:30:12,765 [INFO] aiogram.event: Update id=99609691 is handled. Duration 531 ms by bot id=8308846710
+2025-12-31 01:30:16,707 [INFO] aiogram.event: Update id=99609692 is handled. Duration 468 ms by bot id=8308846710
+2025-12-31 01:30:18,180 [INFO] aiogram.event: Update id=99609693 is handled. Duration 578 ms by bot id=8308846710
+2025-12-31 01:30:19,100 [INFO] aiogram.event: Update id=99609694 is handled. Duration 452 ms by bot id=8308846710
+2025-12-31 01:30:19,968 [INFO] aiogram.event: Update id=99609695 is handled. Duration 500 ms by bot id=8308846710
+2025-12-31 01:30:20,897 [INFO] aiogram.event: Update id=99609696 is handled. Duration 610 ms by bot id=8308846710
+2025-12-31 01:30:22,915 [INFO] aiogram.event: Update id=99609697 is handled. Duration 656 ms by bot id=8308846710
+2025-12-31 01:30:24,015 [INFO] aiogram.event: Update id=99609698 is handled. Duration 672 ms by bot id=8308846710
+2025-12-31 01:30:24,934 [INFO] aiogram.event: Update id=99609699 is handled. Duration 516 ms by bot id=8308846710
+2025-12-31 01:30:26,123 [INFO] aiogram.event: Update id=99609700 is handled. Duration 828 ms by bot id=8308846710
+2025-12-31 01:30:27,398 [INFO] aiogram.event: Update id=99609701 is handled. Duration 813 ms by bot id=8308846710
+2025-12-31 01:30:28,409 [INFO] aiogram.event: Update id=99609702 is handled. Duration 625 ms by bot id=8308846710
+2025-12-31 01:30:29,502 [INFO] aiogram.event: Update id=99609703 is handled. Duration 687 ms by bot id=8308846710
+2025-12-31 01:30:30,382 [INFO] aiogram.event: Update id=99609704 is handled. Duration 468 ms by bot id=8308846710
+2025-12-31 01:30:31,502 [INFO] aiogram.event: Update id=99609705 is handled. Duration 516 ms by bot id=8308846710
+2025-12-31 01:31:04,507 [INFO] aiogram.event: Update id=99609706 is handled. Duration 625 ms by bot id=8308846710
+2025-12-31 01:31:07,068 [INFO] aiogram.event: Update id=99609707 is handled. Duration 609 ms by bot id=8308846710
+2025-12-31 01:31:10,067 [INFO] aiogram.event: Update id=99609708 is handled. Duration 141 ms by bot id=8308846710
+2025-12-31 01:31:14,093 [INFO] aiogram.event: Update id=99609709 is handled. Duration 639 ms by bot id=8308846710
+2025-12-31 01:31:36,236 [INFO] aiogram.event: Update id=99609710 is handled. Duration 500 ms by bot id=8308846710
+2025-12-31 01:31:46,104 [INFO] aiogram.event: Update id=99609711 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:32:10,880 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 01:32:10,881 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:32:10,882 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 01:32:10,890 [INFO] __main__: Shutdown complete
+2025-12-31 01:33:52,427 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:33:52,427 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:33:52,428 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:33:52,428 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:33:52,453 [INFO] __main__: api started
+2025-12-31 01:33:52,484 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:33:52,672 [INFO] app.bot: bot started
+2025-12-31 01:33:52,673 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:33:52,674 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 23167.3s
+2025-12-31 01:33:52,685 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:33:52,844 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:34:04,235 [INFO] aiogram.event: Update id=99609712 is handled. Duration 171 ms by bot id=8308846710
+2025-12-31 01:34:05,892 [INFO] aiogram.event: Update id=99609713 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:34:38,932 [INFO] aiogram.event: Update id=99609714 is handled. Duration 172 ms by bot id=8308846710
+2025-12-31 01:34:41,383 [INFO] aiogram.event: Update id=99609715 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:34:42,804 [INFO] aiogram.event: Update id=99609716 is handled. Duration 78 ms by bot id=8308846710
+2025-12-31 01:34:45,282 [INFO] aiogram.event: Update id=99609717 is handled. Duration 63 ms by bot id=8308846710
+2025-12-31 01:34:49,132 [INFO] aiogram.event: Update id=99609718 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:34:51,239 [INFO] aiogram.event: Update id=99609719 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:35:02,133 [INFO] aiogram.event: Update id=99609720 is handled. Duration 156 ms by bot id=8308846710
+2025-12-31 01:35:15,552 [INFO] aiogram.event: Update id=99609721 is handled. Duration 78 ms by bot id=8308846710
+2025-12-31 01:35:17,058 [INFO] aiogram.event: Update id=99609722 is handled. Duration 172 ms by bot id=8308846710
+2025-12-31 01:35:18,271 [INFO] aiogram.event: Update id=99609723 is handled. Duration 156 ms by bot id=8308846710
+2025-12-31 01:35:18,486 [INFO] aiogram.event: Update id=99609724 is handled. Duration 141 ms by bot id=8308846710
+2025-12-31 01:35:19,352 [INFO] aiogram.event: Update id=99609725 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 01:35:22,047 [INFO] aiogram.event: Update id=99609726 is handled. Duration 139 ms by bot id=8308846710
+2025-12-31 01:35:24,089 [INFO] aiogram.event: Update id=99609727 is handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:35:25,918 [INFO] aiogram.event: Update id=99609728 is handled. Duration 108 ms by bot id=8308846710
+2025-12-31 01:35:27,603 [INFO] aiogram.event: Update id=99609729 is handled. Duration 156 ms by bot id=8308846710
+2025-12-31 01:35:29,459 [INFO] aiogram.event: Update id=99609730 is handled. Duration 1000 ms by bot id=8308846710
+2025-12-31 01:35:33,666 [INFO] aiogram.event: Update id=99609731 is handled. Duration 687 ms by bot id=8308846710
+2025-12-31 01:35:34,008 [INFO] aiogram.event: Update id=99609732 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 01:35:42,157 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 01:35:42,158 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:35:42,158 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 01:35:42,165 [INFO] __main__: Shutdown complete
+2025-12-31 01:37:39,387 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:37:39,387 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:37:39,388 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:37:39,388 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:37:39,413 [INFO] __main__: api started
+2025-12-31 01:37:39,442 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:37:39,628 [INFO] app.bot: bot started
+2025-12-31 01:37:39,629 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:37:39,630 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 22940.4s
+2025-12-31 01:37:39,641 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:37:39,775 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:37:48,859 [INFO] aiogram.event: Update id=99609733 is handled. Duration 671 ms by bot id=8308846710
+2025-12-31 01:38:02,373 [INFO] aiogram.event: Update id=99609734 is handled. Duration 141 ms by bot id=8308846710
+2025-12-31 01:38:06,787 [INFO] aiogram.event: Update id=99609735 is handled. Duration 453 ms by bot id=8308846710
+2025-12-31 01:38:19,252 [INFO] aiogram.event: Update id=99609736 is handled. Duration 407 ms by bot id=8308846710
+2025-12-31 01:38:21,534 [INFO] aiogram.event: Update id=99609737 is handled. Duration 781 ms by bot id=8308846710
+2025-12-31 01:38:23,200 [INFO] aiogram.event: Update id=99609738 is handled. Duration 610 ms by bot id=8308846710
+2025-12-31 01:38:24,610 [INFO] aiogram.event: Update id=99609739 is handled. Duration 531 ms by bot id=8308846710
+2025-12-31 01:38:25,886 [INFO] aiogram.event: Update id=99609740 is handled. Duration 422 ms by bot id=8308846710
+2025-12-31 01:38:28,135 [INFO] aiogram.event: Update id=99609741 is handled. Duration 608 ms by bot id=8308846710
+2025-12-31 01:38:30,858 [INFO] aiogram.event: Update id=99609742 is handled. Duration 437 ms by bot id=8308846710
+2025-12-31 01:38:33,409 [INFO] aiogram.event: Update id=99609743 is handled. Duration 516 ms by bot id=8308846710
+2025-12-31 01:38:35,586 [INFO] aiogram.event: Update id=99609744 is handled. Duration 500 ms by bot id=8308846710
+2025-12-31 01:38:37,721 [INFO] aiogram.event: Update id=99609745 is handled. Duration 811 ms by bot id=8308846710
+2025-12-31 01:38:43,278 [INFO] aiogram.event: Update id=99609746 is handled. Duration 781 ms by bot id=8308846710
+2025-12-31 01:38:45,981 [INFO] aiogram.event: Update id=99609747 is handled. Duration 531 ms by bot id=8308846710
+2025-12-31 01:38:47,807 [INFO] aiogram.event: Update id=99609748 is handled. Duration 844 ms by bot id=8308846710
+2025-12-31 01:38:48,389 [INFO] aiogram.event: Update id=99609749 is handled. Duration 62 ms by bot id=8308846710
+2025-12-31 01:38:49,743 [INFO] aiogram.event: Update id=99609750 is handled. Duration 62 ms by bot id=8308846710
+2025-12-31 01:38:51,576 [INFO] aiogram.event: Update id=99609751 is handled. Duration 610 ms by bot id=8308846710
+2025-12-31 01:38:52,774 [INFO] aiogram.event: Update id=99609752 is handled. Duration 391 ms by bot id=8308846710
+2025-12-31 01:38:53,865 [INFO] aiogram.event: Update id=99609753 is handled. Duration 218 ms by bot id=8308846710
+2025-12-31 01:38:54,778 [INFO] aiogram.event: Update id=99609754 is handled. Duration 141 ms by bot id=8308846710
+2025-12-31 01:38:56,569 [INFO] aiogram.event: Update id=99609755 is handled. Duration 140 ms by bot id=8308846710
+2025-12-31 01:41:33,425 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 01:41:33,426 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 01:41:33,426 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-12-31 01:41:33,427 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-31 01:41:33,427 [INFO] __main__: Shutdown complete
+2025-12-31 01:41:33,428 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:42:14,481 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:42:14,481 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:42:14,482 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:42:14,482 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:42:14,507 [INFO] __main__: api started
+2025-12-31 01:42:14,535 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:42:14,723 [INFO] app.bot: bot started
+2025-12-31 01:42:14,723 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:42:14,724 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 22665.3s
+2025-12-31 01:42:14,735 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:42:14,874 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:45:07,658 [INFO] aiogram.event: Update id=99609756 is handled. Duration 500 ms by bot id=8308846710
+2025-12-31 01:45:10,027 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:10,085 [INFO] aiogram.event: Update id=99609757 is not handled. Duration 139 ms by bot id=8308846710
+2025-12-31 01:45:10,086 [ERROR] aiogram.event: Cause exception while process update id=99609757 by bot id=8308846710
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 111, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 124, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 146, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:12,832 [INFO] aiogram.event: Update id=99609758 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 01:45:13,599 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:13,659 [INFO] aiogram.event: Update id=99609759 is not handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:45:13,659 [ERROR] aiogram.event: Cause exception while process update id=99609759 by bot id=8308846710
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 111, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 124, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 146, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:15,493 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:15,554 [INFO] aiogram.event: Update id=99609760 is not handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:45:15,554 [ERROR] aiogram.event: Cause exception while process update id=99609760 by bot id=8308846710
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 111, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 124, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 146, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:16,360 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:16,422 [INFO] aiogram.event: Update id=99609761 is not handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:45:16,422 [ERROR] aiogram.event: Cause exception while process update id=99609761 by bot id=8308846710
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 111, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 124, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 146, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:16,983 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:17,043 [INFO] aiogram.event: Update id=99609762 is not handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:45:17,043 [ERROR] aiogram.event: Cause exception while process update id=99609762 by bot id=8308846710
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 111, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 124, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 146, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:17,442 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:17,501 [INFO] aiogram.event: Update id=99609763 is not handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:45:17,501 [ERROR] aiogram.event: Cause exception while process update id=99609763 by bot id=8308846710
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 111, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 124, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 146, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:17,856 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:17,914 [INFO] aiogram.event: Update id=99609764 is not handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:45:17,914 [ERROR] aiogram.event: Cause exception while process update id=99609764 by bot id=8308846710
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 111, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 124, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 146, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:21,425 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:45:21,485 [INFO] aiogram.event: Update id=99609765 is not handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:45:21,485 [ERROR] aiogram.event: Cause exception while process update id=99609765 by bot id=8308846710
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 143, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 111, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 124, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 146, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\complaints.py", line 90, in complaint_start
+    await call.message.answer(reply_markup=kb)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer() missing 1 required positional argument: 'text'
+2025-12-31 01:46:50,716 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 01:46:50,717 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 01:46:50,717 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-12-31 01:46:50,718 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-31 01:46:50,718 [INFO] __main__: Shutdown complete
+2025-12-31 01:46:50,719 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:46:54,505 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:46:54,505 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:46:54,506 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:46:54,506 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:46:54,535 [INFO] __main__: api started
+2025-12-31 01:46:54,566 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:46:54,760 [INFO] app.bot: bot started
+2025-12-31 01:46:54,761 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:46:54,762 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 22385.2s
+2025-12-31 01:46:54,774 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:46:54,918 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:46:56,774 [INFO] aiogram.event: Update id=99609766 is handled. Duration 250 ms by bot id=8308846710
+2025-12-31 01:46:58,113 [INFO] aiogram.event: Update id=99609767 is handled. Duration 108 ms by bot id=8308846710
+2025-12-31 01:46:59,207 [INFO] aiogram.event: Update id=99609768 is handled. Duration 140 ms by bot id=8308846710
+2025-12-31 01:47:00,917 [INFO] aiogram.event: Update id=99609769 is handled. Duration 108 ms by bot id=8308846710
+2025-12-31 01:47:02,321 [INFO] aiogram.event: Update id=99609770 is handled. Duration 452 ms by bot id=8308846710
+2025-12-31 01:47:03,496 [INFO] aiogram.event: Update id=99609771 is handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:47:06,057 [INFO] aiogram.event: Update id=99609772 is handled. Duration 156 ms by bot id=8308846710
+2025-12-31 01:47:10,049 [INFO] aiogram.event: Update id=99609773 is handled. Duration 108 ms by bot id=8308846710
+2025-12-31 01:47:13,181 [INFO] aiogram.event: Update id=99609774 is handled. Duration 484 ms by bot id=8308846710
+2025-12-31 01:47:33,986 [INFO] aiogram.event: Update id=99609775 is handled. Duration 125 ms by bot id=8308846710
+2025-12-31 01:47:36,089 [INFO] aiogram.event: Update id=99609776 is handled. Duration 139 ms by bot id=8308846710
+2025-12-31 01:47:38,845 [INFO] aiogram.event: Update id=99609777 is handled. Duration 108 ms by bot id=8308846710
+2025-12-31 01:47:44,778 [INFO] aiogram.event: Update id=99609778 is handled. Duration 766 ms by bot id=8308846710
+2025-12-31 01:49:15,288 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 01:49:15,288 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:49:15,289 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 01:49:15,296 [INFO] __main__: Shutdown complete

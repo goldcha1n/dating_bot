@@ -119,4 +119,7 @@ def complaint_reasons_kb(target_user_id: int) -> InlineKeyboardMarkup:
         InlineKeyboardButton(text="Образи", callback_data=f"complaint:reason:obscene:{target_user_id}"),
         InlineKeyboardButton(text="Інше", callback_data=f"complaint:reason:other:{target_user_id}"),
     )
+    builder.row(
+        InlineKeyboardButton(text="Скасувати", callback_data="complaint:cancel"),
+    )
     return builder.as_markup()

@@ -4,6 +4,7 @@ import logging
 from typing import Optional
 
 from aiogram import F, Router
+from aiogram.exceptions import TelegramBadRequest
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
@@ -23,6 +24,14 @@ class ComplaintStates(StatesGroup):
     waiting_reason_text = State()
 
 
+async def _safe_answer(call: CallbackQuery) -> None:
+    try:
+        await call.answer()
+    except TelegramBadRequest:
+        # Happens for stale callback queries; safe to ignore
+        logger.debug("Callback too old, skipping answer (id=%s)", getattr(call, "id", "?"))
+
+
 async def _get_target(session: AsyncSession, target_user_id: int) -> Optional[User]:
     res = await session.execute(select(User).where(User.id == target_user_id))
     return res.scalar_one_or_none()
@@ -37,44 +46,44 @@ async def _create_complaint(
         )
     )
     if existing.scalar_one_or_none():
-        return False, "Ви вже скаржилися на цю анкету."
+        return False, "Ви вже подавали скаргу на цього користувача."
 
     session.add(
         Complaint(
             reporter_user_id=reporter_id,
             target_user_id=target_user_id,
-            reason=reason.strip() or "Без причини",
+            reason=reason.strip() or "Без опису",
         )
     )
     try:
         await session.commit()
-        return True, "Скаргу відправлено."
+        return True, "Скаргу подано."
     except IntegrityError:
         await session.rollback()
-        return False, "Ви вже скаржилися на цю анкету."
+        return False, "Ви вже подавали скаргу на цього користувача."
     except Exception:
         await session.rollback()
         logger.exception("Failed to save complaint")
-        return False, "Не вдалося зберегти скаргу. Спробуйте пізніше."
+        return False, "Сталася помилка при збереженні скарги. Спробуйте пізніше."
 
 
 @router.callback_query(F.data.startswith("complaint:start:"))
 async def complaint_start(call: CallbackQuery, session: AsyncSession) -> None:
-    await call.answer()
+    await _safe_answer(call)
     cur = await get_current_user_or_none(session, call.from_user.id)
     if not cur:
-        await call.message.answer("Спочатку заповніть профіль: /start")
+        await call.message.answer("Сесію не знайдено. Надішліть /start")
         return
 
     try:
         target_user_id = int(call.data.split(":")[-1])
     except Exception:
-        await call.message.answer("Некоректна скарга.")
+        await call.message.answer("Некоректний запит.")
         return
 
     target = await _get_target(session, target_user_id)
     if not target:
-        await call.message.answer("Анкета не знайдена.")
+        await call.message.answer("Користувача не знайдено.")
         return
 
     kb = complaint_reasons_kb(target_user_id)
@@ -83,29 +92,29 @@ async def complaint_start(call: CallbackQuery, session: AsyncSession) -> None:
 
 @router.callback_query(F.data.startswith("complaint:reason:"))
 async def complaint_reason(call: CallbackQuery, session: AsyncSession, state: FSMContext) -> None:
-    await call.answer()
+    await _safe_answer(call)
     cur = await get_current_user_or_none(session, call.from_user.id)
     if not cur:
-        await call.message.answer("Спочатку заповніть профіль: /start")
+        await call.message.answer("Сесію не знайдено. Надішліть /start")
         return
 
     try:
         _, _, code, target_raw = call.data.split(":", 3)
         target_user_id = int(target_raw)
     except Exception:
-        await call.message.answer("Некоректна скарга.")
+        await call.message.answer("Некоректний запит.")
         return
 
     if code == "other":
         await state.update_data(target_user_id=target_user_id)
         await state.set_state(ComplaintStates.waiting_reason_text)
-        await call.message.answer("Опишіть причину скарги одним повідомленням:")
+        await call.message.answer("Опишіть причину скарги своїми словами:")
         return
 
     reason_map = {
-        "spam": "Спам/реклама",
-        "fake": "Фейкова анкета",
-        "obscene": "Непристойний контент",
+        "spam": "Спам / реклама",
+        "fake": "Фейковий профіль",
+        "obscene": "Образливі матеріали",
         "other": "Інше",
     }
     reason_text = reason_map.get(code, code)
@@ -119,20 +128,29 @@ async def complaint_reason_text(message: Message, session: AsyncSession, state: 
     target_user_id = data.get("target_user_id")
     if not target_user_id:
         await state.clear()
-        await message.answer("Не вдалося визначити анкету для скарги.")
+        await message.answer("Сесію втрачено. Спробуйте ще раз подати скаргу.")
         return
 
     cur = await get_current_user_or_none(session, message.from_user.id)
     if not cur:
         await state.clear()
-        await message.answer("Спочатку заповніть профіль: /start")
+        await message.answer("Сесію не знайдено. Надішліть /start")
         return
 
     reason = (message.text or "").strip()
     if not reason:
-        await message.answer("Будь ласка, опишіть причину текстом.")
+        await message.answer("Введіть текст причини.")
         return
 
     ok, msg = await _create_complaint(session, reporter_id=cur.id, target_user_id=int(target_user_id), reason=reason)
     await message.answer(msg)
     await state.clear()
+
+
+@router.callback_query(F.data == "complaint:cancel")
+async def complaint_cancel(call: CallbackQuery) -> None:
+    await _safe_answer(call)
+    try:
+        await call.message.delete()
+    except Exception:
+        pass

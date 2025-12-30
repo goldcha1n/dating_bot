@@ -66,7 +66,6 @@ class User(Base):
         CheckConstraint("gender IN ('M','F')", name="ck_users_gender"),
         CheckConstraint("looking_for IN ('M','F','A')", name="ck_users_looking_for"),
         Index("ix_users_city", "city"),
-        Index("ix_users_username", "username"),
     )
 
 

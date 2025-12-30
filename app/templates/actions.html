@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Admin Actions</h1>
+<h1>Дії адмінів</h1>
 <form method="get" action="/admin/actions" class="toolbar">
-    <input type="text" name="action" value="{{ action }}" placeholder="Action" />
+    <input type="text" name="action" value="{{ action }}" placeholder="Дія" />
     <input type="date" name="from_date" value="{{ from_date }}" />
     <input type="date" name="to_date" value="{{ to_date }}" />
-    <button type="submit" class="btn">Filter</button>
+    <button type="submit" class="btn">Фільтрувати</button>
 </form>
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Admin</th>
-            <th>Action</th>
-            <th>Target</th>
-            <th>Payload</th>
-            <th>Created</th>
+            <th>Адмін</th>
+            <th>Дія</th>
+            <th>Ціль</th>
+            <th>Дані</th>
+            <th>Створено</th>
         </tr>
     </thead>
     <tbody>
@@ -31,19 +31,19 @@
         {% endfor %}
         {% if actions|length == 0 %}
         <tr>
-            <td colspan="6" class="empty">No actions found</td>
+            <td colspan="6" class="empty">Дій не знайдено</td>
         </tr>
         {% endif %}
     </tbody>
 </table>
 <div class="pagination">
-    <span>Page {{ page }} of {{ total_pages }}</span>
+    <span>Сторінка {{ page }} з {{ total_pages }}</span>
     <div class="pager">
         {% if page > 1 %}
-        <a href="/admin/actions?page={{ page - 1 }}&action={{ action }}&from_date={{ from_date }}&to_date={{ to_date }}">Prev</a>
+        <a href="/admin/actions?page={{ page - 1 }}&action={{ action }}&from_date={{ from_date }}&to_date={{ to_date }}">Назад</a>
         {% endif %}
         {% if page < total_pages %}
-        <a href="/admin/actions?page={{ page + 1 }}&action={{ action }}&from_date={{ from_date }}&to_date={{ to_date }}">Next</a>
+        <a href="/admin/actions?page={{ page + 1 }}&action={{ action }}&from_date={{ from_date }}&to_date={{ to_date }}">Далі</a>
         {% endif %}
     </div>
 </div>

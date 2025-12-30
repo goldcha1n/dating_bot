@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Complaints</h1>
+<h1>Скарги</h1>
 <form method="get" action="/admin/complaints" class="toolbar">
-    <input type="number" name="target_user_id" value="{{ target_user_id }}" placeholder="Target user ID" />
-    <input type="number" name="reporter_user_id" value="{{ reporter_user_id }}" placeholder="Reporter user ID" />
+    <input type="number" name="target_user_id" value="{{ target_user_id }}" placeholder="ID користувача (ціль)" />
+    <input type="number" name="reporter_user_id" value="{{ reporter_user_id }}" placeholder="ID хто подав" />
     <input type="date" name="from_date" value="{{ from_date }}" />
     <input type="date" name="to_date" value="{{ to_date }}" />
-    <input type="text" name="reason" value="{{ reason }}" placeholder="Reason contains" />
-    <button type="submit" class="btn">Filter</button>
+    <input type="text" name="reason" value="{{ reason }}" placeholder="Причина містить" />
+    <button type="submit" class="btn">Фільтрувати</button>
 </form>
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Target User</th>
-            <th>Reporter</th>
-            <th>Reason</th>
-            <th>Created</th>
+            <th>Ціль</th>
+            <th>Хто подав</th>
+            <th>Причина</th>
+            <th>Створено</th>
         </tr>
     </thead>
     <tbody>
@@ -25,25 +25,25 @@
             <td>{{ item.id }}</td>
             <td><a href="/admin/complaints?target_user_id={{ item.target_user_id }}">{{ item.target_user_id }}</a></td>
             <td><a href="/admin/complaints?reporter_user_id={{ item.reporter_user_id }}">{{ item.reporter_user_id }}</a></td>
-            <td title="{{ item.reason }}">{{ item.reason[:120] + ('…' if item.reason|length > 120 else '') }}</td>
+            <td title="{{ item.reason }}">{{ item.reason[:120] + ('...' if item.reason|length > 120 else '') }}</td>
             <td>{{ item.created_at }}</td>
         </tr>
         {% endfor %}
         {% if complaints|length == 0 %}
         <tr>
-            <td colspan="5" class="empty">No complaints found</td>
+            <td colspan="5" class="empty">Скарг не знайдено</td>
         </tr>
         {% endif %}
     </tbody>
 </table>
 <div class="pagination">
-    <span>Page {{ page }} of {{ total_pages }}</span>
+    <span>Сторінка {{ page }} з {{ total_pages }}</span>
     <div class="pager">
         {% if page > 1 %}
-        <a href="/admin/complaints?page={{ page - 1 }}&target_user_id={{ target_user_id }}&reporter_user_id={{ reporter_user_id }}&from_date={{ from_date }}&to_date={{ to_date }}&reason={{ reason }}">Prev</a>
+        <a href="/admin/complaints?page={{ page - 1 }}&target_user_id={{ target_user_id }}&reporter_user_id={{ reporter_user_id }}&from_date={{ from_date }}&to_date={{ to_date }}&reason={{ reason }}">Назад</a>
         {% endif %}
         {% if page < total_pages %}
-        <a href="/admin/complaints?page={{ page + 1 }}&target_user_id={{ target_user_id }}&reporter_user_id={{ reporter_user_id }}&from_date={{ from_date }}&to_date={{ to_date }}&reason={{ reason }}">Next</a>
+        <a href="/admin/complaints?page={{ page + 1 }}&target_user_id={{ target_user_id }}&reporter_user_id={{ reporter_user_id }}&from_date={{ from_date }}&to_date={{ to_date }}&reason={{ reason }}">Далі</a>
         {% endif %}
     </div>
 </div>

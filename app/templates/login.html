@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="panel narrow">
-    <h1>Admin Login</h1>
+    <h1>Вхід для адміністратора</h1>
     {% if error %}<div class="error">{{ error }}</div>{% endif %}
     <form method="post" action="/admin/login" class="form">
         <label>
-            <span>Username</span>
+            <span>Логін</span>
             <input type="text" name="username" required />
         </label>
         <label>
-            <span>Password</span>
+            <span>Пароль</span>
             <input type="password" name="password" required />
         </label>
-        <button type="submit" class="btn">Sign in</button>
+        <button type="submit" class="btn">Увійти</button>
     </form>
 </div>
 {% endblock %}

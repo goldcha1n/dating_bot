@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title or "Admin" }}</title>
+    <title>{{ title or "Адмін панель" }}</title>
     <link rel="stylesheet" href="{{ request.url_for('static', path='css/admin.css') }}">
 </head>
 <body>
     <div class="page">
         <header class="topbar">
-            <div class="brand">Dating Bot Admin</div>
+            <div class="brand">Адмінка Dating Bot</div>
             {% if admin_username %}
             <nav class="nav">
-                <a href="/admin">Dashboard</a>
-                <a href="/admin/users">Users</a>
-                <a href="/admin/profiles">Profiles</a>
-                <a href="/admin/complaints">Complaints</a>
-                <a href="/admin/actions">Actions</a>
-                <a href="/admin/logout">Logout</a>
+                <a href="/admin">Дашборд</a>
+                <a href="/admin/users">Користувачі</a>
+                <a href="/admin/profiles">Профілі</a>
+                <a href="/admin/complaints">Скарги</a>
+                <a href="/admin/actions">Дії</a>
+                <a href="/admin/logout">Вихід</a>
             </nav>
             <div class="admin">{{ admin_username }}</div>
             {% endif %}

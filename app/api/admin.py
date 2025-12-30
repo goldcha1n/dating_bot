@@ -76,7 +76,7 @@ async def login(
     if not verify_credentials(username, password, settings):
         return templates.TemplateResponse(
             "login.html",
-            {"request": request, "error": "Invalid credentials"},
+            {"request": request, "error": "Невірний логін або пароль"},
             status_code=401,
         )
     token = create_session_token(username, settings)
