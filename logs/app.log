@@ -1,0 +1,89 @@
+2025-12-30 14:03:17,161 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 14:03:17,161 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 14:03:17,162 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\bot.db
+2025-12-30 14:03:17,162 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 14:03:17,185 [INFO] __main__: api started
+2025-12-30 14:03:17,210 [INFO] db: DB initialized (create_all done)
+2025-12-30 14:03:17,386 [INFO] app.bot: bot started
+2025-12-30 14:03:17,386 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 14:03:17,386 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 64602.6s
+2025-12-30 14:03:17,542 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:05:50,134 [INFO] aiogram.event: Update id=99609455 is handled. Duration 264 ms by bot id=8308846710
+2025-12-30 14:05:52,848 [INFO] aiogram.event: Update id=99609456 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 14:06:05,459 [INFO] aiogram.event: Update id=99609457 is handled. Duration 63 ms by bot id=8308846710
+2025-12-30 14:06:10,038 [INFO] aiogram.event: Update id=99609458 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 14:06:13,018 [INFO] aiogram.event: Update id=99609459 is handled. Duration 61 ms by bot id=8308846710
+2025-12-30 14:06:17,459 [INFO] aiogram.event: Update id=99609460 is handled. Duration 125 ms by bot id=8308846710
+2025-12-30 14:06:22,939 [INFO] aiogram.event: Update id=99609461 is handled. Duration 108 ms by bot id=8308846710
+2025-12-30 14:06:28,772 [INFO] aiogram.event: Update id=99609462 is handled. Duration 110 ms by bot id=8308846710
+2025-12-30 14:06:30,524 [INFO] aiogram.event: Update id=99609463 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 14:06:38,072 [INFO] aiogram.event: Update id=99609464 is handled. Duration 171 ms by bot id=8308846710
+2025-12-30 14:06:41,242 [INFO] aiogram.event: Update id=99609465 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 14:06:42,561 [INFO] aiogram.event: Update id=99609466 is handled. Duration 140 ms by bot id=8308846710
+2025-12-30 14:07:07,328 [INFO] aiogram.event: Update id=99609467 is handled. Duration 141 ms by bot id=8308846710
+2025-12-30 14:07:13,164 [INFO] aiogram.event: Update id=99609468 is handled. Duration 312 ms by bot id=8308846710
+2025-12-30 14:07:14,749 [INFO] aiogram.event: Update id=99609469 is handled. Duration 281 ms by bot id=8308846710
+2025-12-30 14:08:03,533 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 14:08:03,534 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 14:08:03,534 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-12-30 14:08:03,535 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-30 14:08:03,535 [INFO] __main__: Shutdown complete
+2025-12-30 14:08:03,536 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:09:22,565 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 14:09:22,566 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 14:09:22,566 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\bot.db
+2025-12-30 14:09:22,566 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 14:09:22,588 [INFO] __main__: api started
+2025-12-30 14:09:22,615 [INFO] db: DB initialized (create_all done)
+2025-12-30 14:09:22,800 [INFO] app.bot: bot started
+2025-12-30 14:09:22,801 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 14:09:22,802 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 64237.2s
+2025-12-30 14:09:22,967 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:10:20,980 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 14:10:20,981 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:10:20,981 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 14:10:20,987 [INFO] __main__: Shutdown complete
+2025-12-30 14:10:28,743 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 14:10:28,743 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 14:10:28,743 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\bot.db
+2025-12-30 14:10:28,743 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 14:10:28,764 [INFO] __main__: api started
+2025-12-30 14:10:28,792 [INFO] db: DB initialized (create_all done)
+2025-12-30 14:10:28,978 [INFO] app.bot: bot started
+2025-12-30 14:10:28,978 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 14:10:28,979 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 64171.0s
+2025-12-30 14:10:29,124 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:11:21,236 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 14:11:21,237 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 14:11:21,237 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-12-30 14:11:21,237 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-30 14:11:21,238 [INFO] __main__: Shutdown complete
+2025-12-30 14:11:21,238 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:14:02,424 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 14:14:02,425 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 14:14:02,425 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 14:14:02,425 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 14:14:02,446 [INFO] __main__: api started
+2025-12-30 14:14:02,536 [INFO] db: DB initialized (create_all done)
+2025-12-30 14:14:02,720 [INFO] app.bot: bot started
+2025-12-30 14:14:02,721 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 14:14:02,722 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 63957.3s
+2025-12-30 14:14:02,885 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:14:31,581 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 14:14:31,581 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:14:31,587 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 14:14:31,588 [INFO] __main__: Shutdown complete
+2025-12-30 14:14:35,003 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 14:14:35,003 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 14:14:35,004 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 14:14:35,004 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 14:14:35,026 [INFO] __main__: api started
+2025-12-30 14:14:35,052 [INFO] db: DB initialized (create_all done)
+2025-12-30 14:14:35,240 [INFO] app.bot: bot started
+2025-12-30 14:14:35,241 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 14:14:35,241 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 63924.8s
+2025-12-30 14:14:35,389 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:14:50,723 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 14:14:50,723 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:14:50,724 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 14:14:50,730 [INFO] __main__: Shutdown complete

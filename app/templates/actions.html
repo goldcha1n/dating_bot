@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Admin Actions</h1>
+<form method="get" action="/admin/actions" class="toolbar">
+    <input type="text" name="action" value="{{ action }}" placeholder="Action" />
+    <input type="date" name="from_date" value="{{ from_date }}" />
+    <input type="date" name="to_date" value="{{ to_date }}" />
+    <button type="submit" class="btn">Filter</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Admin</th>
+            <th>Action</th>
+            <th>Target</th>
+            <th>Payload</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in actions %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.admin_username }}</td>
+            <td>{{ item.action }}</td>
+            <td>{{ item.target_type or "-" }} {{ item.target_id or "" }}</td>
+            <td class="payload">{{ item.payload_json or "-" }}</td>
+            <td>{{ item.created_at }}</td>
+        </tr>
+        {% endfor %}
+        {% if actions|length == 0 %}
+        <tr>
+            <td colspan="6" class="empty">No actions found</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+<div class="pagination">
+    <span>Page {{ page }} of {{ total_pages }}</span>
+    <div class="pager">
+        {% if page > 1 %}
+        <a href="/admin/actions?page={{ page - 1 }}&action={{ action }}&from_date={{ from_date }}&to_date={{ to_date }}">Prev</a>
+        {% endif %}
+        {% if page < total_pages %}
+        <a href="/admin/actions?page={{ page + 1 }}&action={{ action }}&from_date={{ from_date }}&to_date={{ to_date }}">Next</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

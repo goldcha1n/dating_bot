@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or "Admin" }}</title>
+    <link rel="stylesheet" href="{{ request.url_for('static', path='css/admin.css') }}">
+</head>
+<body>
+    <div class="page">
+        <header class="topbar">
+            <div class="brand">Dating Bot Admin</div>
+            {% if admin_username %}
+            <nav class="nav">
+                <a href="/admin">Dashboard</a>
+                <a href="/admin/users">Users</a>
+                <a href="/admin/actions">Actions</a>
+                <a href="/admin/logout">Logout</a>
+            </nav>
+            <div class="admin">{{ admin_username }}</div>
+            {% endif %}
+        </header>
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

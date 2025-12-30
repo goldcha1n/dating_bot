@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Users</h1>
+<form method="get" action="/admin/users" class="toolbar">
+    <input type="text" name="q" value="{{ q }}" placeholder="Search tg_id or username" />
+    <button type="submit" class="btn">Search</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>TG ID</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Banned</th>
+            <th>Created</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.tg_id }}</td>
+            <td>{{ user.username or "-" }}</td>
+            <td>{{ (user.first_name or "") + " " + (user.last_name or "") }}</td>
+            <td>{{ "Yes" if user.is_banned else "No" }}</td>
+            <td>{{ user.created_at }}</td>
+            <td>
+                {% if user.is_banned %}
+                <form method="post" action="/admin/users/{{ user.id }}/unban">
+                    <button type="submit" class="btn small">Unban</button>
+                </form>
+                {% else %}
+                <form method="post" action="/admin/users/{{ user.id }}/ban">
+                    <button type="submit" class="btn small danger">Ban</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        {% if users|length == 0 %}
+        <tr>
+            <td colspan="7" class="empty">No users found</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+<div class="pagination">
+    <span>Page {{ page }} of {{ total_pages }}</span>
+    <div class="pager">
+        {% if page > 1 %}
+        <a href="/admin/users?page={{ page - 1 }}&q={{ q }}">Prev</a>
+        {% endif %}
+        {% if page < total_pages %}
+        <a href="/admin/users?page={{ page + 1 }}&q={{ q }}">Next</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -6,7 +6,7 @@ from aiogram import F, Router
 from aiogram.types import CallbackQuery, Message
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from config import Config
+from app.config import Config
 from keyboards.inline_profiles import browse_kb
 from keyboards.main_menu import BTN_BROWSE
 from keyboards.settings import open_settings_kb

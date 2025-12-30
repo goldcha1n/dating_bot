@@ -8,7 +8,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from config import load_config
+from app.config import load_config
 from db import DbSessionMiddleware, create_engine, create_sessionmaker, init_db
 from services.daily_reset import daily_reset_loop
 

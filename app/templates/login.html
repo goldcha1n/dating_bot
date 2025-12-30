@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="panel narrow">
+    <h1>Admin Login</h1>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <form method="post" action="/admin/login" class="form">
+        <label>
+            <span>Username</span>
+            <input type="text" name="username" required />
+        </label>
+        <label>
+            <span>Password</span>
+            <input type="password" name="password" required />
+        </label>
+        <button type="submit" class="btn">Sign in</button>
+    </form>
+</div>
+{% endblock %}

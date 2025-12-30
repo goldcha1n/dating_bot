@@ -7,7 +7,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from config import Config
+from app.config import Config
 from models import Like, Match, User
 from services.daily_reset import reset_likes_and_skips
 from services.db_reset import reset_database

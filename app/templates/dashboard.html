@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+<div class="stats">
+    <div class="stat">
+        <div class="stat-label">Users</div>
+        <div class="stat-value">{{ counts.users }}</div>
+    </div>
+    <div class="stat">
+        <div class="stat-label">Messages</div>
+        <div class="stat-value">{{ counts.messages }}</div>
+    </div>
+    <div class="stat">
+        <div class="stat-label">Admin Actions</div>
+        <div class="stat-value">{{ counts.actions }}</div>
+    </div>
+</div>
+{% endblock %}

@@ -11,7 +11,7 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from config import Config
+from app.config import Config
 from keyboards.main_menu import main_menu_kb
 from keyboards.inline_profiles import gender_kb, looking_for_kb, skip_about_kb, to_menu_inline_kb
 from models import Photo, User

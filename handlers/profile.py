@@ -10,7 +10,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from config import Config
+from app.config import Config
 from keyboards.inline_profiles import confirm_delete_kb, gender_kb, looking_for_kb, profile_manage_kb
 from keyboards.main_menu import BTN_PROFILE, main_menu_kb
 from models import Photo, User
