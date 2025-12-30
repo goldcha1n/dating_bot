@@ -171,6 +171,8 @@ async def _finish_registration(message: Message, state: FSMContext, session: Asy
     user = User(
         tg_id=tg.id,
         username=tg.username,
+        first_name=tg.first_name,
+        last_name=tg.last_name,
         name=data["name"],
         age=int(data["age"]),
         gender=data["gender"],

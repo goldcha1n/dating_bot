@@ -29,7 +29,10 @@ class User(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
     tg_id: Mapped[int] = mapped_column(BigInteger, unique=True, index=True, nullable=False)
-    username: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    username: Mapped[Optional[str]] = mapped_column(String(64), nullable=True, index=True)
+    first_name: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    last_name: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    is_banned: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
     name: Mapped[str] = mapped_column(String(64), nullable=False)
     age: Mapped[int] = mapped_column(Integer, nullable=False, default=16)  # 16..99
@@ -52,12 +55,18 @@ class User(Base):
         cascade="all, delete-orphan",
         lazy="selectin",
     )
+    messages: Mapped[List["Message"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+        lazy="selectin",
+    )
 
     __table_args__ = (
         CheckConstraint("age BETWEEN 16 AND 99", name="ck_users_age"),
         CheckConstraint("gender IN ('M','F')", name="ck_users_gender"),
         CheckConstraint("looking_for IN ('M','F','A')", name="ck_users_looking_for"),
         Index("ix_users_city", "city"),
+        Index("ix_users_username", "username"),
     )
 
 
@@ -113,7 +122,7 @@ class Match(Base):
 
 
 class ActionLog(Base):
-    """Лёгкий аудит действий для антифлуда (SQLite-friendly)."""
+    """Action log used for rate limiting (SQLite-friendly)."""
 
     __tablename__ = "action_logs"
 
@@ -126,3 +135,27 @@ class ActionLog(Base):
     __table_args__ = (
         Index("ix_action_logs_user_action_time", "user_id", "action", "created_at"),
     )
+
+
+class Message(Base):
+    __tablename__ = "messages"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    direction: Mapped[str] = mapped_column(String(3), nullable=False)  # in/out
+    text: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+    user: Mapped["User"] = relationship(back_populates="messages")
+
+
+class AdminAction(Base):
+    __tablename__ = "admin_actions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    admin_username: Mapped[str] = mapped_column(String(64), index=True, nullable=False)
+    action: Mapped[str] = mapped_column(String(64), index=True, nullable=False)
+    target_type: Mapped[Optional[str]] = mapped_column(String(64))
+    target_id: Mapped[Optional[int]] = mapped_column(Integer)
+    payload_json: Mapped[Optional[str]] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

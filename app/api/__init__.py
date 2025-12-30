@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from app.api import admin
 from app.config import Settings, STATIC_DIR
 from app.db import create_engine, create_sessionmaker
+from db import init_db
 
 
 def create_api(settings: Settings) -> FastAPI:
@@ -25,6 +26,10 @@ def create_api(settings: Settings) -> FastAPI:
     @app.get("/health")
     async def health() -> JSONResponse:
         return JSONResponse({"status": "ok"})
+
+    @app.on_event("startup")
+    async def _init_db() -> None:
+        await init_db(engine)
 
     @app.on_event("shutdown")
     async def _shutdown_db() -> None:

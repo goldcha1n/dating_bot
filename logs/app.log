@@ -87,3 +87,51 @@
 2025-12-30 14:14:50,723 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
 2025-12-30 14:14:50,724 [INFO] __main__: Shutdown requested, cancelling services...
 2025-12-30 14:14:50,730 [INFO] __main__: Shutdown complete
+2025-12-30 14:29:57,255 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 14:29:57,256 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 14:29:57,257 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 14:29:57,257 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 14:29:57,279 [INFO] __main__: api started
+2025-12-30 14:29:57,308 [INFO] db: DB initialized (create_all done)
+2025-12-30 14:29:57,309 [INFO] db: DB initialized (create_all done)
+2025-12-30 14:29:57,494 [INFO] app.bot: bot started
+2025-12-30 14:29:57,494 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 14:29:57,495 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 63002.5s
+2025-12-30 14:29:57,656 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 14:31:59,566 [INFO] aiogram.event: Update id=99609470 is handled. Duration 171 ms by bot id=8308846710
+2025-12-30 14:32:00,774 [INFO] aiogram.event: Update id=99609471 is handled. Duration 125 ms by bot id=8308846710
+2025-12-30 14:32:04,998 [INFO] aiogram.event: Update id=99609472 is handled. Duration 63 ms by bot id=8308846710
+2025-12-30 14:32:07,710 [INFO] aiogram.event: Update id=99609473 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 14:32:09,152 [INFO] aiogram.event: Update id=99609474 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 14:32:10,901 [INFO] aiogram.event: Update id=99609475 is handled. Duration 172 ms by bot id=8308846710
+2025-12-30 14:32:13,500 [INFO] aiogram.event: Update id=99609476 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 14:32:16,583 [INFO] aiogram.event: Update id=99609477 is handled. Duration 188 ms by bot id=8308846710
+2025-12-30 14:32:20,454 [INFO] aiogram.event: Update id=99609478 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 14:32:25,795 [INFO] aiogram.event: Update id=99609479 is handled. Duration 156 ms by bot id=8308846710
+2025-12-30 14:32:27,982 [INFO] aiogram.event: Update id=99609480 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 14:32:44,448 [INFO] aiogram.event: Update id=99609481 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 14:32:46,563 [INFO] aiogram.event: Update id=99609482 is handled. Duration 140 ms by bot id=8308846710
+2025-12-30 14:32:49,495 [INFO] aiogram.event: Update id=99609483 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 14:32:51,351 [INFO] aiogram.event: Update id=99609484 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 15:01:11,930 [INFO] aiogram.event: Update id=99609485 is handled. Duration 186 ms by bot id=8308846710
+2025-12-30 15:02:18,707 [INFO] aiogram.event: Update id=99609486 is handled. Duration 94 ms by bot id=8308846710
+2025-12-30 15:02:20,207 [INFO] aiogram.event: Update id=99609487 is handled. Duration 110 ms by bot id=8308846710
+2025-12-30 15:02:27,980 [INFO] aiogram.event: Update id=99609488 is handled. Duration 108 ms by bot id=8308846710
+2025-12-30 15:02:32,929 [INFO] aiogram.event: Update id=99609489 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 15:02:38,018 [INFO] aiogram.event: Update id=99609490 is handled. Duration 61 ms by bot id=8308846710
+2025-12-30 15:02:40,789 [INFO] aiogram.event: Update id=99609491 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 15:02:44,020 [INFO] aiogram.event: Update id=99609492 is handled. Duration 61 ms by bot id=8308846710
+2025-12-30 15:02:47,374 [INFO] aiogram.event: Update id=99609493 is handled. Duration 63 ms by bot id=8308846710
+2025-12-30 15:02:51,745 [INFO] aiogram.event: Update id=99609494 is handled. Duration 141 ms by bot id=8308846710
+2025-12-30 15:02:54,864 [INFO] aiogram.event: Update id=99609495 is handled. Duration 202 ms by bot id=8308846710
+2025-12-30 15:03:05,985 [INFO] aiogram.event: Update id=99609496 is handled. Duration 155 ms by bot id=8308846710
+2025-12-30 15:03:15,102 [INFO] aiogram.event: Update id=99609497 is handled. Duration 108 ms by bot id=8308846710
+2025-12-30 15:03:17,079 [INFO] aiogram.event: Update id=99609498 is handled. Duration 296 ms by bot id=8308846710
+2025-12-30 15:03:19,462 [INFO] aiogram.event: Update id=99609499 is handled. Duration 139 ms by bot id=8308846710
+2025-12-30 15:03:21,096 [INFO] aiogram.event: Update id=99609500 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 15:03:56,650 [INFO] aiogram.event: Update id=99609501 is handled. Duration 235 ms by bot id=8308846710
+2025-12-30 15:04:10,102 [INFO] aiogram.event: Update id=99609502 is handled. Duration 327 ms by bot id=8308846710
+2025-12-30 15:22:39,510 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 15:22:39,511 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 15:22:39,512 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 15:22:39,530 [INFO] __main__: Shutdown complete

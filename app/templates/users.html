@@ -23,7 +23,7 @@
             <td>{{ user.id }}</td>
             <td>{{ user.tg_id }}</td>
             <td>{{ user.username or "-" }}</td>
-            <td>{{ (user.first_name or "") + " " + (user.last_name or "") }}</td>
+            <td>{{ (user.first_name or user.name or "") }} {{ user.last_name or "" }}</td>
             <td>{{ "Yes" if user.is_banned else "No" }}</td>
             <td>{{ user.created_at }}</td>
             <td>
