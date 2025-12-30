@@ -9,7 +9,7 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from app.config import Settings
-from db import DbSessionMiddleware, create_engine, create_sessionmaker, init_db
+from db import BanCheckMiddleware, DbSessionMiddleware, create_engine, create_sessionmaker, init_db
 from handlers.admin import router as admin_router
 from handlers.browse import router as browse_router
 from handlers.common import router as common_router
@@ -25,6 +25,10 @@ logger = logging.getLogger(__name__)
 def _build_dispatcher(sessionmaker):
     dp = Dispatcher(storage=MemoryStorage())
     dp.update.middleware(DbSessionMiddleware(sessionmaker))
+    ban_mw = BanCheckMiddleware(sessionmaker)
+    dp.update.middleware(ban_mw)
+    dp.message.middleware(ban_mw)
+    dp.callback_query.middleware(ban_mw)
 
     dp.include_router(common_router)
     dp.include_router(onboarding_router)

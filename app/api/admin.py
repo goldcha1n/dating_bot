@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Optional
+import asyncio
+import logging
 
+from aiogram import Bot
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -17,6 +22,17 @@ from app.models import AdminAction, Message, User
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
+logger = logging.getLogger(__name__)
+
+
+async def notify_user(bot_token: str, tg_id: int, text: str) -> None:
+    bot = Bot(token=bot_token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    try:
+        await bot.send_message(tg_id, text)
+    except Exception:
+        logger.exception("Failed to notify user tg_id=%s", tg_id)
+    finally:
+        await bot.session.close()
 
 
 def get_sessionmaker(request: Request) -> async_sessionmaker[AsyncSession]:
@@ -160,12 +176,14 @@ async def users_list(
 async def ban_user(
     user_id: int,
     admin_username: str = Depends(require_admin),
+    settings: Settings = Depends(get_settings_dep),
     page: int = Query(default=1, ge=1),
     q: Optional[str] = Query(default=None),
     sort: Optional[str] = Query(default=None),
     order: Optional[str] = Query(default=None),
     session: AsyncSession = Depends(get_session),
 ):
+    tg_id = (await session.execute(select(User.tg_id).where(User.id == user_id))).scalar_one_or_none()
     await session.execute(update(User).where(User.id == user_id).values(is_banned=True))
     session.add(
         AdminAction(
@@ -180,6 +198,14 @@ async def ban_user(
     redirect_url = (
         f"/admin/users?page={page}&q={q or ''}&sort={sort or ''}&order={order or ''}"
     )
+    if tg_id:
+        asyncio.create_task(
+            notify_user(
+                settings.bot_token,
+                tg_id,
+                "Ваш аккаунт заблокирован администратором. Доступ к боту закрыт.",
+            )
+        )
     return RedirectResponse(url=redirect_url, status_code=303)
 
 
@@ -187,12 +213,14 @@ async def ban_user(
 async def unban_user(
     user_id: int,
     admin_username: str = Depends(require_admin),
+    settings: Settings = Depends(get_settings_dep),
     page: int = Query(default=1, ge=1),
     q: Optional[str] = Query(default=None),
     sort: Optional[str] = Query(default=None),
     order: Optional[str] = Query(default=None),
     session: AsyncSession = Depends(get_session),
 ):
+    tg_id = (await session.execute(select(User.tg_id).where(User.id == user_id))).scalar_one_or_none()
     await session.execute(update(User).where(User.id == user_id).values(is_banned=False))
     session.add(
         AdminAction(
@@ -207,6 +235,14 @@ async def unban_user(
     redirect_url = (
         f"/admin/users?page={page}&q={q or ''}&sort={sort or ''}&order={order or ''}"
     )
+    if tg_id:
+        asyncio.create_task(
+            notify_user(
+                settings.bot_token,
+                tg_id,
+                "Ваш аккаунт разблокирован. Доступ к боту восстановлен.",
+            )
+        )
     return RedirectResponse(url=redirect_url, status_code=303)
 
 
