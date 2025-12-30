@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Optional
+from typing import AsyncIterator, Optional
 import asyncio
 import logging
 
@@ -43,7 +43,7 @@ def get_settings_dep(request: Request) -> Settings:
     return request.app.state.settings
 
 
-async def get_session(request: Request) -> AsyncSession:
+async def get_session(request: Request) -> AsyncIterator[AsyncSession]:
     sessionmaker: async_sessionmaker[AsyncSession] = request.app.state.sessionmaker
     async with session_scope(sessionmaker) as session:
         yield session
@@ -184,6 +184,38 @@ async def users_list(
     )
 
 
+@router.get("/admin/profiles", response_class=HTMLResponse)
+async def profiles_list(
+    request: Request,
+    admin_username: str = Depends(require_admin),
+    q: Optional[str] = Query(default=None),
+    page: int = Query(default=1, ge=1),
+    session: AsyncSession = Depends(get_session),
+):
+    per_page = 20
+    stmt = select(User)
+    search_terms = [term.lower() for term in (q or "").split() if term.strip()]
+    if search_terms:
+        about_field = func.lower(func.coalesce(User.about, ""))
+        for term in search_terms:
+            stmt = stmt.where(about_field.like(f"%{term}%"))
+    total = (await session.execute(select(func.count()).select_from(stmt.subquery()))).scalar_one()
+    stmt = stmt.order_by(User.created_at.desc()).offset((page - 1) * per_page).limit(per_page)
+    profiles = (await session.execute(stmt)).scalars().all()
+    total_pages = max(1, (total + per_page - 1) // per_page)
+    return templates.TemplateResponse(
+        "profiles.html",
+        {
+            "request": request,
+            "profiles": profiles,
+            "q": q or "",
+            "page": page,
+            "total_pages": total_pages,
+            "admin_username": admin_username,
+        },
+    )
+
+
 @router.post("/admin/users/{user_id}/ban")
 async def ban_user(
     user_id: int,
@@ -215,7 +247,7 @@ async def ban_user(
             notify_user(
                 settings.bot_token,
                 tg_id,
-                "Ваш аккаунт заблокирован администратором. Доступ к боту закрыт.",
+                "Ваш акаунт заблоковано адміністратором. Доступ до бота закрито.",
             )
         )
     return RedirectResponse(url=redirect_url, status_code=303)
@@ -252,7 +284,7 @@ async def unban_user(
             notify_user(
                 settings.bot_token,
                 tg_id,
-                "Ваш аккаунт разблокирован. Доступ к боту восстановлен.",
+                "Ваш акаунт розблоковано. Доступ до бота відновлено.",
             )
         )
     return RedirectResponse(url=redirect_url, status_code=303)

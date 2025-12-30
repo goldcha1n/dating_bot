@@ -1,11 +1,11 @@
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 
-# Тексты кнопок (используем константы, чтобы не дублировать строки в хендлерах)
-BTN_BROWSE = "👀 Смотреть анкеты"
+# Тексти кнопок (використовуємо константи, щоб не дублювати рядки в хендлерах)
+BTN_BROWSE = "👀 Перегляд анкет"
 BTN_PROFILE = "👤 Моя анкета"
-BTN_MATCHES = "❤️ Взаимные лайки"
-BTN_SETTINGS = "⚙️ Настройки"
+BTN_MATCHES = "❤️ Взаємні лайки"
+BTN_SETTINGS = "⚙️ Налаштування"
 
 
 def main_menu_kb() -> ReplyKeyboardMarkup:
@@ -16,5 +16,5 @@ def main_menu_kb() -> ReplyKeyboardMarkup:
             [KeyboardButton(text=BTN_SETTINGS)],
         ],
         resize_keyboard=True,
-        input_field_placeholder="Выберите действие…",
+        input_field_placeholder="Оберіть дію…",
     )

@@ -160,6 +160,12 @@ input[type="date"] {
     color: var(--muted);
 }
 
+.about {
+    max-width: 340px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
 .payload {
     max-width: 220px;
     white-space: nowrap;

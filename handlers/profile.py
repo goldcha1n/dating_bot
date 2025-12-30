@@ -58,7 +58,7 @@ async def my_profile(message: Message, session: AsyncSession, state: FSMContext)
     await state.clear()
     user = await _load_user(session, message.from_user.id)
     if not user:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
     await _send_profile(message, user)
 
@@ -67,32 +67,32 @@ async def my_profile(message: Message, session: AsyncSession, state: FSMContext)
 async def edit_name(call: CallbackQuery, state: FSMContext) -> None:
     await call.answer()
     await state.set_state(EditProfile.name)
-    await call.message.answer("Введите новое имя (минимум 2 символа):", reply_markup=ReplyKeyboardRemove())
+    await call.message.answer("Введіть нове ім'я (мінімум 2 символи):", reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(EditProfile.name)
 async def edit_name_save(message: Message, session: AsyncSession, state: FSMContext) -> None:
     text = (message.text or "").strip()
     if len(text) < 2:
-        await message.answer("Слишком коротко. Введите имя (минимум 2 символа).")
+        await message.answer("Закоротко. Введіть ім'я (мінімум 2 символи).")
         return
 
     user = await get_current_user_or_none(session, message.from_user.id)
     if not user:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
 
     user.name = text
     await session.commit()
     await state.clear()
-    await message.answer("✅ Имя обновлено.", reply_markup=main_menu_kb())
+    await message.answer("✅ Ім'я оновлено.", reply_markup=main_menu_kb())
 
 
 @router.callback_query(F.data == "profile:edit_age")
 async def edit_age(call: CallbackQuery, state: FSMContext) -> None:
     await call.answer()
     await state.set_state(EditProfile.age)
-    await call.message.answer("Введите возраст (16–99):", reply_markup=ReplyKeyboardRemove())
+    await call.message.answer("Введіть вік (16–99):", reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(EditProfile.age)
@@ -101,96 +101,96 @@ async def edit_age_save(message: Message, session: AsyncSession, state: FSMConte
     try:
         age = int(raw)
     except ValueError:
-        await message.answer("Введите возраст числом (16–99).")
+        await message.answer("Введіть вік числом (16–99).")
         return
     if age < 16 or age > 99:
-        await message.answer("Возраст должен быть от 16 до 99.")
+        await message.answer("Вік має бути від 16 до 99.")
         return
 
     user = await get_current_user_or_none(session, message.from_user.id)
     if not user:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
 
     user.age = age
     await session.commit()
     await state.clear()
-    await message.answer("✅ Возраст обновлён.", reply_markup=main_menu_kb())
+    await message.answer("✅ Вік оновлено.", reply_markup=main_menu_kb())
 
 
 @router.callback_query(F.data == "profile:edit_gender")
 async def edit_gender(call: CallbackQuery, state: FSMContext) -> None:
     await call.answer()
     await state.set_state(EditProfile.gender)
-    await call.message.answer("Выберите пол:", reply_markup=gender_kb())
+    await call.message.answer("Оберіть стать:", reply_markup=gender_kb())
 
 
 @router.message(EditProfile.gender)
 async def edit_gender_save(message: Message, session: AsyncSession, state: FSMContext) -> None:
     code = gender_to_code((message.text or "").strip())
     if not code:
-        await message.answer("Выберите пол кнопкой ниже:", reply_markup=gender_kb())
+        await message.answer("Оберіть стать кнопкою нижче:", reply_markup=gender_kb())
         return
 
     user = await get_current_user_or_none(session, message.from_user.id)
     if not user:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
 
     user.gender = code
     await session.commit()
     await state.clear()
-    await message.answer("✅ Пол обновлён.", reply_markup=main_menu_kb())
+    await message.answer("✅ Стать оновлено.", reply_markup=main_menu_kb())
 
 
 @router.callback_query(F.data == "profile:edit_looking_for")
 async def edit_looking_for(call: CallbackQuery, state: FSMContext) -> None:
     await call.answer()
     await state.set_state(EditProfile.looking_for)
-    await call.message.answer("Кого ищете?", reply_markup=looking_for_kb())
+    await call.message.answer("Кого шукаєте?", reply_markup=looking_for_kb())
 
 
 @router.message(EditProfile.looking_for)
 async def edit_looking_for_save(message: Message, session: AsyncSession, state: FSMContext) -> None:
     code = looking_for_to_code((message.text or "").strip())
     if not code:
-        await message.answer("Выберите вариант кнопкой ниже:", reply_markup=looking_for_kb())
+        await message.answer("Оберіть варіант кнопкою нижче:", reply_markup=looking_for_kb())
         return
 
     user = await get_current_user_or_none(session, message.from_user.id)
     if not user:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
 
     user.looking_for = code
     await session.commit()
     await state.clear()
-    await message.answer("✅ Настройка обновлена.", reply_markup=main_menu_kb())
+    await message.answer("✅ Налаштування оновлено.", reply_markup=main_menu_kb())
 
 
 @router.callback_query(F.data == "profile:edit_city")
 async def edit_city(call: CallbackQuery, state: FSMContext) -> None:
     await call.answer()
     await state.set_state(EditProfile.city)
-    await call.message.answer("Введите новый город:", reply_markup=ReplyKeyboardRemove())
+    await call.message.answer("Введіть нове місто:", reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(EditProfile.city)
 async def edit_city_save(message: Message, session: AsyncSession, state: FSMContext) -> None:
     city = (message.text or "").strip()
     if not city:
-        await message.answer("Город не должен быть пустым.")
+        await message.answer("Місто не може бути порожнім.")
         return
 
     user = await get_current_user_or_none(session, message.from_user.id)
     if not user:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
 
     user.city = city
     await session.commit()
     await state.clear()
-    await message.answer("✅ Город обновлён.", reply_markup=main_menu_kb())
+    await message.answer("✅ Місто оновлено.", reply_markup=main_menu_kb())
 
 
 @router.callback_query(F.data == "profile:edit_about")
@@ -198,7 +198,7 @@ async def edit_about(call: CallbackQuery, state: FSMContext, cfg: Config) -> Non
     await call.answer()
     await state.set_state(EditProfile.about)
     await call.message.answer(
-        f"Введите новый текст «О себе» (минимум {cfg.about_min_len} символов) или напишите «-», чтобы очистить:",
+        f"Введіть новий текст «Про себе» (мінімум {cfg.about_min_len} символів) або напишіть «-», щоб очистити:",
         reply_markup=ReplyKeyboardRemove(),
     )
 
@@ -210,32 +210,32 @@ async def edit_about_save(message: Message, session: AsyncSession, state: FSMCon
         text = ""
 
     if text and len(text) < cfg.about_min_len:
-        await message.answer(f"Коротко. Минимум {cfg.about_min_len} символов или «-» чтобы очистить.")
+        await message.answer(f"Закоротко. Мінімум {cfg.about_min_len} символів або «-» щоб очистити.")
         return
 
     user = await get_current_user_or_none(session, message.from_user.id)
     if not user:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
 
     user.about = text or None
     await session.commit()
     await state.clear()
-    await message.answer("✅ Текст обновлён.", reply_markup=main_menu_kb())
+    await message.answer("✅ Текст оновлено.", reply_markup=main_menu_kb())
 
 
 @router.callback_query(F.data == "profile:edit_photo")
 async def edit_photo(call: CallbackQuery, state: FSMContext) -> None:
     await call.answer()
     await state.set_state(EditProfile.photo)
-    await call.message.answer("Пришлите новое фото (оно станет главным):", reply_markup=ReplyKeyboardRemove())
+    await call.message.answer("Надішліть нове фото (воно стане головним):", reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(EditProfile.photo, F.photo)
 async def edit_photo_save(message: Message, session: AsyncSession, state: FSMContext) -> None:
     user = await _load_user(session, message.from_user.id)
     if not user:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
 
     new_file_id = message.photo[-1].file_id
@@ -247,19 +247,19 @@ async def edit_photo_save(message: Message, session: AsyncSession, state: FSMCon
     await session.commit()
     await state.clear()
 
-    await message.answer("✅ Фото обновлено.", reply_markup=main_menu_kb())
+    await message.answer("✅ Фото оновлено.", reply_markup=main_menu_kb())
 
 
 @router.message(EditProfile.photo)
 async def edit_photo_invalid(message: Message) -> None:
-    await message.answer("Нужно прислать фото.")
+    await message.answer("Потрібно надіслати фото.")
 
 
 @router.callback_query(F.data == "profile:delete")
 async def delete_prompt(call: CallbackQuery) -> None:
     await call.answer()
     await call.message.answer(
-        "⚠️ Точно удалить анкету? Это действие необратимо.",
+        "⚠️ Точно видалити анкету? Це дія незворотна.",
         reply_markup=confirm_delete_kb(),
     )
 
@@ -269,10 +269,10 @@ async def delete_yes(call: CallbackQuery, session: AsyncSession, state: FSMConte
     await call.answer()
     await delete_user_account(session, call.from_user.id)
     await state.clear()
-    await call.message.answer("Анкета удалена. Чтобы создать новую — /start", reply_markup=main_menu_kb())
+    await call.message.answer("Анкету видалено. Щоб створити нову — /start", reply_markup=main_menu_kb())
 
 
 @router.callback_query(F.data == "profile_delete:no")
 async def delete_no(call: CallbackQuery) -> None:
     await call.answer("Ок")
-    await call.message.answer("Отменено.", reply_markup=main_menu_kb())
+    await call.message.answer("Скасовано.", reply_markup=main_menu_kb())

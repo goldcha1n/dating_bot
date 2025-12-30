@@ -22,8 +22,8 @@ def _is_admin(cfg: Config, tg_id: int) -> bool:
 
 def _confirm_reset_db_kb():
     builder = InlineKeyboardBuilder()
-    builder.button(text="✅ Да, сбросить БД", callback_data="admin_resetdb:yes")
-    builder.button(text="❌ Отмена", callback_data="admin_resetdb:no")
+    builder.button(text="✅ Так, скинути БД", callback_data="admin_resetdb:yes")
+    builder.button(text="❌ Скасувати", callback_data="admin_resetdb:no")
     builder.adjust(1)
     return builder.as_markup()
 
@@ -34,10 +34,11 @@ async def admin_help(message: Message, cfg: Config) -> None:
         return
 
     await message.answer(
-        "<b>Админ-команды</b>\n"
+        "<b>Адмін-команди</b>\n"
         "• /stats — статистика\n"
-        "• /reset_swipes — сбросить историю лайков/скипов (анкеты будут показываться заново)\n"
-        "• /reset_db — ПОЛНЫЙ сброс базы (удаляет анкеты/фото/лайки/мэтчи)\n• /reset_feed — сбросить ленту (лайки/скипы + мэтчи, анкеты/фото сохраняются)\n"
+        "• /reset_swipes — скинути історію лайків/пропусків (анкети будуть показуватися заново)\n"
+        "• /reset_db — ПОВНИЙ скидання бази (видаляє анкети/фото/лайки/мэтчі)\n"
+        "• /reset_feed — скинути стрічку (лайки/пропуски + мэтчі, анкети/фото зберігаються)\n"
     )
 
 
@@ -53,10 +54,10 @@ async def stats(message: Message, session: AsyncSession, cfg: Config) -> None:
 
     await message.answer(
         "<b>Статистика</b>\n"
-        f"Пользователей всего: {users_cnt}\n"
-        f"Активных анкет: {active_cnt}\n"
-        f"Лайков/скипов (история): {likes_cnt}\n"
-        f"Мэтчей: {matches_cnt}"
+        f"Користувачів всього: {users_cnt}\n"
+        f"Активних анкет: {active_cnt}\n"
+        f"Лайків/пропусків (історія): {likes_cnt}\n"
+        f"Мэтчів: {matches_cnt}"
     )
 
 
@@ -66,24 +67,23 @@ async def reset_swipes(message: Message, session: AsyncSession, cfg: Config) -> 
         return
 
     res = await reset_likes_and_skips(session)
-    await message.answer(f"✅ Готово. История лайков/скипов сброшена. Удалено записей: {res.deleted_likes}")
-
+    await message.answer(f"✅ Готово. Історію лайків/пропусків скинуто. Видалено записів: {res.deleted_likes}")
 
 
 @router.message(Command("reset_feed"))
 async def reset_feed_cmd(message: Message, session: AsyncSession, cfg: Config) -> None:
-    """Ручной сброс ленты: лайки/скипы + мэтчи (анкеты/фото остаются)."""
+    """Ручне скидання стрічки: лайки/пропуски + мэтчі (анкети/фото не чіпаємо)."""
     if not _is_admin(cfg, message.from_user.id):
         return
 
-    # Быстрый UX: отвечаем сразу, даже если SQLite чуть «думает»
-    await message.answer("⏳ Сбрасываю ленту (лайки/скипы + мэтчи)…")
+    # Швидкий UX: відповідаємо одразу, навіть якщо SQLite трохи «думає»
+    await message.answer("⏳ Скидаю стрічку (лайки/пропуски + мэтчі)…")
 
     res = await reset_feed(session)
     await message.answer(
-        "✅ Готово. Лента сброшена.\n"
-        f"Удалено лайков/скипов: {res.deleted_likes}\n"
-        f"Удалено мэтчей: {res.deleted_matches}"
+        "✅ Готово. Стрічку скинуто.\n"
+        f"Видалено лайків/пропусків: {res.deleted_likes}\n"
+        f"Видалено мэтчів: {res.deleted_matches}"
     )
 
 
@@ -93,9 +93,9 @@ async def reset_db_prompt(message: Message, cfg: Config) -> None:
         return
 
     await message.answer(
-        "⚠️ <b>Внимание</b>: это удалит <b>ВСЕ</b> данные бота (анкеты, фото, лайки, мэтчи).\n"
-        "Действие необратимо.\n\n"
-        "Подтвердить сброс?",
+        "⚠️ <b>Увага</b>: це видалить <b>УСІ</b> дані бота (анкети, фото, лайки, мэтчі).\n"
+        "Дія незворотна.\n\n"
+        "Підтвердити скидання?",
         reply_markup=_confirm_reset_db_kb(),
     )
 
@@ -103,28 +103,28 @@ async def reset_db_prompt(message: Message, cfg: Config) -> None:
 @router.callback_query(F.data.startswith("admin_resetdb:"))
 async def reset_db_confirm(call: CallbackQuery, session: AsyncSession, cfg: Config) -> None:
     if not _is_admin(cfg, call.from_user.id):
-        await call.answer("Недостаточно прав", show_alert=True)
+        await call.answer("Недостатньо прав", show_alert=True)
         return
 
     decision = call.data.split(":", 1)[1]
     if decision != "yes":
-        await call.answer("Отменено")
+        await call.answer("Скасовано")
         try:
-            await call.message.edit_text("Отменено.")
+            await call.message.edit_text("Скасовано.")
         except Exception:
-            await call.message.answer("Отменено.")
+            await call.message.answer("Скасовано.")
         return
 
-    await call.answer("Сбрасываю…", show_alert=True)
+    await call.answer("Скидаю…", show_alert=True)
     res = await reset_database(session)
 
     text = (
-        "✅ <b>База данных сброшена</b>\n"
-        f"Удалено пользователей: {res.users}\n"
-        f"Удалено фото: {res.photos}\n"
-        f"Удалено лайков/скипов: {res.likes}\n"
-        f"Удалено мэтчей: {res.matches}\n"
-        f"Удалено логов антифлуда: {res.action_logs}"
+        "✅ <b>Базу даних скинуто</b>\n"
+        f"Видалено користувачів: {res.users}\n"
+        f"Видалено фото: {res.photos}\n"
+        f"Видалено лайків/пропусків: {res.likes}\n"
+        f"Видалено мэтчів: {res.matches}\n"
+        f"Видалено логів антифлуда: {res.action_logs}"
     )
 
     try:

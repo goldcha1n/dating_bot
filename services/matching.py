@@ -4,7 +4,7 @@ import logging
 from typing import Optional
 
 from aiogram import Bot
-from sqlalchemy import and_, exists, or_, select, delete
+from sqlalchemy import and_, delete, exists, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -65,7 +65,7 @@ async def get_next_candidate(session: AsyncSession, current: User) -> Optional[U
     if not current.search_global:
         conditions.append(User.city == current.city)
 
-    # Возрастной фильтр: по умолчанию показываем анкеты от (age-3) до (age+2)
+    # Віковий фільтр: за замовчуванням показуємо анкети від (age-3) до (age+2)
     if getattr(current, "age_filter_enabled", True):
         min_age = max(16, int(current.age) - 3)
         max_age = min(99, int(current.age) + 2)
@@ -88,7 +88,7 @@ async def _send_like_notification(bot: Bot, from_user: User, to_user: User) -> N
         text = (
             "❤️ <b>Вам поставили лайк</b>\n\n"
             f"{render_profile_caption(from_user)}\n\n"
-            "Хотите ответить взаимно?"
+            "Хочете відповісти взаємно?"
         )
         kb = like_notification_kb(from_user.id)
 
@@ -101,11 +101,11 @@ async def _send_like_notification(bot: Bot, from_user: User, to_user: User) -> N
 
 
 async def _send_match_cards(bot: Bot, u1: User, u2: User) -> None:
-    """При мэтче: карточка профиля + кнопка 'Написать'."""
+    """При мэтче: карточка профілю + кнопка 'Написати'."""
     try:
         kb_2 = match_contact_kb(contact_url(u2), target_user_id=u2.id)
         photo_2 = _main_photo_file_id(u2)
-        text_2 = f"🎉 <b>Взаимная симпатия!</b>\n\n{render_profile_caption(u2)}"
+        text_2 = f"🎉 <b>Взаємна симпатія!</b>\n\n{render_profile_caption(u2)}"
         if photo_2:
             await bot.send_photo(chat_id=u1.tg_id, photo=photo_2, caption=text_2, reply_markup=kb_2)
         else:
@@ -113,7 +113,7 @@ async def _send_match_cards(bot: Bot, u1: User, u2: User) -> None:
 
         kb_1 = match_contact_kb(contact_url(u1), target_user_id=u1.id)
         photo_1 = _main_photo_file_id(u1)
-        text_1 = f"🎉 <b>Взаимная симпатия!</b>\n\n{render_profile_caption(u1)}"
+        text_1 = f"🎉 <b>Взаємна симпатія!</b>\n\n{render_profile_caption(u1)}"
         if photo_1:
             await bot.send_photo(chat_id=u2.tg_id, photo=photo_1, caption=text_1, reply_markup=kb_1)
         else:
@@ -129,7 +129,7 @@ async def put_reaction_and_maybe_match(
     is_like: bool,
     bot: Bot,
 ) -> tuple[bool, Optional[User]]:
-    """Сохраняем реакцию. При взаимности создаём Match и уведомляем обоих."""
+    """Зберігаємо реакцію. При взаємності створюємо Match і повідомляємо обох."""
     if to_user_id == from_user.id:
         return False, None
 

@@ -41,13 +41,13 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession, 
     user = await _get_user_by_tg(session, message.from_user.id)
     if user:
         await state.clear()
-        await message.answer("У вас уже есть анкета.", reply_markup=main_menu_kb())
+        await message.answer("У вас вже є анкета.", reply_markup=main_menu_kb())
         return
 
     await state.clear()
     await message.answer(
-        "Привет! Давай быстро сделаем анкету.\n\n"
-        "<b>Шаг 1/7</b> — как тебя зовут?",
+        "Привіт! Давай швидко заповнимо анкету.\n\n"
+        "<b>Крок 1/7</b> — як тебе звати?",
         reply_markup=ReplyKeyboardRemove(),
     )
     await state.set_state(Registration.name)
@@ -57,11 +57,11 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession, 
 async def reg_name(message: Message, state: FSMContext) -> None:
     text = (message.text or "").strip()
     if len(text) < 2:
-        await message.answer("Имя слишком короткое. Напишите имя (минимум 2 символа).")
+        await message.answer("Закоротко. Напишіть ім'я (мінімум 2 символи).")
         return
 
     await state.update_data(name=text)
-    await message.answer("<b>Шаг 2/7</b> — сколько тебе лет? (16–99)")
+    await message.answer("<b>Крок 2/7</b> — скільки тобі років? (16–99)")
     await state.set_state(Registration.age)
 
 
@@ -71,15 +71,15 @@ async def reg_age(message: Message, state: FSMContext) -> None:
     try:
         age = int(raw)
     except ValueError:
-        await message.answer("Введите возраст числом (16–99).")
+        await message.answer("Введіть вік числом (16–99).")
         return
 
     if age < 16 or age > 99:
-        await message.answer("Возраст должен быть от 16 до 99.")
+        await message.answer("Вік має бути від 16 до 99.")
         return
 
     await state.update_data(age=age)
-    await message.answer("<b>Шаг 3/7</b> — выберите пол:", reply_markup=gender_kb())
+    await message.answer("<b>Крок 3/7</b> — оберіть стать:", reply_markup=gender_kb())
     await state.set_state(Registration.gender)
 
 
@@ -87,11 +87,11 @@ async def reg_age(message: Message, state: FSMContext) -> None:
 async def reg_gender(message: Message, state: FSMContext) -> None:
     code = gender_to_code((message.text or "").strip())
     if not code:
-        await message.answer("Выберите пол кнопкой ниже:", reply_markup=gender_kb())
+        await message.answer("Оберіть стать кнопкою нижче:", reply_markup=gender_kb())
         return
 
     await state.update_data(gender=code)
-    await message.answer("<b>Шаг 4/7</b> — кого ищете?", reply_markup=looking_for_kb())
+    await message.answer("<b>Крок 4/7</b> — кого шукаєте?", reply_markup=looking_for_kb())
     await state.set_state(Registration.looking_for)
 
 
@@ -99,11 +99,11 @@ async def reg_gender(message: Message, state: FSMContext) -> None:
 async def reg_looking_for(message: Message, state: FSMContext) -> None:
     code = looking_for_to_code((message.text or "").strip())
     if not code:
-        await message.answer("Выберите вариант кнопкой ниже:", reply_markup=looking_for_kb())
+        await message.answer("Оберіть варіант кнопкою нижче:", reply_markup=looking_for_kb())
         return
 
     await state.update_data(looking_for=code)
-    await message.answer("<b>Шаг 5/7</b> — ваш город?")
+    await message.answer("<b>Крок 5/7</b> — ваше місто?")
     await state.set_state(Registration.city)
 
 
@@ -111,12 +111,12 @@ async def reg_looking_for(message: Message, state: FSMContext) -> None:
 async def reg_city(message: Message, state: FSMContext) -> None:
     city = (message.text or "").strip()
     if not city:
-        await message.answer("Город не должен быть пустым. Введите город.")
+        await message.answer("Місто не може бути порожнім. Вкажіть місто.")
         return
 
     await state.update_data(city=city)
     await message.answer(
-        "<b>Шаг 6/7</b> — пару слов о себе (можно пропустить).",
+        "<b>Крок 6/7</b> — кілька слів про себе (можна пропустити).",
         reply_markup=skip_about_kb(),
     )
     await state.set_state(Registration.about)
@@ -126,19 +126,19 @@ async def reg_city(message: Message, state: FSMContext) -> None:
 async def reg_about(message: Message, state: FSMContext, cfg: Config) -> None:
     text = (message.text or "").strip()
 
-    if text.lower() in ("пропустить", "⏭️ пропустить"):
+    if text.lower() in ("пропустить", "⏭️ пропустить", "пропустити", "⏭️ пропустити"):
         await state.update_data(about=None)
     else:
         if len(text) < cfg.about_min_len:
             await message.answer(
-                f"Коротко. Минимум {cfg.about_min_len} символов, или нажмите «Пропустить».",
+                f"Закоротко. Мінімум {cfg.about_min_len} символів, або натисніть «Пропустити».",
                 reply_markup=skip_about_kb(),
             )
             return
         await state.update_data(about=text)
 
     await message.answer(
-        "<b>Шаг 7/7</b> — отправьте фото (минимум 1).",
+        "<b>Крок 7/7</b> — надішліть фото (мінімум 1).",
         reply_markup=ReplyKeyboardRemove(),
     )
     await state.set_state(Registration.photos)
@@ -155,13 +155,13 @@ async def reg_photo(message: Message, state: FSMContext, session: AsyncSession) 
 
     await state.update_data(photo_file_ids=file_ids)
 
-    # MVP: завершаем после первого фото
+    # MVP: завершуємо після першого фото
     await _finish_registration(message, state, session)
 
 
 @router.message(Registration.photos)
 async def reg_photo_invalid(message: Message) -> None:
-    await message.answer("Нужно фото (сообщением с фотографией). Пришлите фото.")
+    await message.answer("Потрібне фото (повідомлення з фотографією). Надішліть фото.")
 
 
 async def _finish_registration(message: Message, state: FSMContext, session: AsyncSession) -> None:
@@ -197,4 +197,4 @@ async def _finish_registration(message: Message, state: FSMContext, session: Asy
         caption=render_profile_caption(user),
         reply_markup=to_menu_inline_kb(),
     )
-    await message.answer("Готово. Добро пожаловать!", reply_markup=main_menu_kb())
+    await message.answer("Готово. Ласкаво просимо!", reply_markup=main_menu_kb())

@@ -49,16 +49,13 @@ async def _render_match_page(session: AsyncSession, other_ids: list[int], page: 
     if not photo_id and other.photos:
         photo_id = other.photos[0].file_id
 
-    caption = (
-        f"<b>💞 Взаимная симпатия</b>\n\n"
-        f"{render_profile_caption(other)}"
-    )
+    caption = f"<b>💞 Взаємна симпатія</b>\n\n{render_profile_caption(other)}"
 
     return other, photo_id or "", caption, page, total
 
 
 async def _send_or_edit_match_card(call: CallbackQuery, photo_id: str, caption: str, kb) -> None:
-    """Пытаемся редактировать текущее сообщение. Если не получилось — отправляем новое."""
+    """Пробуємо редагувати поточне повідомлення. Якщо не вийшло — відправляємо нове."""
     try:
         media = InputMediaPhoto(media=photo_id, caption=caption)
         await call.message.edit_media(media=media, reply_markup=kb)
@@ -67,16 +64,16 @@ async def _send_or_edit_match_card(call: CallbackQuery, photo_id: str, caption: 
         await call.message.answer_photo(photo=photo_id, caption=caption, reply_markup=kb)
 
 
-@router.message(F.text.in_({BTN_MATCHES, "Взаимные лайки"}))
+@router.message(F.text.in_({BTN_MATCHES, "Взаємні лайки"}))
 async def show_matches(message: Message, session: AsyncSession) -> None:
     cur = await get_current_user_or_none(session, message.from_user.id)
     if not cur:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
 
     other_ids = await _get_match_other_ids(session, cur.id)
     if not other_ids:
-        await message.answer("Пока нет взаимных лайков.")
+        await message.answer("Поки немає взаємних лайків.")
         return
 
     other, photo_id, caption, page, total = await _render_match_page(session, other_ids, page=1)
@@ -90,12 +87,12 @@ async def matches_pager(call: CallbackQuery, session: AsyncSession) -> None:
     await call.answer()
     cur = await get_current_user_or_none(session, call.from_user.id)
     if not cur:
-        await call.message.answer("Сначала создайте анкету: /start")
+        await call.message.answer("Спочатку створіть анкету: /start")
         return
 
     other_ids = await _get_match_other_ids(session, cur.id)
     if not other_ids:
-        await call.message.answer("Пока нет взаимных лайков.")
+        await call.message.answer("Поки немає взаємних лайків.")
         return
 
     try:

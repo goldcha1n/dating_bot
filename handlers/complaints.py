@@ -37,25 +37,25 @@ async def _create_complaint(
         )
     )
     if existing.scalar_one_or_none():
-        return False, "Вы уже жаловались на эту анкету."
+        return False, "Ви вже скаржилися на цю анкету."
 
     session.add(
         Complaint(
             reporter_user_id=reporter_id,
             target_user_id=target_user_id,
-            reason=reason.strip() or "Без причины",
+            reason=reason.strip() or "Без причини",
         )
     )
     try:
         await session.commit()
-        return True, "Жалоба отправлена."
+        return True, "Скаргу відправлено."
     except IntegrityError:
         await session.rollback()
-        return False, "Вы уже жаловались на эту анкету."
+        return False, "Ви вже скаржилися на цю анкету."
     except Exception:
         await session.rollback()
         logger.exception("Failed to save complaint")
-        return False, "Не удалось сохранить жалобу. Попробуйте позже."
+        return False, "Не вдалося зберегти скаргу. Спробуйте пізніше."
 
 
 @router.callback_query(F.data.startswith("complaint:start:"))
@@ -63,22 +63,22 @@ async def complaint_start(call: CallbackQuery, session: AsyncSession) -> None:
     await call.answer()
     cur = await get_current_user_or_none(session, call.from_user.id)
     if not cur:
-        await call.message.answer("Сначала заполните профиль: /start")
+        await call.message.answer("Спочатку заповніть профіль: /start")
         return
 
     try:
         target_user_id = int(call.data.split(":")[-1])
     except Exception:
-        await call.message.answer("Некорректная жалоба.")
+        await call.message.answer("Некоректна скарга.")
         return
 
     target = await _get_target(session, target_user_id)
     if not target:
-        await call.message.answer("Анкета не найдена.")
+        await call.message.answer("Анкета не знайдена.")
         return
 
     kb = complaint_reasons_kb(target_user_id)
-    await call.message.answer("Выберите причину жалобы:", reply_markup=kb)
+    await call.message.answer("Оберіть причину скарги:", reply_markup=kb)
 
 
 @router.callback_query(F.data.startswith("complaint:reason:"))
@@ -86,26 +86,27 @@ async def complaint_reason(call: CallbackQuery, session: AsyncSession, state: FS
     await call.answer()
     cur = await get_current_user_or_none(session, call.from_user.id)
     if not cur:
-        await call.message.answer("Сначала заполните профиль: /start")
+        await call.message.answer("Спочатку заповніть профіль: /start")
         return
 
     try:
         _, _, code, target_raw = call.data.split(":", 3)
         target_user_id = int(target_raw)
     except Exception:
-        await call.message.answer("Некорректная жалоба.")
+        await call.message.answer("Некоректна скарга.")
         return
 
     if code == "other":
         await state.update_data(target_user_id=target_user_id)
         await state.set_state(ComplaintStates.waiting_reason_text)
-        await call.message.answer("Опишите причину жалобы одним сообщением:")
+        await call.message.answer("Опишіть причину скарги одним повідомленням:")
         return
 
     reason_map = {
         "spam": "Спам/реклама",
-        "fake": "Фейковая анкета",
-        "obscene": "Непристойный контент",
+        "fake": "Фейкова анкета",
+        "obscene": "Непристойний контент",
+        "other": "Інше",
     }
     reason_text = reason_map.get(code, code)
     ok, msg = await _create_complaint(session, reporter_id=cur.id, target_user_id=target_user_id, reason=reason_text)
@@ -118,18 +119,18 @@ async def complaint_reason_text(message: Message, session: AsyncSession, state: 
     target_user_id = data.get("target_user_id")
     if not target_user_id:
         await state.clear()
-        await message.answer("Не удалось определить анкету для жалобы.")
+        await message.answer("Не вдалося визначити анкету для скарги.")
         return
 
     cur = await get_current_user_or_none(session, message.from_user.id)
     if not cur:
         await state.clear()
-        await message.answer("Сначала заполните профиль: /start")
+        await message.answer("Спочатку заповніть профіль: /start")
         return
 
     reason = (message.text or "").strip()
     if not reason:
-        await message.answer("Пожалуйста, опишите причину текстом.")
+        await message.answer("Будь ласка, опишіть причину текстом.")
         return
 
     ok, msg = await _create_complaint(session, reporter_id=cur.id, target_user_id=int(target_user_id), reason=reason)

@@ -25,9 +25,7 @@ class ResetResult:
 
 
 async def reset_likes_and_skips(session: AsyncSession) -> ResetResult:
-    """Сбрасываем историю лайков/скипов (таблица Like).
-    Мэтчи (Match) не трогаем.
-    """
+    """Скидаємо історію лайків/пропусків (таблиця Like). Мэтчі не чіпаємо."""
     cnt = await session.execute(select(func.count(Like.id)))
     total = int(cnt.scalar_one())
     await session.execute(delete(Like))
@@ -65,7 +63,7 @@ async def daily_reset_loop(
     hour: int,
     admins: list[int],
 ) -> None:
-    """Фоновый цикл: каждый день в hour:00 (по tz_name) сбрасываем лайки/скипы."""
+    """Фоновий цикл: щодня в hour:00 (за tz_name) скидаємо лайки/пропуски."""
     tz = _get_tz(tz_name)
     hour = max(0, min(23, int(hour)))
 
@@ -82,7 +80,7 @@ async def daily_reset_loop(
             logger.info("Daily reset done: deleted likes=%s", res.deleted_likes)
 
             if bot and admins:
-                text = f"✅ Ежедневный сброс выполнен. Удалено лайков/скипов: {res.deleted_likes}"
+                text = f"✅ Щоденне очищення виконано. Видалено лайків/пропусків: {res.deleted_likes}"
                 for admin_id in admins:
                     try:
                         await bot.send_message(chat_id=admin_id, text=text)

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Profiles</h1>
+<form method="get" action="/admin/profiles" class="toolbar">
+    <input type="text" name="q" value="{{ q }}" placeholder="Keywords in \"About me\"" />
+    <button type="submit" class="btn">Search</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>TG ID</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Looking for</th>
+            <th>City</th>
+            <th>About</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in profiles %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.tg_id }}</td>
+            <td>{{ user.username or "-" }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{ user.gender }}</td>
+            <td>{{ user.looking_for }}</td>
+            <td>{{ user.city }}</td>
+            <td class="about" title="{{ user.about or '' }}">
+                {% if user.about %}
+                    {{ user.about[:140] + ('...' if user.about|length > 140 else '') }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td>{{ user.created_at }}</td>
+        </tr>
+        {% endfor %}
+        {% if profiles|length == 0 %}
+        <tr>
+            <td colspan="10" class="empty">No profiles found</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+<div class="pagination">
+    <span>Page {{ page }} of {{ total_pages }}</span>
+    <div class="pager">
+        {% if page > 1 %}
+        <a href="/admin/profiles?page={{ page - 1 }}&q={{ q }}">Prev</a>
+        {% endif %}
+        {% if page < total_pages %}
+        <a href="/admin/profiles?page={{ page + 1 }}&q={{ q }}">Next</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

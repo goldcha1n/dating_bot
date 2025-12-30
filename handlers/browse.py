@@ -17,29 +17,31 @@ from services.matching import (
     get_next_candidate,
     put_reaction_and_maybe_match,
 )
-
 from utils.text import render_profile_caption
 
 logger = logging.getLogger(__name__)
 router = Router()
 
 
-@router.message(F.text.in_({BTN_BROWSE, "Смотреть анкеты"}))
+@router.message(F.text.in_({BTN_BROWSE, "Перегляд анкет"}))
 async def browse_start(message: Message, session: AsyncSession, cfg: Config) -> None:
     cur = await get_current_user_or_none(session, message.from_user.id)
     if not cur:
-        await message.answer("Сначала создайте анкету: /start")
+        await message.answer("Спочатку створіть анкету: /start")
         return
 
     if not cur.active:
-        await message.answer("Вы поставили анкету на паузу. Включите её в настройках.", reply_markup=open_settings_kb())
+        await message.answer(
+            "Ви поставили анкету на паузу. Увімкніть її в налаштуваннях.",
+            reply_markup=open_settings_kb(),
+        )
         return
 
     await _send_next(message, session, cur, cfg)
 
 
 async def _send_next(message: Message, session: AsyncSession, cur: User, cfg: Config) -> None:
-    # Антифлуд по просмотрам
+    # Антифлуд по переглядам
     if not await is_allowed(
         session=session,
         user_id=cur.id,
@@ -47,21 +49,21 @@ async def _send_next(message: Message, session: AsyncSession, cur: User, cfg: Co
         limit=cfg.view_limit_per_min,
         window_seconds=60,
     ):
-        await message.answer("Слишком быстро листаете. Подождите минуту и попробуйте снова.")
+        await message.answer("Занадто швидко гортаєте. Зачекайте хвилину і спробуйте знову.")
         return
 
     candidate = await get_next_candidate(session, cur)
     if not candidate:
         await message.answer(
-            "Пока нет подходящих анкет.\n\n"
-            "Что можно сделать:\n"
-            "• включить 🌍 поиск в любом городе\n"
-            "• зайти позже",
+            "Поки немає підхожих анкет.\n\n"
+            "Що можна зробити:\n"
+            "• увімкнути 🌍 пошук у будь-якому місті\n"
+            "• зайти пізніше",
             reply_markup=open_settings_kb(),
         )
         return
 
-    # Логируем показ анкеты
+    # Логуємо показ анкети
     await log_action(session, user_id=cur.id, action="view")
     await session.commit()
 
@@ -89,29 +91,29 @@ async def _send_next(message: Message, session: AsyncSession, cur: User, cfg: Co
 async def browse_react(call: CallbackQuery, session: AsyncSession, cfg: Config) -> None:
     cur = await get_current_user_or_none(session, call.from_user.id)
     if not cur:
-        await call.answer("Сначала анкета", show_alert=True)
-        await call.message.answer("Сначала создайте анкету: /start")
+        await call.answer("Спочатку анкета", show_alert=True)
+        await call.message.answer("Спочатку створіть анкету: /start")
         return
 
-    # Антифлуд по действиям
+    # Антифлуд по діям
     if not await is_allowed(
         session, user_id=cur.id, actions=("action",), limit=cfg.action_limit_per_min, window_seconds=60
     ):
-        await call.answer("Слишком часто", show_alert=True)
+        await call.answer("Занадто часто", show_alert=True)
         return
 
     try:
         _, action, raw_id = call.data.split(":", 2)
         candidate_id = int(raw_id)
     except Exception:
-        await call.answer("Ошибка кнопки", show_alert=True)
+        await call.answer("Помилка кнопки", show_alert=True)
         return
 
     if action not in ("like", "skip"):
         await call.answer()
         return
 
-    # Лимит на лайки
+    # Ліміт на лайки
     if action == "like":
         if not await is_allowed(
             session=session,
@@ -120,14 +122,14 @@ async def browse_react(call: CallbackQuery, session: AsyncSession, cfg: Config) 
             limit=cfg.like_limit_per_hour,
             window_seconds=60 * 60,
         ):
-            await call.answer("Лимит лайков", show_alert=True)
-            await call.message.answer("Лимит лайков исчерпан. Попробуйте позже.")
+            await call.answer("Ліміт лайків", show_alert=True)
+            await call.message.answer("Ліміт лайків вичерпано. Спробуйте пізніше.")
             return
 
-    # Быстрый “native” feedback
-    await call.answer("❤️ Отправлено" if action == "like" else "➡️ Дальше")
+    # Швидкий “native” feedback
+    await call.answer("❤️ Надіслано" if action == "like" else "➡️ Далі")
 
-    # Лог действий
+    # Лог дій
     await log_action(session, user_id=cur.id, action="action")
     await log_action(session, user_id=cur.id, action=action)
 
@@ -141,7 +143,7 @@ async def browse_react(call: CallbackQuery, session: AsyncSession, cfg: Config) 
         )
     except Exception:
         logger.exception("Failed to process reaction")
-        await call.message.answer("Произошла ошибка. Попробуйте ещё раз.")
+        await call.message.answer("Сталася помилка. Спробуйте ще раз.")
         return
 
     await _send_next(call.message, session, cur, cfg)
@@ -149,24 +151,24 @@ async def browse_react(call: CallbackQuery, session: AsyncSession, cfg: Config) 
 
 @router.callback_query(F.data.startswith("inlike:"))
 async def incoming_like_actions(call: CallbackQuery, session: AsyncSession, cfg: Config) -> None:
-    """Кнопки под уведомлением 'вас лайкнули'."""
+    """Кнопки під сповіщенням 'вас лайкнули'."""
     cur = await get_current_user_or_none(session, call.from_user.id)
     if not cur:
-        await call.answer("Сначала анкета", show_alert=True)
-        await call.message.answer("Сначала создайте анкету: /start")
+        await call.answer("Спочатку анкета", show_alert=True)
+        await call.message.answer("Спочатку створіть анкету: /start")
         return
 
     if not await is_allowed(
         session, user_id=cur.id, actions=("action",), limit=cfg.action_limit_per_min, window_seconds=60
     ):
-        await call.answer("Слишком часто", show_alert=True)
+        await call.answer("Занадто часто", show_alert=True)
         return
 
     try:
         _, action, raw_id = call.data.split(":", 2)
         other_id = int(raw_id)
     except Exception:
-        await call.answer("Ошибка кнопки", show_alert=True)
+        await call.answer("Помилка кнопки", show_alert=True)
         return
 
     if action not in ("like", "skip"):
@@ -181,11 +183,11 @@ async def incoming_like_actions(call: CallbackQuery, session: AsyncSession, cfg:
             limit=cfg.like_limit_per_hour,
             window_seconds=60 * 60,
         ):
-            await call.answer("Лимит лайков", show_alert=True)
-            await call.message.answer("Лимит лайков исчерпан. Попробуйте позже.")
+            await call.answer("Ліміт лайків", show_alert=True)
+            await call.message.answer("Ліміт лайків вичерпано. Спробуйте пізніше.")
             return
 
-    await call.answer("❤️ Ответ отправлен" if action == "like" else "🙈 Ок")
+    await call.answer("❤️ Відповідь надіслана" if action == "like" else "🙈 Ок")
 
     await log_action(session, user_id=cur.id, action="action")
     await log_action(session, user_id=cur.id, action=f"inlike_{action}")
@@ -200,4 +202,5 @@ async def incoming_like_actions(call: CallbackQuery, session: AsyncSession, cfg:
         )
     except Exception:
         logger.exception("Failed to process incoming-like action")
-        await call.message.answer("Ошибка при обработке. Попробуйте ещё раз.")
+        await call.message.answer("Помилка обробки. Спробуйте ще раз.")
+        return
