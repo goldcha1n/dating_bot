@@ -103,7 +103,7 @@ async def _send_like_notification(bot: Bot, from_user: User, to_user: User) -> N
 async def _send_match_cards(bot: Bot, u1: User, u2: User) -> None:
     """При мэтче: карточка профиля + кнопка 'Написать'."""
     try:
-        kb_2 = match_contact_kb(contact_url(u2))
+        kb_2 = match_contact_kb(contact_url(u2), target_user_id=u2.id)
         photo_2 = _main_photo_file_id(u2)
         text_2 = f"🎉 <b>Взаимная симпатия!</b>\n\n{render_profile_caption(u2)}"
         if photo_2:
@@ -111,7 +111,7 @@ async def _send_match_cards(bot: Bot, u1: User, u2: User) -> None:
         else:
             await bot.send_message(chat_id=u1.tg_id, text=text_2, reply_markup=kb_2)
 
-        kb_1 = match_contact_kb(contact_url(u1))
+        kb_1 = match_contact_kb(contact_url(u1), target_user_id=u1.id)
         photo_1 = _main_photo_file_id(u1)
         text_1 = f"🎉 <b>Взаимная симпатия!</b>\n\n{render_profile_caption(u1)}"
         if photo_1:

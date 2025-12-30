@@ -18,7 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from app.auth import create_session_token, read_session_token, verify_credentials
 from app.config import Settings, TEMPLATES_DIR
 from app.db import session_scope
-from app.models import AdminAction, Message, User
+from app.models import AdminAction, Message, User, Complaint
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
@@ -104,11 +104,12 @@ async def dashboard(
     admin_username: str = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ):
-    counts = {"users": 0, "messages": 0, "actions": 0}
+    counts = {"users": 0, "messages": 0, "actions": 0, "complaints": 0}
     try:
         counts["users"] = (await session.execute(select(func.count(User.id)))).scalar_one()
         counts["messages"] = (await session.execute(select(func.count(Message.id)))).scalar_one()
         counts["actions"] = (await session.execute(select(func.count(AdminAction.id)))).scalar_one()
+        counts["complaints"] = (await session.execute(select(func.count(Complaint.id)))).scalar_one()
     except OperationalError:
         pass
     return templates.TemplateResponse(
@@ -131,6 +132,12 @@ async def users_list(
     sort_field = (sort or "created_at").lower()
     sort_order = (order or "desc").lower()
 
+    complaints_subq = (
+        select(Complaint.target_user_id.label("target_id"), func.count(Complaint.id).label("complaints"))
+        .group_by(Complaint.target_user_id)
+        .subquery()
+    )
+
     sort_map = {
         "id": (User.id,),
         "tg_id": (User.tg_id,),
@@ -138,13 +145,16 @@ async def users_list(
         "name": (User.first_name, User.last_name, User.name),
         "is_banned": (User.is_banned,),
         "created_at": (User.created_at,),
+        "complaints": (func.coalesce(complaints_subq.c.complaints, 0), User.id),
     }
     if sort_field not in sort_map:
         sort_field = "created_at"
     if sort_order not in {"asc", "desc"}:
         sort_order = "desc"
 
-    stmt = select(User)
+    stmt = select(User, func.coalesce(complaints_subq.c.complaints, 0).label("complaints")).outerjoin(
+        complaints_subq, complaints_subq.c.target_id == User.id
+    )
     if q:
         if q.isdigit():
             stmt = stmt.where(User.tg_id == int(q))
@@ -155,7 +165,8 @@ async def users_list(
         col.asc() if sort_order == "asc" else col.desc() for col in sort_map[sort_field]
     ]
     stmt = stmt.order_by(*order_by_columns).offset((page - 1) * per_page).limit(per_page)
-    users = (await session.execute(stmt)).scalars().all()
+    result = await session.execute(stmt)
+    users = [{"user": row[0], "complaints": row[1]} for row in result.all()]
     total_pages = max(1, (total + per_page - 1) // per_page)
     return templates.TemplateResponse(
         "users.html",
@@ -165,6 +176,7 @@ async def users_list(
             "q": q or "",
             "sort": sort_field,
             "order": sort_order,
+            "complaints_sort_value": "complaints",
             "page": page,
             "total_pages": total_pages,
             "admin_username": admin_username,
@@ -284,6 +296,60 @@ async def actions_log(
             "action": action or "",
             "from_date": from_date or "",
             "to_date": to_date or "",
+            "page": page,
+        "total_pages": total_pages,
+        "admin_username": admin_username,
+    },
+)
+
+
+@router.get("/admin/complaints", response_class=HTMLResponse)
+async def complaints_list(
+    request: Request,
+    admin_username: str = Depends(require_admin),
+    target_user_id: Optional[int] = Query(default=None),
+    reporter_user_id: Optional[int] = Query(default=None),
+    from_date: Optional[str] = Query(default=None),
+    to_date: Optional[str] = Query(default=None),
+    reason: Optional[str] = Query(default=None),
+    page: int = Query(default=1, ge=1),
+    session: AsyncSession = Depends(get_session),
+):
+    per_page = 20
+    stmt = select(Complaint)
+    if target_user_id:
+        stmt = stmt.where(Complaint.target_user_id == target_user_id)
+    if reporter_user_id:
+        stmt = stmt.where(Complaint.reporter_user_id == reporter_user_id)
+    if from_date:
+        try:
+            from_dt = datetime.fromisoformat(from_date)
+            stmt = stmt.where(Complaint.created_at >= from_dt)
+        except ValueError:
+            pass
+    if to_date:
+        try:
+            to_dt = datetime.fromisoformat(to_date)
+            stmt = stmt.where(Complaint.created_at <= to_dt)
+        except ValueError:
+            pass
+    if reason:
+        stmt = stmt.where(Complaint.reason.ilike(f"%{reason}%"))
+
+    total = (await session.execute(select(func.count()).select_from(stmt.subquery()))).scalar_one()
+    stmt = stmt.order_by(Complaint.created_at.desc()).offset((page - 1) * per_page).limit(per_page)
+    complaints = (await session.execute(stmt)).scalars().all()
+    total_pages = max(1, (total + per_page - 1) // per_page)
+    return templates.TemplateResponse(
+        "complaints.html",
+        {
+            "request": request,
+            "complaints": complaints,
+            "target_user_id": target_user_id or "",
+            "reporter_user_id": reporter_user_id or "",
+            "from_date": from_date or "",
+            "to_date": to_date or "",
+            "reason": reason or "",
             "page": page,
             "total_pages": total_pages,
             "admin_username": admin_username,

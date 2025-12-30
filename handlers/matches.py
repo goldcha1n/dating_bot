@@ -80,7 +80,7 @@ async def show_matches(message: Message, session: AsyncSession) -> None:
         return
 
     other, photo_id, caption, page, total = await _render_match_page(session, other_ids, page=1)
-    kb = matches_pager_kb(url=contact_url(other), page=page, total=total)
+    kb = matches_pager_kb(url=contact_url(other), target_user_id=other.id, page=page, total=total)
 
     await message.answer_photo(photo=photo_id, caption=caption, reply_markup=kb)
 
@@ -104,6 +104,6 @@ async def matches_pager(call: CallbackQuery, session: AsyncSession) -> None:
         page = 1
 
     other, photo_id, caption, page, total = await _render_match_page(session, other_ids, page=page)
-    kb = matches_pager_kb(url=contact_url(other), page=page, total=total)
+    kb = matches_pager_kb(url=contact_url(other), target_user_id=other.id, page=page, total=total)
 
     await _send_or_edit_match_card(call, photo_id=photo_id, caption=caption, kb=kb)

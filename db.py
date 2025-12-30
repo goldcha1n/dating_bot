@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 
 from aiogram import BaseMiddleware
@@ -15,6 +16,9 @@ from sqlalchemy.ext.asyncio import (
 from models import Base, User
 
 logger = logging.getLogger(__name__)
+
+# Protect create_all from concurrent calls (API + bot startup).
+_init_lock = asyncio.Lock()
 
 
 def create_engine(database_url: str) -> AsyncEngine:
@@ -56,6 +60,28 @@ async def _ensure_schema(engine: AsyncEngine) -> None:
                 logger.info("Schema migration: adding users.is_banned")
                 await conn.exec_driver_sql("ALTER TABLE users ADD COLUMN is_banned BOOLEAN NOT NULL DEFAULT 0;")
 
+            res = await conn.exec_driver_sql("SELECT name FROM sqlite_master WHERE type='table' AND name='complaints';")
+            has_complaints = res.fetchone() is not None
+            if not has_complaints:
+                logger.info("Schema migration: creating complaints table")
+                await conn.exec_driver_sql(
+                    """
+                    CREATE TABLE complaints (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        reporter_user_id INTEGER NOT NULL,
+                        target_user_id INTEGER NOT NULL,
+                        reason TEXT NOT NULL,
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        CONSTRAINT uq_complaints_reporter_target UNIQUE (reporter_user_id, target_user_id),
+                        FOREIGN KEY(reporter_user_id) REFERENCES users(id) ON DELETE CASCADE,
+                        FOREIGN KEY(target_user_id) REFERENCES users(id) ON DELETE CASCADE
+                    );
+                    """
+                )
+                await conn.exec_driver_sql(
+                    "CREATE INDEX IF NOT EXISTS ix_complaints_target_created ON complaints (target_user_id, created_at);"
+                )
+
             res = await conn.exec_driver_sql("PRAGMA index_list(users);")
             indexes = {row[1] for row in res.fetchall()}
             if "ix_users_username" not in indexes:
@@ -66,11 +92,12 @@ async def _ensure_schema(engine: AsyncEngine) -> None:
 
 
 async def init_db(engine: AsyncEngine) -> None:
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    async with _init_lock:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
 
-    await _ensure_schema(engine)
-    logger.info("DB initialized (create_all done)")
+        await _ensure_schema(engine)
+        logger.info("DB initialized (create_all done)")
 
 
 class DbSessionMiddleware(BaseMiddleware):

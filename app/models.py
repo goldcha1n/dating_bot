@@ -9,6 +9,7 @@ from models import (  # noqa: F401
     Match,
     Message,
     Photo,
+    Complaint,
     User,
 )
 
@@ -16,6 +17,7 @@ __all__ = [
     "ActionLog",
     "AdminAction",
     "Base",
+    "Complaint",
     "Like",
     "Match",
     "Message",

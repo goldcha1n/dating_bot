@@ -22,18 +22,21 @@
             <th>{{ sort_link('Username', 'username') }}</th>
             <th>{{ sort_link('Name', 'name') }}</th>
             <th>{{ sort_link('Banned', 'is_banned') }}</th>
+            <th>{{ sort_link('Complaints', 'complaints') }}</th>
             <th>{{ sort_link('Created', 'created_at') }}</th>
             <th>{{ sort_link('Actions', 'id') }}</th>
         </tr>
     </thead>
     <tbody>
-        {% for user in users %}
+        {% for item in users %}
+        {% set user = item.user %}
         <tr>
             <td>{{ user.id }}</td>
             <td>{{ user.tg_id }}</td>
             <td>{{ user.username or "-" }}</td>
             <td>{{ (user.first_name or user.name or "") }} {{ user.last_name or "" }}</td>
             <td>{{ "Yes" if user.is_banned else "No" }}</td>
+            <td><a href="/admin/complaints?target_user_id={{ user.id }}">{{ item.complaints }}</a></td>
             <td>{{ user.created_at }}</td>
             <td>
                 {% if user.is_banned %}
@@ -50,7 +53,7 @@
         {% endfor %}
         {% if users|length == 0 %}
         <tr>
-            <td colspan="7" class="empty">No users found</td>
+            <td colspan="8" class="empty">No users found</td>
         </tr>
         {% endif %}
     </tbody>

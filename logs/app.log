@@ -267,3 +267,297 @@
 2025-12-30 18:36:01,418 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
 2025-12-30 18:36:01,419 [INFO] __main__: Shutdown complete
 2025-12-30 18:36:01,419 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 19:11:01,985 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 19:11:01,986 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 19:11:01,986 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 19:11:01,986 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 19:11:02,011 [INFO] __main__: api started
+2025-12-30 19:11:02,043 [INFO] db: DB initialized (create_all done)
+2025-12-30 19:11:02,226 [INFO] app.bot: bot started
+2025-12-30 19:11:02,226 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 19:11:02,227 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 46137.8s
+2025-12-30 19:11:02,230 [INFO] db: DB initialized (create_all done)
+2025-12-30 19:11:02,381 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 19:11:02,656 [INFO] aiogram.event: Update id=99609560 is handled. Duration 218 ms by bot id=8308846710
+2025-12-30 19:11:25,108 [INFO] aiogram.event: Update id=99609561 is handled. Duration 156 ms by bot id=8308846710
+2025-12-30 19:11:27,604 [ERROR] services.matching: Failed to send like notification
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\services\matching.py", line 96, in _send_like_notification
+    await bot.send_photo(chat_id=to_user.tg_id, photo=photo_id, caption=text, reply_markup=kb)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 3001, in send_photo
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-30 19:11:27,702 [INFO] aiogram.event: Update id=99609562 is handled. Duration 281 ms by bot id=8308846710
+2025-12-30 19:11:29,043 [INFO] aiogram.event: Update id=99609563 is handled. Duration 156 ms by bot id=8308846710
+2025-12-30 19:11:30,023 [INFO] aiogram.event: Update id=99609564 is handled. Duration 188 ms by bot id=8308846710
+2025-12-30 19:11:34,531 [INFO] aiogram.event: Update id=99609565 is handled. Duration 125 ms by bot id=8308846710
+2025-12-30 19:11:35,589 [INFO] aiogram.event: Update id=99609566 is handled. Duration 125 ms by bot id=8308846710
+2025-12-30 19:11:37,418 [INFO] aiogram.event: Update id=99609567 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 19:11:38,250 [INFO] aiogram.event: Update id=99609568 is handled. Duration 235 ms by bot id=8308846710
+2025-12-30 19:11:43,018 [INFO] aiogram.event: Update id=99609569 is handled. Duration 156 ms by bot id=8308846710
+2025-12-30 19:12:34,861 [INFO] db: Ignore update from banned user tg_id=1109508382
+2025-12-30 19:12:34,862 [INFO] aiogram.event: Update id=99609570 is handled. Duration 0 ms by bot id=8308846710
+2025-12-30 19:12:36,066 [INFO] db: Ignore update from banned user tg_id=1109508382
+2025-12-30 19:12:36,066 [INFO] aiogram.event: Update id=99609571 is handled. Duration 0 ms by bot id=8308846710
+2025-12-30 19:12:47,940 [INFO] aiogram.event: Update id=99609572 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 19:13:58,152 [INFO] aiogram.event: Update id=99609573 is handled. Duration 110 ms by bot id=8308846710
+2025-12-30 19:14:10,505 [INFO] aiogram.event: Update id=99609574 is handled. Duration 0 ms by bot id=8308846710
+2025-12-30 19:14:12,242 [INFO] aiogram.event: Update id=99609575 is handled. Duration 16 ms by bot id=8308846710
+2025-12-30 19:14:23,978 [INFO] aiogram.event: Update id=99609576 is handled. Duration 16 ms by bot id=8308846710
+2025-12-30 19:14:32,132 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 19:14:32,132 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 19:14:32,133 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 19:14:32,140 [INFO] __main__: Shutdown complete
+2025-12-30 19:15:37,674 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 19:15:37,674 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 19:15:37,675 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 19:15:37,675 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 19:15:37,700 [INFO] __main__: api started
+2025-12-30 19:15:37,733 [INFO] db: DB initialized (create_all done)
+2025-12-30 19:15:37,919 [INFO] app.bot: bot started
+2025-12-30 19:15:37,920 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 19:15:37,920 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 45862.1s
+2025-12-30 19:15:37,922 [INFO] db: DB initialized (create_all done)
+2025-12-30 19:15:38,079 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 19:15:41,910 [INFO] aiogram.event: Update id=99609577 is handled. Duration 16 ms by bot id=8308846710
+2025-12-30 21:12:03,881 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 21:12:03,881 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 21:12:03,882 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 21:12:03,882 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 21:12:03,925 [INFO] __main__: api started
+2025-12-30 21:12:03,973 [INFO] db: DB initialized (create_all done)
+2025-12-30 21:12:03,973 [INFO] db: DB initialized (create_all done)
+2025-12-30 21:12:04,181 [INFO] app.bot: bot started
+2025-12-30 21:12:04,182 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 21:12:04,184 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 38875.8s
+2025-12-30 21:12:04,359 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 21:13:16,217 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 21:13:16,218 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 21:13:16,219 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 21:13:16,232 [INFO] __main__: Shutdown complete
+2025-12-30 21:13:22,950 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 21:13:22,951 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 21:13:22,951 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 21:13:22,951 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 21:13:22,978 [INFO] __main__: api started
+2025-12-30 21:13:23,048 [ERROR] __main__: Service crashed, stopping services...
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 180, in execute
+    self._adapt_connection._handle_exception(error)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 340, in _handle_exception
+    raise error
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 162, in execute
+    self.await_(_cursor.execute(operation, parameters))
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiosqlite\cursor.py", line 48, in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiosqlite\cursor.py", line 40, in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiosqlite\core.py", line 132, in _execute
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiosqlite\core.py", line 115, in run
+    result = function()
+             ^^^^^^^^^^
+sqlite3.OperationalError: index ix_users_username already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\run.py", line 71, in main
+    await asyncio.gather(*tasks)
+  File "C:\Python_Projects\dating_bot\app\bot.py", line 48, in start_bot
+    await init_db(engine)
+  File "C:\Python_Projects\dating_bot\db.py", line 92, in init_db
+    await conn.run_sync(Base.metadata.create_all)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 888, in run_sync
+    return await greenlet_spawn(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\schema.py", line 5928, in create_all
+    bind._run_ddl_visitor(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 2467, in _run_ddl_visitor
+    ).traverse_single(element)
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\ddl.py", line 984, in visit_metadata
+    self.traverse_single(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\ddl.py", line 1026, in visit_table
+    self.traverse_single(index, create_ok=True)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\ddl.py", line 1063, in visit_index
+    CreateIndex(index)._invoke_with(self.connection)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\ddl.py", line 321, in _invoke_with
+    return bind.execute(self)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\ddl.py", line 187, in _execute_on_connection
+    return connection._execute_ddl(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1530, in _execute_ddl
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 180, in execute
+    self._adapt_connection._handle_exception(error)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 340, in _handle_exception
+    raise error
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 162, in execute
+    self.await_(_cursor.execute(operation, parameters))
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiosqlite\cursor.py", line 48, in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiosqlite\cursor.py", line 40, in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiosqlite\core.py", line 132, in _execute
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiosqlite\core.py", line 115, in run
+    result = function()
+             ^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) index ix_users_username already exists
+[SQL: CREATE INDEX ix_users_username ON users (username)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-12-30 21:13:23,085 [INFO] __main__: Shutdown complete
+2025-12-30 21:13:35,370 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 21:13:35,370 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 21:13:35,371 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 21:13:35,371 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 21:13:35,398 [INFO] __main__: api started
+2025-12-30 21:13:35,524 [INFO] db: DB initialized (create_all done)
+2025-12-30 21:13:35,742 [INFO] app.bot: bot started
+2025-12-30 21:13:35,743 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 21:13:35,744 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 38784.3s
+2025-12-30 21:13:35,961 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 21:18:07,804 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 21:18:07,805 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-12-30 21:18:07,805 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-30 21:18:07,979 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 21:18:07,981 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 21:18:07,981 [INFO] __main__: Shutdown complete
+2025-12-30 21:18:12,393 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 21:18:12,394 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 21:18:12,395 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 21:18:12,395 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 21:18:12,428 [INFO] __main__: api started
+2025-12-30 21:18:12,465 [INFO] db: DB initialized (create_all done)
+2025-12-30 21:18:12,689 [INFO] app.bot: bot started
+2025-12-30 21:18:12,690 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 21:18:12,692 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 38507.3s
+2025-12-30 21:18:12,705 [INFO] db: DB initialized (create_all done)
+2025-12-30 21:18:12,861 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 21:18:54,601 [INFO] aiogram.event: Update id=99609578 is handled. Duration 312 ms by bot id=8308846710
+2025-12-30 21:18:58,782 [INFO] aiogram.event: Update id=99609579 is handled. Duration 63 ms by bot id=8308846710
+2025-12-30 21:19:01,055 [INFO] aiogram.event: Update id=99609580 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 21:19:04,326 [INFO] aiogram.event: Update id=99609581 is handled. Duration 77 ms by bot id=8308846710
+2025-12-30 21:19:10,863 [INFO] aiogram.event: Update id=99609582 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 21:19:15,138 [INFO] aiogram.event: Update id=99609583 is handled. Duration 77 ms by bot id=8308846710
+2025-12-30 21:19:19,444 [INFO] aiogram.event: Update id=99609584 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 21:24:59,618 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 21:24:59,619 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 21:24:59,619 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 21:24:59,640 [INFO] __main__: Shutdown complete
+2025-12-30 21:25:03,617 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 21:25:03,618 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 21:25:03,618 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 21:25:03,618 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 21:25:03,647 [INFO] __main__: api started
+2025-12-30 21:25:03,680 [INFO] db: DB initialized (create_all done)
+2025-12-30 21:25:03,881 [INFO] app.bot: bot started
+2025-12-30 21:25:03,882 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 21:25:03,884 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 38096.1s
+2025-12-30 21:25:03,895 [INFO] db: DB initialized (create_all done)
+2025-12-30 21:25:04,055 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 21:25:10,751 [INFO] aiogram.event: Update id=99609585 is not handled. Duration 0 ms by bot id=8308846710
+2025-12-30 21:25:15,982 [INFO] aiogram.event: Update id=99609586 is handled. Duration 233 ms by bot id=8308846710
+2025-12-30 21:25:19,652 [INFO] aiogram.event: Update id=99609587 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 21:25:24,586 [INFO] aiogram.event: Update id=99609588 is handled. Duration 77 ms by bot id=8308846710
+2025-12-30 21:25:26,127 [INFO] aiogram.event: Update id=99609589 is handled. Duration 62 ms by bot id=8308846710
+2025-12-30 21:25:27,992 [INFO] aiogram.event: Update id=99609590 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 21:25:32,044 [INFO] aiogram.event: Update id=99609591 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 21:25:35,400 [INFO] aiogram.event: Update id=99609592 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 21:25:38,173 [INFO] aiogram.event: Update id=99609593 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 21:25:46,072 [INFO] aiogram.event: Update id=99609594 is handled. Duration 171 ms by bot id=8308846710
+2025-12-30 21:25:48,723 [INFO] aiogram.event: Update id=99609595 is handled. Duration 125 ms by bot id=8308846710
+2025-12-30 21:25:53,120 [INFO] aiogram.event: Update id=99609596 is handled. Duration 141 ms by bot id=8308846710
+2025-12-30 21:26:19,451 [INFO] aiogram.event: Update id=99609597 is handled. Duration 77 ms by bot id=8308846710
+2025-12-30 21:26:25,978 [INFO] aiogram.event: Update id=99609598 is handled. Duration 141 ms by bot id=8308846710
+2025-12-30 21:26:28,620 [INFO] aiogram.event: Update id=99609599 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 21:26:30,827 [INFO] aiogram.event: Update id=99609600 is handled. Duration 77 ms by bot id=8308846710
+2025-12-30 21:26:33,309 [INFO] aiogram.event: Update id=99609601 is handled. Duration 109 ms by bot id=8308846710
+2025-12-30 21:26:36,788 [INFO] aiogram.event: Update id=99609602 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 21:26:38,850 [INFO] aiogram.event: Update id=99609603 is handled. Duration 77 ms by bot id=8308846710
+2025-12-30 21:26:54,369 [INFO] aiogram.event: Update id=99609604 is handled. Duration 172 ms by bot id=8308846710
+2025-12-30 21:26:55,917 [INFO] aiogram.event: Update id=99609605 is handled. Duration 93 ms by bot id=8308846710
+2025-12-30 21:27:03,147 [INFO] aiogram.event: Update id=99609606 is handled. Duration 188 ms by bot id=8308846710
+2025-12-30 21:27:08,326 [INFO] aiogram.event: Update id=99609607 is handled. Duration 187 ms by bot id=8308846710
+2025-12-30 21:27:10,210 [INFO] aiogram.event: Update id=99609608 is handled. Duration 155 ms by bot id=8308846710
+2025-12-30 21:27:17,258 [INFO] aiogram.event: Update id=99609609 is handled. Duration 108 ms by bot id=8308846710
+2025-12-30 21:27:22,791 [INFO] aiogram.event: Update id=99609610 is handled. Duration 233 ms by bot id=8308846710
+2025-12-30 21:27:24,871 [INFO] aiogram.event: Update id=99609611 is handled. Duration 141 ms by bot id=8308846710
+2025-12-30 21:27:26,542 [INFO] aiogram.event: Update id=99609612 is handled. Duration 156 ms by bot id=8308846710
+2025-12-30 21:38:36,292 [INFO] db: Ignore update from banned user tg_id=1109508382
+2025-12-30 21:38:36,293 [INFO] aiogram.event: Update id=99609613 is handled. Duration 0 ms by bot id=8308846710
+2025-12-30 21:38:45,037 [INFO] aiogram.event: Update id=99609614 is handled. Duration 343 ms by bot id=8308846710
+2025-12-30 21:40:06,686 [INFO] aiogram.event: Update id=99609615 is handled. Duration 62 ms by bot id=8308846710
+2025-12-30 21:40:09,924 [INFO] aiogram.event: Update id=99609616 is handled. Duration 203 ms by bot id=8308846710
+2025-12-30 21:40:11,594 [INFO] aiogram.event: Update id=99609617 is handled. Duration 155 ms by bot id=8308846710
+2025-12-30 21:40:13,175 [INFO] aiogram.event: Update id=99609618 is handled. Duration 139 ms by bot id=8308846710
+2025-12-30 21:40:19,473 [INFO] aiogram.event: Update id=99609619 is handled. Duration 108 ms by bot id=8308846710
+2025-12-30 21:42:20,037 [INFO] aiogram.event: Update id=99609620 is handled. Duration 233 ms by bot id=8308846710
+2025-12-30 21:42:21,854 [INFO] aiogram.event: Update id=99609621 is handled. Duration 187 ms by bot id=8308846710
+2025-12-30 21:42:23,157 [INFO] aiogram.event: Update id=99609622 is handled. Duration 266 ms by bot id=8308846710
+2025-12-30 21:42:26,251 [INFO] aiogram.event: Update id=99609623 is handled. Duration 78 ms by bot id=8308846710
+2025-12-30 21:43:51,883 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 21:43:51,884 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 21:43:51,884 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 21:43:51,892 [INFO] __main__: Shutdown complete

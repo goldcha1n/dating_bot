@@ -7,27 +7,30 @@ from models import User
 
 
 def _norm(text: str) -> str:
+    """Normalize user input for fuzzy matching."""
     t = (text or "").strip().lower()
     t = re.sub(r"[\s\t\n\r]+", " ", t)
     return t
 
 
 def gender_to_code(text: str) -> Optional[str]:
+    """Return gender code (M/F) from user input."""
     t = _norm(text)
-    if "муж" in t or t in ("м", "male", "man") or "👨" in t:
+    if t in {"м", "м.", "муж", "мужчина", "мужской", "парень", "m", "male", "man"}:
         return "M"
-    if "жен" in t or t in ("ж", "female", "woman") or "👩" in t:
+    if t in {"ж", "ж.", "жен", "женщина", "женский", "девушка", "f", "female", "woman"}:
         return "F"
     return None
 
 
 def looking_for_to_code(text: str) -> Optional[str]:
+    """Return looking_for code (M/F/A) from user input."""
     t = _norm(text)
-    if "муж" in t or "парн" in t or "👨" in t:
+    if t in {"м", "муж", "мужчина", "парней", "парня", "парни", "парень", "m", "male", "man"}:
         return "M"
-    if "жен" in t or "девуш" in t or "👩" in t:
+    if t in {"ж", "жен", "женщина", "девушек", "девушка", "девушки", "f", "female", "woman"}:
         return "F"
-    if "всех" in t or "все" in t or "любой" in t or "🌍" in t:
+    if t in {"все", "любой", "любые", "любой пол", "any", "all"}:
         return "A"
     return None
 
@@ -37,7 +40,7 @@ def _gender_human(code: str) -> str:
 
 
 def _looking_for_human(code: str) -> str:
-    return {"M": "Парней", "F": "Девушек", "A": "Всех"}.get(code, code)
+    return {"M": "Парни", "F": "Девушки", "A": "Все"}.get(code, code)
 
 
 def render_profile_caption(user: User) -> str:

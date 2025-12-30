@@ -159,3 +159,22 @@ class AdminAction(Base):
     target_id: Mapped[Optional[int]] = mapped_column(Integer)
     payload_json: Mapped[Optional[str]] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class Complaint(Base):
+    __tablename__ = "complaints"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    reporter_user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+    target_user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+    reason: Mapped[str] = mapped_column(Text, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+    __table_args__ = (
+        UniqueConstraint("reporter_user_id", "target_user_id", name="uq_complaints_reporter_target"),
+        Index("ix_complaints_target_created", "target_user_id", "created_at"),
+    )
