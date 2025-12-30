@@ -1,20 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
+{% macro sort_link(label, field) -%}
+    {%- set is_current = sort == field -%}
+    {%- set next_order = 'desc' if is_current and order == 'asc' else 'asc' -%}
+    {%- set indicator = '^' if is_current and order == 'asc' else ('v' if is_current and order == 'desc' else '') -%}
+    <a href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}">{{ label }}{{ ' ' + indicator if indicator else '' }}</a>
+{%- endmacro %}
+
 <h1>Users</h1>
 <form method="get" action="/admin/users" class="toolbar">
     <input type="text" name="q" value="{{ q }}" placeholder="Search tg_id or username" />
+    <input type="hidden" name="sort" value="{{ sort }}" />
+    <input type="hidden" name="order" value="{{ order }}" />
     <button type="submit" class="btn">Search</button>
 </form>
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>TG ID</th>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Banned</th>
-            <th>Created</th>
-            <th>Actions</th>
+            <th>{{ sort_link('ID', 'id') }}</th>
+            <th>{{ sort_link('TG ID', 'tg_id') }}</th>
+            <th>{{ sort_link('Username', 'username') }}</th>
+            <th>{{ sort_link('Name', 'name') }}</th>
+            <th>{{ sort_link('Banned', 'is_banned') }}</th>
+            <th>{{ sort_link('Created', 'created_at') }}</th>
+            <th>{{ sort_link('Actions', 'id') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -28,11 +37,11 @@
             <td>{{ user.created_at }}</td>
             <td>
                 {% if user.is_banned %}
-                <form method="post" action="/admin/users/{{ user.id }}/unban">
+                <form method="post" action="/admin/users/{{ user.id }}/unban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}">
                     <button type="submit" class="btn small">Unban</button>
                 </form>
                 {% else %}
-                <form method="post" action="/admin/users/{{ user.id }}/ban">
+                <form method="post" action="/admin/users/{{ user.id }}/ban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}">
                     <button type="submit" class="btn small danger">Ban</button>
                 </form>
                 {% endif %}
@@ -50,10 +59,10 @@
     <span>Page {{ page }} of {{ total_pages }}</span>
     <div class="pager">
         {% if page > 1 %}
-        <a href="/admin/users?page={{ page - 1 }}&q={{ q }}">Prev</a>
+        <a href="/admin/users?page={{ page - 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}">Prev</a>
         {% endif %}
         {% if page < total_pages %}
-        <a href="/admin/users?page={{ page + 1 }}&q={{ q }}">Next</a>
+        <a href="/admin/users?page={{ page + 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}">Next</a>
         {% endif %}
     </div>
 </div>

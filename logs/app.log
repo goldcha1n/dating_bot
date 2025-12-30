@@ -135,3 +135,50 @@
 2025-12-30 15:22:39,511 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
 2025-12-30 15:22:39,512 [INFO] __main__: Shutdown requested, cancelling services...
 2025-12-30 15:22:39,530 [INFO] __main__: Shutdown complete
+2025-12-30 15:38:08,505 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 15:38:08,505 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 15:38:08,506 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 15:38:08,506 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 15:38:08,529 [INFO] __main__: api started
+2025-12-30 15:38:08,561 [INFO] db: DB initialized (create_all done)
+2025-12-30 15:38:08,746 [INFO] app.bot: bot started
+2025-12-30 15:38:08,747 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 15:38:08,748 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 58911.3s
+2025-12-30 15:38:08,749 [INFO] db: DB initialized (create_all done)
+2025-12-30 15:38:08,915 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 15:48:56,458 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 15:48:56,458 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 15:48:56,459 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 15:48:56,466 [INFO] __main__: Shutdown complete
+2025-12-30 15:49:00,555 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 15:49:00,555 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 15:49:00,556 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 15:49:00,556 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 15:49:00,579 [INFO] __main__: api started
+2025-12-30 15:49:00,610 [INFO] db: DB initialized (create_all done)
+2025-12-30 15:49:00,796 [INFO] app.bot: bot started
+2025-12-30 15:49:00,797 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 15:49:00,798 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 58259.2s
+2025-12-30 15:49:00,800 [INFO] db: DB initialized (create_all done)
+2025-12-30 15:49:00,954 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 15:55:30,066 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 15:55:30,067 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 15:55:30,067 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 15:55:30,068 [INFO] __main__: Shutdown complete
+2025-12-30 15:55:33,509 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-30 15:55:33,510 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-30 15:55:33,510 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-30 15:55:33,511 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-30 15:55:33,534 [INFO] __main__: api started
+2025-12-30 15:55:33,564 [INFO] db: DB initialized (create_all done)
+2025-12-30 15:55:33,748 [INFO] app.bot: bot started
+2025-12-30 15:55:33,749 [INFO] aiogram.dispatcher: Start polling
+2025-12-30 15:55:33,749 [INFO] db: DB initialized (create_all done)
+2025-12-30 15:55:33,750 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 57866.2s
+2025-12-30 15:55:33,906 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'dating'
+2025-12-30 15:59:55,014 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-30 15:59:55,014 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-30 15:59:55,014 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-12-30 15:59:55,015 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-30 15:59:55,015 [INFO] __main__: Shutdown complete
+2025-12-30 15:59:55,016 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'dating'

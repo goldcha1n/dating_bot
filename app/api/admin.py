@@ -106,10 +106,28 @@ async def users_list(
     request: Request,
     admin_username: str = Depends(require_admin),
     q: Optional[str] = Query(default=None),
+    sort: Optional[str] = Query(default=None),
+    order: Optional[str] = Query(default=None),
     page: int = Query(default=1, ge=1),
     session: AsyncSession = Depends(get_session),
 ):
     per_page = 20
+    sort_field = (sort or "created_at").lower()
+    sort_order = (order or "desc").lower()
+
+    sort_map = {
+        "id": (User.id,),
+        "tg_id": (User.tg_id,),
+        "username": (User.username,),
+        "name": (User.first_name, User.last_name, User.name),
+        "is_banned": (User.is_banned,),
+        "created_at": (User.created_at,),
+    }
+    if sort_field not in sort_map:
+        sort_field = "created_at"
+    if sort_order not in {"asc", "desc"}:
+        sort_order = "desc"
+
     stmt = select(User)
     if q:
         if q.isdigit():
@@ -117,7 +135,10 @@ async def users_list(
         else:
             stmt = stmt.where(User.username.ilike(f"%{q}%"))
     total = (await session.execute(select(func.count()).select_from(stmt.subquery()))).scalar_one()
-    stmt = stmt.order_by(User.created_at.desc()).offset((page - 1) * per_page).limit(per_page)
+    order_by_columns = [
+        col.asc() if sort_order == "asc" else col.desc() for col in sort_map[sort_field]
+    ]
+    stmt = stmt.order_by(*order_by_columns).offset((page - 1) * per_page).limit(per_page)
     users = (await session.execute(stmt)).scalars().all()
     total_pages = max(1, (total + per_page - 1) // per_page)
     return templates.TemplateResponse(
@@ -126,6 +147,8 @@ async def users_list(
             "request": request,
             "users": users,
             "q": q or "",
+            "sort": sort_field,
+            "order": sort_order,
             "page": page,
             "total_pages": total_pages,
             "admin_username": admin_username,
@@ -137,6 +160,10 @@ async def users_list(
 async def ban_user(
     user_id: int,
     admin_username: str = Depends(require_admin),
+    page: int = Query(default=1, ge=1),
+    q: Optional[str] = Query(default=None),
+    sort: Optional[str] = Query(default=None),
+    order: Optional[str] = Query(default=None),
     session: AsyncSession = Depends(get_session),
 ):
     await session.execute(update(User).where(User.id == user_id).values(is_banned=True))
@@ -150,13 +177,20 @@ async def ban_user(
         )
     )
     await session.commit()
-    return RedirectResponse(url="/admin/users", status_code=303)
+    redirect_url = (
+        f"/admin/users?page={page}&q={q or ''}&sort={sort or ''}&order={order or ''}"
+    )
+    return RedirectResponse(url=redirect_url, status_code=303)
 
 
 @router.post("/admin/users/{user_id}/unban")
 async def unban_user(
     user_id: int,
     admin_username: str = Depends(require_admin),
+    page: int = Query(default=1, ge=1),
+    q: Optional[str] = Query(default=None),
+    sort: Optional[str] = Query(default=None),
+    order: Optional[str] = Query(default=None),
     session: AsyncSession = Depends(get_session),
 ):
     await session.execute(update(User).where(User.id == user_id).values(is_banned=False))
@@ -170,7 +204,10 @@ async def unban_user(
         )
     )
     await session.commit()
-    return RedirectResponse(url="/admin/users", status_code=303)
+    redirect_url = (
+        f"/admin/users?page={page}&q={q or ''}&sort={sort or ''}&order={order or ''}"
+    )
+    return RedirectResponse(url=redirect_url, status_code=303)
 
 
 @router.get("/admin/actions", response_class=HTMLResponse)
