@@ -1,24 +1,25 @@
 from __future__ import annotations
 
-from datetime import datetime
-from typing import AsyncIterator, Optional
 import asyncio
 import logging
+from datetime import datetime
+from pathlib import Path
+from typing import AsyncIterator, Optional
 
 from aiogram import Bot
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import func, select, update
+from sqlalchemy import and_, func, select, update
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.auth import create_session_token, read_session_token, verify_credentials
 from app.config import Settings, TEMPLATES_DIR
 from app.db import session_scope
-from app.models import AdminAction, Message, User, Complaint
+from app.models import AdminAction, Complaint, Message, Photo, User
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
@@ -41,6 +42,17 @@ def get_sessionmaker(request: Request) -> async_sessionmaker[AsyncSession]:
 
 def get_settings_dep(request: Request) -> Settings:
     return request.app.state.settings
+
+
+def _guess_media_type(file_path: str) -> str:
+    ext = Path(file_path).suffix.lower()
+    if ext in {".png"}:
+        return "image/png"
+    if ext in {".webp"}:
+        return "image/webp"
+    if ext in {".gif"}:
+        return "image/gif"
+    return "image/jpeg"
 
 
 async def get_session(request: Request) -> AsyncIterator[AsyncSession]:
@@ -193,15 +205,41 @@ async def profiles_list(
     session: AsyncSession = Depends(get_session),
 ):
     per_page = 20
-    stmt = select(User)
+    base_stmt = select(User)
     search_terms = [term.lower() for term in (q or "").split() if term.strip()]
     if search_terms:
         about_field = func.lower(func.coalesce(User.about, ""))
         for term in search_terms:
-            stmt = stmt.where(about_field.like(f"%{term}%"))
-    total = (await session.execute(select(func.count()).select_from(stmt.subquery()))).scalar_one()
-    stmt = stmt.order_by(User.created_at.desc()).offset((page - 1) * per_page).limit(per_page)
-    profiles = (await session.execute(stmt)).scalars().all()
+            base_stmt = base_stmt.where(about_field.like(f"%{term}%"))
+
+    total = (await session.execute(select(func.count()).select_from(base_stmt.subquery()))).scalar_one()
+
+    ranked_photos = (
+        select(
+            Photo.user_id.label("user_id"),
+            Photo.id.label("photo_id"),
+            Photo.file_id.label("file_id"),
+            func.row_number()
+            .over(partition_by=Photo.user_id, order_by=(Photo.is_main.desc(), Photo.id.asc()))
+            .label("rn"),
+        ).subquery()
+    )
+
+    stmt = (
+        base_stmt.outerjoin(
+            ranked_photos,
+            and_(ranked_photos.c.user_id == User.id, ranked_photos.c.rn == 1),
+        )
+        .add_columns(ranked_photos.c.photo_id, ranked_photos.c.file_id)
+        .order_by(User.created_at.desc())
+        .offset((page - 1) * per_page)
+        .limit(per_page)
+    )
+    result = await session.execute(stmt)
+    profiles = [
+        {"user": row[0], "photo_id": row[1], "photo_file_id": row[2]}
+        for row in result.all()
+    ]
     total_pages = max(1, (total + per_page - 1) // per_page)
     return templates.TemplateResponse(
         "profiles.html",
@@ -214,6 +252,37 @@ async def profiles_list(
             "admin_username": admin_username,
         },
     )
+
+
+@router.get("/admin/photos/{photo_id}")
+async def profile_photo(
+    photo_id: int,
+    admin_username: str = Depends(require_admin),
+    settings: Settings = Depends(get_settings_dep),
+    session: AsyncSession = Depends(get_session),
+):
+    photo = await session.get(Photo, photo_id)
+    if not photo:
+        raise HTTPException(status_code=404, detail="Фото не знайдено")
+
+    file_id = photo.file_id
+    if file_id.startswith(("http://", "https://")):
+        return RedirectResponse(url=file_id)
+
+    bot = Bot(token=settings.bot_token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    try:
+        telegram_file = await bot.get_file(file_id)
+        buffer = await bot.download_file(telegram_file.file_path)
+        if buffer is None:
+            raise HTTPException(status_code=500, detail="Не вдалося завантажити фото")
+        buffer.seek(0)
+        media_type = _guess_media_type(telegram_file.file_path)
+        return StreamingResponse(buffer, media_type=media_type)
+    except Exception:
+        logger.exception("Failed to fetch photo id=%s", photo_id)
+        raise HTTPException(status_code=500, detail="Не вдалося завантажити фото")
+    finally:
+        await bot.session.close()
 
 
 @router.post("/admin/users/{user_id}/ban")

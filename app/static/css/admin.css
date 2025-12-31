@@ -193,6 +193,19 @@ input[type="date"] {
     color: var(--accent);
 }
 
+.photo {
+    width: 110px;
+}
+
+.photo-thumb {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #f7f5f1;
+}
+
 @media (max-width: 720px) {
     .topbar {
         flex-direction: column;

@@ -2192,3 +2192,112 @@ aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat 
 2025-12-31 02:25:23,657 [INFO] aiogram.dispatcher: Polling stopped
 2025-12-31 02:25:23,658 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
 2025-12-31 02:25:23,658 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 16:13:40,384 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 16:13:40,385 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 16:13:40,385 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 16:13:40,385 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 16:13:40,419 [ERROR] __main__: Service crashed, stopping services...
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\run.py", line 68, in main
+    await asyncio.gather(*tasks)
+  File "C:\Python_Projects\dating_bot\run.py", line 39, in start_api
+    app = create_api(settings)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\app\api\__init__.py", line 14, in create_api
+    engine = create_engine(settings.database_url)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\app\db.py", line 14, in create_engine
+    return create_async_engine(database_url or settings.database_url, echo=False, future=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 120, in create_async_engine
+    sync_engine = _create_engine(url, **kw)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in create_engine
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\create.py", line 617, in create_engine
+    dbapi = dbapi_meth(**dbapi_args)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1094, in import_dbapi
+    return AsyncAdapt_asyncpg_dbapi(__import__("asyncpg"))
+                                    ^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'asyncpg'
+2025-12-31 16:13:40,434 [INFO] __main__: Shutdown complete
+2025-12-31 16:15:24,731 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 16:15:24,731 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 16:15:24,731 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 16:15:24,731 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 16:15:24,810 [INFO] __main__: api started
+2025-12-31 16:15:24,952 [INFO] db: DB initialized (create_all done)
+2025-12-31 16:15:25,162 [INFO] app.bot: bot started
+2025-12-31 16:15:25,162 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 16:15:25,164 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-01T08:00:00+02:00 (Europe/Kyiv), sleep 56674.8s
+2025-12-31 16:15:25,165 [INFO] db: DB initialized (create_all done)
+2025-12-31 16:15:25,330 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 16:18:42,958 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 16:18:42,958 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 16:18:42,959 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 16:18:42,959 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 16:18:42,988 [ERROR] __main__: Service crashed, stopping services...
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\run.py", line 68, in main
+    await asyncio.gather(*tasks)
+  File "C:\Python_Projects\dating_bot\run.py", line 39, in start_api
+    app = create_api(settings)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\app\api\__init__.py", line 14, in create_api
+    engine = create_engine(settings.database_url)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\app\db.py", line 14, in create_engine
+    return create_async_engine(database_url or settings.database_url, echo=False, future=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 120, in create_async_engine
+    sync_engine = _create_engine(url, **kw)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in create_engine
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\create.py", line 617, in create_engine
+    dbapi = dbapi_meth(**dbapi_args)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1094, in import_dbapi
+    return AsyncAdapt_asyncpg_dbapi(__import__("asyncpg"))
+                                    ^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'asyncpg'
+2025-12-31 16:18:42,992 [INFO] __main__: Shutdown complete
+2025-12-31 16:18:54,246 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 16:18:54,247 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 16:18:54,247 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 16:18:54,247 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 16:18:54,306 [INFO] __main__: api started
+2025-12-31 16:18:54,466 [INFO] db: DB initialized (create_all done)
+2025-12-31 16:18:54,466 [INFO] db: DB initialized (create_all done)
+2025-12-31 16:18:54,675 [INFO] app.bot: bot started
+2025-12-31 16:18:54,676 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 16:18:54,678 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-01T08:00:00+02:00 (Europe/Kyiv), sleep 56465.3s
+2025-12-31 16:18:54,825 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 16:29:21,557 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 16:29:21,557 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 16:29:21,557 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-12-31 16:29:21,557 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-31 16:29:21,557 [INFO] __main__: Shutdown complete
+2025-12-31 16:29:21,557 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 16:29:25,014 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 16:29:25,014 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 16:29:25,014 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 16:29:25,014 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 16:29:25,070 [INFO] __main__: api started
+2025-12-31 16:29:25,232 [INFO] db: DB initialized (create_all done)
+2025-12-31 16:29:25,232 [INFO] db: DB initialized (create_all done)
+2025-12-31 16:29:25,420 [INFO] app.bot: bot started
+2025-12-31 16:29:25,420 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 16:29:25,420 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-01T08:00:00+02:00 (Europe/Kyiv), sleep 55834.6s
+2025-12-31 16:29:25,571 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 16:32:55,523 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 16:32:55,523 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 16:32:55,524 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-12-31 16:32:55,524 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2025-12-31 16:32:55,526 [INFO] __main__: Shutdown complete
+2025-12-31 16:32:55,527 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'

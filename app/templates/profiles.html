@@ -9,6 +9,7 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>Фото</th>
             <th>TG ID</th>
             <th>Нікнейм</th>
             <th>Ім’я</th>
@@ -21,9 +22,19 @@
         </tr>
     </thead>
     <tbody>
-        {% for user in profiles %}
+        {% for profile in profiles %}
+        {% set user = profile.user %}
         <tr>
             <td>{{ user.id }}</td>
+            <td class="photo">
+                {% if profile.photo_id %}
+                    <img src="/admin/photos/{{ profile.photo_id }}" alt="Фото {{ user.id }}" class="photo-thumb" loading="lazy" />
+                {% elif profile.photo_file_id %}
+                    <img src="{{ profile.photo_file_id }}" alt="Фото {{ user.id }}" class="photo-thumb" loading="lazy" />
+                {% else %}
+                    -
+                {% endif %}
+            </td>
             <td>{{ user.tg_id }}</td>
             <td>{{ user.username or "-" }}</td>
             <td>{{ user.name }}</td>
@@ -43,7 +54,7 @@
         {% endfor %}
         {% if profiles|length == 0 %}
         <tr>
-            <td colspan="10" class="empty">Профілів не знайдено</td>
+            <td colspan="11" class="empty">Профілів не знайдено</td>
         </tr>
         {% endif %}
     </tbody>
