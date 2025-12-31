@@ -2,7 +2,7 @@ import os
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from dotenv import load_dotenv
 
@@ -10,7 +10,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_FILE = BASE_DIR / ".env"
 DATA_DIR = BASE_DIR / "data"
 LOGS_DIR = BASE_DIR / "logs"
-DEFAULT_DB_PATH = DATA_DIR / "db.sqlite3"
 TEMPLATES_DIR = BASE_DIR / "app" / "templates"
 STATIC_DIR = BASE_DIR / "app" / "static"
 
@@ -47,10 +46,8 @@ def ensure_runtime_paths() -> None:
             encoding="utf-8",
         )
 
-    DEFAULT_DB_PATH.touch(exist_ok=True)
 
-
-def _parse_admins(raw: str | None) -> List[int]:
+def _parse_admins(raw: Optional[str]) -> List[int]:
     raw = (raw or "").strip()
     if not raw:
         return []
@@ -64,7 +61,7 @@ def _parse_admins(raw: str | None) -> List[int]:
     return out
 
 
-def _parse_bool(raw: str | None, default: bool) -> bool:
+def _parse_bool(raw: Optional[str], default: bool) -> bool:
     if raw is None:
         return default
     value = raw.strip().lower()
@@ -104,14 +101,6 @@ class Settings:
     reset_hour: int = 8
     reset_timezone: str = "Europe/Kyiv"
 
-    @property
-    def sqlite_path(self) -> Path | None:
-        if self.database_url.startswith("sqlite"):
-            # sqlite+aiosqlite:///C:/... or sqlite+aiosqlite:///./db.sqlite3
-            trimmed = self.database_url.split(":///", maxsplit=1)[-1]
-            return Path(trimmed).resolve()
-        return None
-
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
@@ -123,7 +112,7 @@ def get_settings() -> Settings:
 
     db_url = os.getenv("DATABASE_URL")
     if not db_url:
-        db_url = f"sqlite+aiosqlite:///{DEFAULT_DB_PATH}"
+        db_url = "postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot"
 
     return Settings(
         bot_token=_require_env("BOT_TOKEN"),

@@ -31,10 +31,7 @@ def setup_logging(log_file: Path) -> None:
 def print_diagnostics(settings: Settings) -> None:
     logger.info("Repo root: %s", BASE_DIR)
     logger.info(".env path: %s", ENV_FILE)
-    if settings.sqlite_path:
-        logger.info("DB path: %s", settings.sqlite_path)
-    else:
-        logger.info("DB url: %s", settings.database_url)
+    logger.info("DB url: %s", settings.database_url)
     logger.info("API listening: http://%s:%s", settings.host, settings.port)
 
 

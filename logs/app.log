@@ -2005,3 +2005,190 @@ TypeError: Message.answer() missing 1 required positional argument: 'text'
 2025-12-31 01:49:15,288 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
 2025-12-31 01:49:15,289 [INFO] __main__: Shutdown requested, cancelling services...
 2025-12-31 01:49:15,296 [INFO] __main__: Shutdown complete
+2025-12-31 01:50:33,907 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 01:50:33,908 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 01:50:33,908 [INFO] __main__: DB path: C:\Python_Projects\dating_bot\data\db.sqlite3
+2025-12-31 01:50:33,909 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 01:50:33,933 [INFO] __main__: api started
+2025-12-31 01:50:33,963 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:50:34,149 [INFO] app.bot: bot started
+2025-12-31 01:50:34,149 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 01:50:34,151 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 22165.8s
+2025-12-31 01:50:34,161 [INFO] db: DB initialized (create_all done)
+2025-12-31 01:50:34,316 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:50:38,415 [ERROR] app.api.admin: Failed to notify user tg_id=8322042082
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\app\api\admin.py", line 31, in notify_user
+    await bot.send_message(tg_id, text)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 2925, in send_message
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 01:51:10,999 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 01:51:11,000 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 01:51:11,000 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 01:51:11,008 [INFO] __main__: Shutdown complete
+2025-12-31 02:15:24,544 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 02:15:24,544 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 02:15:24,545 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 02:15:24,545 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 02:15:24,580 [ERROR] __main__: Service crashed, stopping services...
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\run.py", line 68, in main
+    await asyncio.gather(*tasks)
+  File "C:\Python_Projects\dating_bot\run.py", line 39, in start_api
+    app = create_api(settings)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\app\api\__init__.py", line 14, in create_api
+    engine = create_engine(settings.database_url)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\app\db.py", line 12, in create_engine
+    return create_async_engine(database_url or settings.database_url, echo=False, future=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 120, in create_async_engine
+    sync_engine = _create_engine(url, **kw)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in create_engine
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\create.py", line 617, in create_engine
+    dbapi = dbapi_meth(**dbapi_args)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1094, in import_dbapi
+    return AsyncAdapt_asyncpg_dbapi(__import__("asyncpg"))
+                                    ^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'asyncpg'
+2025-12-31 02:15:24,585 [INFO] __main__: Shutdown complete
+2025-12-31 02:18:23,964 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 02:18:23,965 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 02:18:23,965 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 02:18:23,965 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 02:18:24,049 [ERROR] __main__: Service crashed, stopping services...
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\run.py", line 68, in main
+    await asyncio.gather(*tasks)
+  File "C:\Python_Projects\dating_bot\run.py", line 39, in start_api
+    app = create_api(settings)
+  File "C:\Python_Projects\dating_bot\app\api\__init__.py", line 14, in create_api
+    engine = create_engine(settings.database_url)
+  File "C:\Python_Projects\dating_bot\app\db.py", line 14, in create_engine
+    return create_async_engine(database_url or settings.database_url, echo=False, future=True)
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 120, in create_async_engine
+    sync_engine = _create_engine(url, **kw)
+  File "<string>", line 2, in create_engine
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\sqlalchemy\engine\create.py", line 617, in create_engine
+    dbapi = dbapi_meth(**dbapi_args)
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1094, in import_dbapi
+    return AsyncAdapt_asyncpg_dbapi(__import__("asyncpg"))
+ModuleNotFoundError: No module named 'asyncpg'
+2025-12-31 02:18:24,096 [INFO] __main__: Shutdown complete
+2025-12-31 02:19:19,497 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 02:19:19,497 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 02:19:19,498 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 02:19:19,498 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 02:19:19,644 [INFO] __main__: api started
+2025-12-31 02:19:19,857 [INFO] db: DB initialized (create_all done)
+2025-12-31 02:19:19,874 [INFO] app.bot: bot started
+2025-12-31 02:19:19,875 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 02:19:19,885 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 20440.1s
+2025-12-31 02:19:20,043 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 02:20:39,405 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 02:20:39,405 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 02:20:39,714 [INFO] __main__: Shutdown complete
+2025-12-31 02:20:39,715 [ERROR] asyncio: Task was destroyed but it is pending!
+task: <Task pending name='bot' coro=<start_bot() running at C:\Python_Projects\dating_bot\app\bot.py:70> wait_for=<_GatheringFuture pending cb=[<TaskWakeupMethWrapper object at 0x0000022CF5FBCB50>()]> cb=[_gather.<locals>._done_callback() at C:\Users\JK\AppData\Local\Programs\Python\Python39\lib\asyncio\tasks.py:767, _gather.<locals>._done_callback() at C:\Users\JK\AppData\Local\Programs\Python\Python39\lib\asyncio\tasks.py:767]>
+2025-12-31 02:20:49,714 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 02:20:49,715 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 02:20:49,715 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 02:20:49,715 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 02:20:49,816 [INFO] __main__: api started
+2025-12-31 02:20:49,920 [INFO] db: DB initialized (create_all done)
+2025-12-31 02:20:49,928 [INFO] app.bot: bot started
+2025-12-31 02:20:49,928 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 02:20:49,931 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 20350.1s
+2025-12-31 02:20:49,933 [INFO] db: DB initialized (create_all done)
+2025-12-31 02:20:50,067 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 02:21:10,071 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 02:21:10,071 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 02:21:10,072 [INFO] __main__: Shutdown requested, cancelling services...
+2025-12-31 02:22:41,939 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2025-12-31 02:22:41,939 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2025-12-31 02:22:41,939 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2025-12-31 02:22:41,939 [INFO] __main__: API listening: http://127.0.0.1:8000
+2025-12-31 02:22:42,043 [INFO] __main__: api started
+2025-12-31 02:22:42,147 [INFO] db: DB initialized (create_all done)
+2025-12-31 02:22:42,155 [INFO] app.bot: bot started
+2025-12-31 02:22:42,156 [INFO] aiogram.dispatcher: Start polling
+2025-12-31 02:22:42,158 [INFO] services.daily_reset: Daily reset scheduled at 2025-12-31T08:00:00+02:00 (Europe/Kyiv), sleep 20237.8s
+2025-12-31 02:22:42,158 [INFO] db: DB initialized (create_all done)
+2025-12-31 02:22:42,294 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 02:23:45,634 [INFO] aiogram.event: Update id=99609780 is handled. Duration 172 ms by bot id=8308846710
+2025-12-31 02:23:47,346 [INFO] aiogram.event: Update id=99609781 is handled. Duration 61 ms by bot id=8308846710
+2025-12-31 02:23:51,731 [INFO] aiogram.event: Update id=99609782 is handled. Duration 62 ms by bot id=8308846710
+2025-12-31 02:23:54,687 [INFO] aiogram.event: Update id=99609783 is handled. Duration 62 ms by bot id=8308846710
+2025-12-31 02:23:56,409 [INFO] aiogram.event: Update id=99609784 is handled. Duration 63 ms by bot id=8308846710
+2025-12-31 02:23:58,246 [INFO] aiogram.event: Update id=99609785 is handled. Duration 62 ms by bot id=8308846710
+2025-12-31 02:24:03,485 [INFO] aiogram.event: Update id=99609786 is handled. Duration 77 ms by bot id=8308846710
+2025-12-31 02:24:05,386 [INFO] aiogram.event: Update id=99609787 is handled. Duration 62 ms by bot id=8308846710
+2025-12-31 02:24:13,575 [INFO] aiogram.event: Update id=99609788 is handled. Duration 140 ms by bot id=8308846710
+2025-12-31 02:24:16,112 [INFO] aiogram.event: Update id=99609789 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 02:24:17,361 [INFO] aiogram.event: Update id=99609790 is handled. Duration 125 ms by bot id=8308846710
+2025-12-31 02:24:18,581 [INFO] aiogram.event: Update id=99609791 is handled. Duration 125 ms by bot id=8308846710
+2025-12-31 02:24:19,444 [INFO] aiogram.event: Update id=99609792 is handled. Duration 93 ms by bot id=8308846710
+2025-12-31 02:24:21,427 [ERROR] services.matching: Failed to send like notification
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\services\matching.py", line 96, in _send_like_notification
+    await bot.send_photo(chat_id=to_user.tg_id, photo=photo_id, caption=text, reply_markup=kb)
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\bot.py", line 3001, in send_photo
+    return await self(call, request_timeout=request_timeout)
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 02:24:21,552 [INFO] aiogram.event: Update id=99609793 is handled. Duration 281 ms by bot id=8308846710
+2025-12-31 02:24:23,439 [INFO] aiogram.event: Update id=99609794 is handled. Duration 141 ms by bot id=8308846710
+2025-12-31 02:24:25,085 [INFO] aiogram.event: Update id=99609795 is handled. Duration 483 ms by bot id=8308846710
+2025-12-31 02:24:26,974 [INFO] aiogram.event: Update id=99609796 is handled. Duration 687 ms by bot id=8308846710
+2025-12-31 02:24:27,988 [ERROR] services.matching: Failed to send like notification
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\services\matching.py", line 96, in _send_like_notification
+    await bot.send_photo(chat_id=to_user.tg_id, photo=photo_id, caption=text, reply_markup=kb)
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\bot.py", line 3001, in send_photo
+    return await self(call, request_timeout=request_timeout)
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+  File "C:\Python_Projects\dating_bot\.venv\lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2025-12-31 02:24:28,973 [INFO] aiogram.event: Update id=99609797 is handled. Duration 1155 ms by bot id=8308846710
+2025-12-31 02:24:30,839 [INFO] aiogram.event: Update id=99609798 is handled. Duration 530 ms by bot id=8308846710
+2025-12-31 02:24:31,839 [INFO] aiogram.event: Update id=99609799 is handled. Duration 139 ms by bot id=8308846710
+2025-12-31 02:24:34,015 [INFO] aiogram.event: Update id=99609800 is handled. Duration 125 ms by bot id=8308846710
+2025-12-31 02:24:37,932 [INFO] aiogram.event: Update id=99609801 is handled. Duration 109 ms by bot id=8308846710
+2025-12-31 02:25:17,208 [INFO] aiogram.event: Update id=99609802 is handled. Duration 62 ms by bot id=8308846710
+2025-12-31 02:25:23,657 [INFO] aiogram.dispatcher: Polling stopped
+2025-12-31 02:25:23,658 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2025-12-31 02:25:23,658 [INFO] __main__: Shutdown requested, cancelling services...

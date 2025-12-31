@@ -1,6 +1,6 @@
 aiogram~=3.22.0
 SQLAlchemy[asyncio]~=2.0.45
-aiosqlite~=0.20.0
+asyncpg~=0.29.0
 python-dotenv~=1.2.1
 tzdata~=2024.1
 fastapi~=0.115.0

@@ -12,7 +12,7 @@ from sqlalchemy import func, select
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
-from app.config import DEFAULT_DB_PATH, ensure_runtime_paths  # noqa: E402
+from app.config import ensure_runtime_paths  # noqa: E402
 from db import create_engine, create_sessionmaker, init_db  # noqa: E402
 from models import Like, Match, Photo, User  # noqa: E402
 
@@ -234,7 +234,7 @@ async def seed_matches(session, user_ids: Sequence[int], per_user: int) -> int:
 
 async def main() -> None:
     ensure_runtime_paths()
-    db_url = os.getenv("DATABASE_URL") or f"sqlite+aiosqlite:///{DEFAULT_DB_PATH}"
+    db_url = os.getenv("DATABASE_URL") or "postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot"
     print(f"Using DB: {db_url}")
 
     engine = create_engine(db_url)

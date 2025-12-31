@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from contextlib import asynccontextmanager
 
+from typing import Optional
+
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
 from app.config import get_settings
 
 
-def create_engine(database_url: str | None = None) -> AsyncEngine:
+def create_engine(database_url: Optional[str] = None) -> AsyncEngine:
     settings = get_settings()
     return create_async_engine(database_url or settings.database_url, echo=False, future=True)
 

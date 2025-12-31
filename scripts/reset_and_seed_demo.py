@@ -9,7 +9,7 @@ from typing import List, Sequence, Tuple
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
-from app.config import DEFAULT_DB_PATH, ensure_runtime_paths
+from app.config import ensure_runtime_paths
 from db import create_engine, create_sessionmaker, init_db
 from models import Base, Like, Match, Photo, User
 from sqlalchemy import select
@@ -201,40 +201,11 @@ async def seed_matches(session, user_ids: Sequence[int], target_pairs: int) -> i
 async def main() -> None:
     ensure_runtime_paths()
 
-    # Remove existing DB file for a clean slate.
-    db_path: Path = DEFAULT_DB_PATH
-    if db_path.exists():
-        db_path.unlink()
-
-    db_url = f"sqlite+aiosqlite:///{db_path}"
+    db_url = os.getenv("DATABASE_URL") or "postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot"
     print(f"Recreating DB at: {db_url}")
     engine = create_engine(db_url)
     async with engine.begin() as conn:
-        # Drop tables/indexes defensively in case the DB file was recreated by a running app.
-        for stmt in [
-            "DROP INDEX IF EXISTS ix_users_username;",
-            "DROP INDEX IF EXISTS ix_users_city;",
-            "DROP INDEX IF EXISTS ix_users_tg_id;",
-            "DROP INDEX IF EXISTS ix_photos_user_main;",
-            "DROP INDEX IF EXISTS ix_likes_pair;",
-            "DROP INDEX IF EXISTS ix_matches_user1;",
-            "DROP INDEX IF EXISTS ix_matches_user2;",
-            "DROP INDEX IF EXISTS ix_action_logs_user_action_time;",
-            "DROP INDEX IF EXISTS ix_complaints_target_created;",
-        ]:
-            await conn.exec_driver_sql(stmt)
-        for table in [
-            "complaints",
-            "admin_actions",
-            "messages",
-            "action_logs",
-            "matches",
-            "likes",
-            "photos",
-            "users",
-        ]:
-            await conn.exec_driver_sql(f"DROP TABLE IF EXISTS {table};")
-
+        await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
     Session = create_sessionmaker(engine)
 
