@@ -242,7 +242,7 @@ async def _prompt_district_edit(
     for idx, d in enumerate(districts):
         builder.button(text=d.name, callback_data=f"loc:d:{idx}")
     builder.button(text="Без району", callback_data="loc:d:none")
-    builder.button(text="Назад", callback_data="loc:d:back")
+    builder.button(text="Назад ↩️", callback_data="loc:d:back")
     builder.adjust(2)
 
     await message.answer("Оберіть район (кнопкою) або «Без району»:", reply_markup=builder.as_markup())
@@ -259,7 +259,7 @@ async def _prompt_hromada_edit(
     builder = InlineKeyboardBuilder()
     for idx, h in enumerate(hromadas):
         builder.button(text=h.name, callback_data=f"loc:h:{idx}")
-    builder.button(text="Назад", callback_data="loc:h:back")
+    builder.button(text="Назад ↩️", callback_data="loc:h:back")
     builder.adjust(2)
 
     if hromadas:
@@ -287,7 +287,7 @@ async def _prompt_settlement_edit(
     builder = InlineKeyboardBuilder()
     for idx, s in enumerate(settlements):
         builder.button(text=s.name, callback_data=f"loc:s:{idx}")
-    builder.button(text="Назад", callback_data="loc:s:back")
+    builder.button(text="Назад ↩️", callback_data="loc:s:back")
     builder.adjust(2)
 
     if settlements:

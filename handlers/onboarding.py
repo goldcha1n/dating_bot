@@ -112,7 +112,7 @@ async def _prompt_district(message: Message, state: FSMContext, session: AsyncSe
     for idx, d in enumerate(districts):
         builder.button(text=d.name, callback_data=f"loc:d:{idx}")
     builder.button(text="Без району", callback_data="loc:d:none")
-    builder.button(text="Назад", callback_data="loc:d:back")
+    builder.button(text="Назад ↩️", callback_data="loc:d:back")
     builder.adjust(2)
 
     await message.answer(
