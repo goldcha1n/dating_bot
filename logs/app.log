@@ -6522,3 +6522,117 @@ aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: query
 2026-01-01 23:37:25,790 [INFO] __main__: Shutdown requested, cancelling services...
 2026-01-01 23:37:25,792 [INFO] __main__: Shutdown complete
 2026-01-01 23:37:25,793 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-01 23:46:22,424 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-01 23:46:22,424 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-01 23:46:22,425 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-01 23:46:22,425 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-01 23:46:22,502 [INFO] __main__: api started
+2026-01-01 23:46:22,637 [INFO] db: DB initialized (create_all done)
+2026-01-01 23:46:22,838 [INFO] app.bot: bot started
+2026-01-01 23:46:22,838 [INFO] aiogram.dispatcher: Start polling
+2026-01-01 23:46:22,839 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-02T08:00:00+02:00 (Europe/Kyiv), sleep 29617.2s
+2026-01-01 23:46:22,842 [INFO] db: DB initialized (create_all done)
+2026-01-01 23:46:22,997 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-01 23:46:23,376 [INFO] aiogram.event: Update id=99610273 is handled. Duration 312 ms by bot id=8308846710
+2026-01-01 23:47:42,125 [INFO] aiogram.event: Update id=99610274 is handled. Duration 234 ms by bot id=8308846710
+2026-01-01 23:47:44,591 [INFO] aiogram.event: Update id=99610275 is handled. Duration 16 ms by bot id=8308846710
+2026-01-01 23:47:46,525 [INFO] aiogram.event: Update id=99610276 is handled. Duration 62 ms by bot id=8308846710
+2026-01-01 23:47:49,306 [INFO] aiogram.event: Update id=99610277 is handled. Duration 0 ms by bot id=8308846710
+2026-01-01 23:47:55,453 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-01 23:47:55,454 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-01 23:47:55,456 [INFO] __main__: Shutdown complete
+2026-01-01 23:47:55,456 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-01 23:48:08,697 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-01 23:48:08,697 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-01 23:48:08,698 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-01 23:48:08,698 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-01 23:48:08,773 [INFO] __main__: api started
+2026-01-01 23:48:08,900 [INFO] db: DB initialized (create_all done)
+2026-01-01 23:48:08,902 [INFO] db: DB initialized (create_all done)
+2026-01-01 23:48:09,102 [INFO] app.bot: bot started
+2026-01-01 23:48:09,102 [INFO] aiogram.dispatcher: Start polling
+2026-01-01 23:48:09,103 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-02T08:00:00+02:00 (Europe/Kyiv), sleep 29510.9s
+2026-01-01 23:48:09,264 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-01 23:48:14,590 [INFO] aiogram.event: Update id=99610278 is handled. Duration 30 ms by bot id=8308846710
+2026-01-01 23:48:38,888 [INFO] aiogram.event: Update id=99610279 is handled. Duration 15 ms by bot id=8308846710
+2026-01-01 23:48:39,530 [INFO] aiogram.event: Update id=99610280 is handled. Duration 15 ms by bot id=8308846710
+2026-01-01 23:48:40,940 [INFO] aiogram.event: Update id=99610281 is handled. Duration 312 ms by bot id=8308846710
+2026-01-01 23:48:57,721 [INFO] aiogram.event: Update id=99610282 is handled. Duration 0 ms by bot id=8308846710
+2026-01-01 23:49:09,408 [INFO] aiogram.event: Update id=99610283 is handled. Duration 0 ms by bot id=8308846710
+2026-01-01 23:49:10,730 [INFO] aiogram.event: Update id=99610284 is handled. Duration 16 ms by bot id=8308846710
+2026-01-01 23:49:19,093 [ERROR] asyncio: Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\JK\anaconda3\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+2026-01-01 23:52:41,304 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-01 23:52:41,305 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-01 23:52:41,305 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-01 23:52:41,305 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-01 23:52:41,392 [INFO] __main__: api started
+2026-01-01 23:52:41,588 [INFO] db: DB initialized (create_all done)
+2026-01-01 23:52:41,589 [INFO] db: DB initialized (create_all done)
+2026-01-01 23:52:41,801 [INFO] app.bot: bot started
+2026-01-01 23:52:41,801 [INFO] aiogram.dispatcher: Start polling
+2026-01-01 23:52:41,803 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-02T08:00:00+02:00 (Europe/Kyiv), sleep 29238.2s
+2026-01-01 23:52:41,964 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-01 23:53:08,178 [INFO] aiogram.event: Update id=99610285 is handled. Duration 187 ms by bot id=8308846710
+2026-01-01 23:53:09,888 [INFO] aiogram.event: Update id=99610286 is handled. Duration 109 ms by bot id=8308846710
+2026-01-01 23:53:13,313 [INFO] aiogram.event: Update id=99610287 is handled. Duration 78 ms by bot id=8308846710
+2026-01-01 23:53:14,649 [INFO] aiogram.event: Update id=99610288 is handled. Duration 62 ms by bot id=8308846710
+2026-01-01 23:53:22,802 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-01 23:53:22,802 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-01 23:53:22,803 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-01 23:53:22,803 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-01 23:53:22,804 [ERROR] sqlalchemy.pool.impl.AsyncAdaptedQueuePool: Exception closing connection <AdaptedConnection <asyncpg.connection.Connection object at 0x00000158BCA2DB70>>
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 583, in start_polling
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\asyncio\tasks.py", line 428, in wait
+    return await _wait(fs, timeout, return_when, loop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\asyncio\tasks.py", line 535, in _wait
+    await waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\app\bot.py", line 70, in start_bot
+    await dp.start_polling(bot, cfg=settings)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 599, in start_polling
+    await asyncio.gather(*(bot.session.close() for bot in bots))
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 146, in close
+    await self._session.close()
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\client.py", line 1327, in close
+    await self._connector.close()
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\connector.py", line 1044, in close
+    await super().close(abort_ssl=abort_ssl or self._ssl_shutdown_timeout == 0)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiohttp\connector.py", line 136, in _wait_for_close
+    async def _wait_for_close(waiters: List[Awaitable[object]]) -> None:
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\pool\base.py", line 374, in _close_connection
+    self._dialect.do_close(connection)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\default.py", line 721, in do_close
+    dbapi_connection.close()
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 903, in close
+    self.await_(self._connection.close())
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\asyncpg\connection.py", line 1467, in close
+    await self._protocol.close(timeout)
+asyncio.exceptions.CancelledError
+2026-01-01 23:53:22,826 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-01 23:53:22,827 [INFO] __main__: Shutdown complete
