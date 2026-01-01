@@ -32,19 +32,19 @@ logger = logging.getLogger(__name__)
 router = Router()
 
 
+def _is_back(message: Message) -> bool:
+    return (message.text or "").strip().lower() in {"назад", "back"}
+
+
 class Registration(StatesGroup):
     name = State()
     age = State()
     gender = State()
     looking_for = State()
     region = State()
-    region_manual = State()
     district = State()
-    district_manual = State()
     hromada = State()
-    hromada_manual = State()
     settlement = State()
-    settlement_manual = State()
     settlement_type = State()
     search_scope = State()
     about = State()
@@ -84,21 +84,21 @@ async def _prompt_district(message: Message, state: FSMContext, session: AsyncSe
         "UA23000000000064947": "Запоріжжя",
         "UA26000000000069363": "Івано-Франківськ",
         "UA32000000000030281": "Київ",
-        "UA35000000000011652": "Кропивницький",
-        "UA44000000000083927": "Луганськ",
-        "UA46000000000029445": "Львів",
-        "UA48000000000048728": "Миколаїв",
-        "UA51000000000079904": "Одеса",
-        "UA53000000000013155": "Полтава",
-        "UA56000000000091048": "Рівне",
-        "UA59000000000081506": "Суми",
-        "UA61000000000096553": "Тернопіль",
-        "UA63000000000011007": "Харків",
-        "UA65000000000073443": "Херсон",
-        "UA68000000000039046": "Хмельницький",
-        "UA71000000000019648": "Черкаси",
-        "UA73000000000003266": "Чернівці",
-        "UA74000000000058614": "Чернігів",
+        "UA35000000000016081": "Кропивницький",
+        "UA44000000000018893": "Луганськ",
+        "UA46000000000026241": "Львів",
+        "UA48000000000039575": "Миколаїв",
+        "UA51000000000030770": "Одеса",
+        "UA53000000000028050": "Полтава",
+        "UA56000000000066151": "Рівне",
+        "UA59000000000057109": "Суми",
+        "UA61000000000060328": "Тернопіль",
+        "UA63000000000041885": "Харків",
+        "UA65000000000030969": "Херсон",
+        "UA68000000000099709": "Хмельницький",
+        "UA71000000000010357": "Черкаси",
+        "UA73000000000044923": "Чернівці",
+        "UA74000000000025378": "Чернігів",
         "UA01000000000013043": "Сімферополь",
         "UA85000000000065278": "Севастополь",
         "UA80000000000093317": "Київ",
@@ -106,31 +106,20 @@ async def _prompt_district(message: Message, state: FSMContext, session: AsyncSe
     capital = capital_by_region.get(region_code)
     await state.update_data(district_options=districts, region_capital=capital)
 
-    if districts:
-        # Побудуємо клавіатуру з першим варіантом — обласний центр (якщо є)
-        if capital:
-            builder = InlineKeyboardBuilder()
-            builder.button(text=f"м. {capital}", callback_data="loc:d:capital")
-            for idx, d in enumerate(districts):
-                builder.button(text=d.name, callback_data=f"loc:d:{idx}")
-            builder.button(text="Без району", callback_data="loc:d:none")
-            builder.button(text="Інший (введу сам)", callback_data="loc:d:other")
-            builder.adjust(2)
-            kb = builder.as_markup()
-        else:
-            kb = districts_kb([d.name for d in districts])
+    builder = InlineKeyboardBuilder()
+    if capital:
+        builder.button(text=f"м. {capital}", callback_data="loc:d:capital")
+    for idx, d in enumerate(districts):
+        builder.button(text=d.name, callback_data=f"loc:d:{idx}")
+    builder.button(text="Без району", callback_data="loc:d:none")
+    builder.button(text="Назад", callback_data="loc:d:back")
+    builder.adjust(2)
 
-        await message.answer(
-            "<b>Крок 6/12</b> — обери район (кнопкою) або «Без району»/«Інше»:",
-            reply_markup=kb,
-        )
-        await state.set_state(Registration.district)
-    else:
-        await message.answer(
-            "<b>Крок 6/12</b> — введи район або напиши «Без району», якщо місто обласного значення:",
-            reply_markup=ReplyKeyboardRemove(),
-        )
-        await state.set_state(Registration.district_manual)
+    await message.answer(
+        "<b>Крок 6/12</b> — обери район (кнопкою) або «Без району»/«Інше»:",
+        reply_markup=builder.as_markup(),
+    )
+    await state.set_state(Registration.district)
 
 
 async def _prompt_hromada(
@@ -142,16 +131,16 @@ async def _prompt_hromada(
 
     if hromadas:
         await message.answer(
-            "<b>Крок 7/12</b> — обери громаду (кнопкою) або введи вручну:",
+            "<b>Крок 7/12</b> — обери громаду (кнопкою) або натисни «Назад»:",
             reply_markup=hromadas_kb([h.name for h in hromadas]),
         )
         await state.set_state(Registration.hromada)
     else:
         await message.answer(
-            "<b>Крок 7/12</b> — введи громаду або залиш поле порожнім, якщо її немає:",
-            reply_markup=ReplyKeyboardRemove(),
+            "Немає громад для вибраного району. Натисніть «Назад», щоб повернутись.",
+            reply_markup=hromadas_kb([]),
         )
-        await state.set_state(Registration.hromada_manual)
+        await state.set_state(Registration.hromada)
 
 
 async def _prompt_settlement(
@@ -171,16 +160,16 @@ async def _prompt_settlement(
 
     if settlements:
         await message.answer(
-            "<b>Крок 8/12</b> — обери населений пункт (кнопкою) або «Інший»:",
+            "<b>Крок 8/12</b> — обери населений пункт (кнопкою) або натисни «Назад»:",
             reply_markup=settlements_kb([s.name for s in settlements]),
         )
         await state.set_state(Registration.settlement)
     else:
         await message.answer(
-            "<b>Крок 8/12</b> — введи назву населеного пункту:",
-            reply_markup=ReplyKeyboardRemove(),
+            "Немає населених пунктів у вибраному фільтрі. Натисніть «Назад», щоб повернутись.",
+            reply_markup=settlements_kb([]),
         )
-        await state.set_state(Registration.settlement_manual)
+        await state.set_state(Registration.settlement)
 
 
 async def _prompt_settlement_type(message: Message, state: FSMContext) -> None:
@@ -227,6 +216,10 @@ async def reg_name(message: Message, state: FSMContext) -> None:
 
 @router.message(Registration.age)
 async def reg_age(message: Message, state: FSMContext) -> None:
+    if _is_back(message):
+        await message.answer("Повернувся. Як тебе звати?")
+        await state.set_state(Registration.name)
+        return
     raw = (message.text or "").strip()
     try:
         age = int(raw)
@@ -245,6 +238,10 @@ async def reg_age(message: Message, state: FSMContext) -> None:
 
 @router.message(Registration.gender)
 async def reg_gender(message: Message, state: FSMContext) -> None:
+    if _is_back(message):
+        await message.answer("<b>Крок 2/12</b> — скільки тобі років? (16–99)")
+        await state.set_state(Registration.age)
+        return
     code = gender_to_code((message.text or "").strip())
     if not code:
         await message.answer("Оберіть стать кнопкою нижче:", reply_markup=gender_kb())
@@ -257,6 +254,10 @@ async def reg_gender(message: Message, state: FSMContext) -> None:
 
 @router.message(Registration.looking_for)
 async def reg_looking_for(message: Message, state: FSMContext, session: AsyncSession) -> None:
+    if _is_back(message):
+        await message.answer("<b>Крок 3/12</b> — оберіть стать:", reply_markup=gender_kb())
+        await state.set_state(Registration.gender)
+        return
     code = looking_for_to_code((message.text or "").strip())
     if not code:
         await message.answer("Оберіть варіант кнопкою нижче:", reply_markup=looking_for_kb())
@@ -274,9 +275,9 @@ async def region_pick(call, state: FSMContext, session: AsyncSession) -> None:
     data = await state.get_data()
     regions = data.get("region_options", [])
 
-    if action == "other":
-        await state.set_state(Registration.region_manual)
-        await call.message.answer("Введіть область:", reply_markup=ReplyKeyboardRemove())
+    if action == "back":
+        await call.message.answer("<b>Крок 4/12</b> — кого шукаєте?", reply_markup=looking_for_kb())
+        await state.set_state(Registration.looking_for)
         return
 
     try:
@@ -291,20 +292,6 @@ async def region_pick(call, state: FSMContext, session: AsyncSession) -> None:
     await _prompt_district(call.message, state, session, region_item.code)
 
 
-@router.message(Registration.region)
-@router.message(Registration.region_manual)
-async def region_manual(message: Message, state: FSMContext, session: AsyncSession) -> None:
-    regions = (await state.get_data()).get("region_options", [])
-    region_names = [r.name for r in regions]
-    region = normalize_choice(message.text, region_names) or _clip(message.text)
-    if not region:
-        await message.answer("Область не може бути порожньою. Спробуйте ще раз.")
-        return
-
-    await state.update_data(region=region, region_code=None)
-    await _prompt_district(message, state, session, None)
-
-
 @router.callback_query(Registration.district, F.data.startswith("loc:d:"))
 async def district_pick(call, state: FSMContext, session: AsyncSession) -> None:
     await call.answer()
@@ -316,14 +303,6 @@ async def district_pick(call, state: FSMContext, session: AsyncSession) -> None:
     region_code = data.get("region_code")
     capital = data.get("region_capital")
 
-    if action == "other":
-        await state.set_state(Registration.district_manual)
-        await call.message.answer("Введіть район:", reply_markup=ReplyKeyboardRemove())
-        return
-    if action == "none":
-        await state.update_data(district=None, district_code=None)
-        await _prompt_settlement(call.message, state, session, region_code, None, None)
-        return
     if action == "capital" and capital:
         await state.update_data(
             district=None,
@@ -336,34 +315,23 @@ async def district_pick(call, state: FSMContext, session: AsyncSession) -> None:
         )
         await _prompt_search_scope(call.message, state)
         return
+    if action == "back":
+        await _prompt_region(call.message, state, session)
+        return
+    if action == "none":
+        await state.update_data(district=None, district_code=None)
+        await _prompt_settlement(call.message, state, session, region_code, None, None)
+        return
 
     try:
         idx = int(idx_part or action)
         district_item = districts[idx]
     except Exception:
-        await call.message.answer("Помилка вибору району. Введіть вручну.")
-        await state.set_state(Registration.district_manual)
+        await call.message.answer("Помилка вибору району. Спробуйте ще раз або натисніть «Назад».")
         return
 
     await state.update_data(district=district_item.name, district_code=district_item.code)
     await _prompt_hromada(call.message, state, session, region_code, district_item.code)
-
-
-@router.message(Registration.district)
-@router.message(Registration.district_manual)
-async def district_manual(message: Message, state: FSMContext, session: AsyncSession) -> None:
-    data = await state.get_data()
-    districts = data.get("district_options", [])
-    district_names = [d.name for d in districts]
-    district = normalize_choice(message.text, district_names) or _clip(message.text)
-    if district.lower() in {"без району", "без района", "місто", "город"}:
-        district = None
-    await state.update_data(district=district, district_code=None)
-    region_code = data.get("region_code")
-    if district is None:
-        await _prompt_settlement(message, state, session, region_code, None, None)
-    else:
-        await _prompt_hromada(message, state, session, region_code, None)
 
 
 @router.callback_query(Registration.hromada, F.data.startswith("loc:h:"))
@@ -373,9 +341,8 @@ async def hromada_pick(call, state: FSMContext, session: AsyncSession) -> None:
     data = await state.get_data()
     hromadas = data.get("hromada_options", [])
 
-    if raw == "other":
-        await state.set_state(Registration.hromada_manual)
-        await call.message.answer("Введіть громаду:", reply_markup=ReplyKeyboardRemove())
+    if raw == "back":
+        await _prompt_district(call.message, state, session, data.get("region_code"))
         return
 
     try:
@@ -397,35 +364,17 @@ async def hromada_pick(call, state: FSMContext, session: AsyncSession) -> None:
     )
 
 
-@router.message(Registration.hromada)
-@router.message(Registration.hromada_manual)
-async def hromada_manual(message: Message, state: FSMContext, session: AsyncSession) -> None:
-    data = await state.get_data()
-    hromadas = data.get("hromada_options", [])
-    hromada_names = [h.name for h in hromadas]
-    hromada = normalize_choice(message.text, hromada_names) or _clip(message.text)
-
-    await state.update_data(hromada=hromada or None, hromada_code=None)
-    await _prompt_settlement(
-        message,
-        state,
-        session,
-        data.get("region_code"),
-        data.get("district_code"),
-        None,
-    )
-
-
 @router.callback_query(Registration.settlement, F.data.startswith("loc:s:"))
-async def settlement_pick(call, state: FSMContext) -> None:
+async def settlement_pick(call, state: FSMContext, session: AsyncSession) -> None:
     await call.answer()
     _, _, raw = call.data.split(":", 2)
     data = await state.get_data()
     settlements = data.get("settlement_options", [])
 
-    if raw == "other":
-        await state.set_state(Registration.settlement_manual)
-        await call.message.answer("Введіть назву населеного пункту:", reply_markup=ReplyKeyboardRemove())
+    if raw == "back":
+        await _prompt_hromada(
+            call.message, state, session, data.get("region_code"), data.get("district_code")
+        )
         return
 
     try:
@@ -440,17 +389,6 @@ async def settlement_pick(call, state: FSMContext) -> None:
     await _prompt_settlement_type(call.message, state)
 
 
-@router.message(Registration.settlement)
-@router.message(Registration.settlement_manual)
-async def settlement_manual(message: Message, state: FSMContext) -> None:
-    settlement = _clip(message.text)
-    if not settlement:
-        await message.answer("Назва не може бути порожньою. Спробуйте ще раз.")
-        return
-    await state.update_data(settlement=settlement, settlement_code=None)
-    await _prompt_settlement_type(message, state)
-
-
 @router.callback_query(Registration.settlement_type, F.data.startswith("loc:type:"))
 async def settlement_type_pick(call, state: FSMContext) -> None:
     await call.answer()
@@ -460,6 +398,22 @@ async def settlement_type_pick(call, state: FSMContext) -> None:
         return
     await state.update_data(settlement_type=value)
     await _prompt_search_scope(call.message, state)
+
+
+@router.message(Registration.settlement_type)
+async def settlement_type_back(message: Message, state: FSMContext, session: AsyncSession) -> None:
+    if _is_back(message):
+        data = await state.get_data()
+        await _prompt_settlement(
+            message,
+            state,
+            session,
+            data.get("region_code"),
+            data.get("district_code"),
+            data.get("hromada_code"),
+        )
+        return
+    await message.answer("Оберіть із кнопок: місто чи село.", reply_markup=settlement_type_kb())
 
 
 @router.callback_query(Registration.search_scope, F.data.startswith("loc:scope:"))
@@ -477,8 +431,20 @@ async def search_scope_pick(call, state: FSMContext) -> None:
     await state.set_state(Registration.about)
 
 
+@router.message(Registration.search_scope)
+async def search_scope_back(message: Message, state: FSMContext) -> None:
+    if _is_back(message):
+        await _prompt_settlement_type(message, state)
+        return
+    await message.answer("Оберіть варіант із кнопок нижче.", reply_markup=search_scope_kb())
+
+
 @router.message(Registration.about)
 async def reg_about(message: Message, state: FSMContext, cfg: Config) -> None:
+    if _is_back(message):
+        data = await state.get_data()
+        await _prompt_search_scope(message, state, data.get("search_scope"))
+        return
     text = (message.text or "").strip()
 
     skip_values = {"пропустить", "⏭️ пропустить", "пропустити", "⏭️ пропустити", "-"}
@@ -516,7 +482,14 @@ async def reg_photo(message: Message, state: FSMContext, session: AsyncSession) 
 
 
 @router.message(Registration.photos)
-async def reg_photo_invalid(message: Message) -> None:
+async def reg_photo_invalid(message: Message, state: FSMContext) -> None:
+    if _is_back(message):
+        await message.answer(
+            "<b>Крок 11/12</b> — кілька слів про себе (можна пропустити).",
+            reply_markup=skip_about_kb(),
+        )
+        await state.set_state(Registration.about)
+        return
     await message.answer("Потрібне фото (повідомлення з фотографією). Надішліть фото.")
 
 
