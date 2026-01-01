@@ -15,6 +15,7 @@ sys.path.insert(0, str(BASE_DIR))
 from app.config import ensure_runtime_paths  # noqa: E402
 from db import create_engine, create_sessionmaker, init_db  # noqa: E402
 from models import Complaint, User  # noqa: E402
+from utils.locations import get_locations  # noqa: E402
 
 TOTAL_USERS = 10_000
 TARGET_COMPLAINTS = 2_000
@@ -93,6 +94,16 @@ def _pick_about() -> str | None:
     return random.choice(choices)
 
 
+def _pick_location() -> Tuple[str, str | None, str]:
+    locations = get_locations()
+    region = random.choice(list(locations.keys()))
+    districts = list(locations[region].keys())
+    district = random.choice(districts) if districts else None
+    settlements = locations[region].get(district, []) if district else []
+    settlement = random.choice(settlements) if settlements else region
+    return region, district, settlement
+
+
 def _pick_name(gender: str) -> Tuple[str, str, str]:
     if gender == "M":
         first = random.choice(FIRST_NAMES_M)
@@ -115,6 +126,8 @@ async def seed_users(session, count: int, existing_count: int) -> List[int]:
         age = random.randint(16, 45) if gender == "M" else random.randint(18, 50)
         first, last, full_name = _pick_name(gender)
         username = f"user{base_tg + i}"
+        region, district, settlement = _pick_location()
+        search_scope = random.choice(["settlement", "district", "region", "country"])
 
         user = User(
             tg_id=base_tg + i,
@@ -126,9 +139,14 @@ async def seed_users(session, count: int, existing_count: int) -> List[int]:
             age_filter_enabled=bool(random.getrandbits(1)),
             gender=gender,
             looking_for=looking_for,
-            city=random.choice(CITIES),
+            city=settlement,
+            region=region,
+            district=district,
+            settlement=settlement,
+            settlement_type="city",
+            search_scope=search_scope,
             about=_pick_about(),
-            search_global=bool(random.getrandbits(1)),
+            search_global=search_scope != "settlement",
             active=True,
             is_banned=False,
         )

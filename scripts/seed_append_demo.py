@@ -15,6 +15,7 @@ sys.path.insert(0, str(BASE_DIR))
 from app.config import ensure_runtime_paths  # noqa: E402
 from db import create_engine, create_sessionmaker, init_db  # noqa: E402
 from models import Like, Match, Photo, User  # noqa: E402
+from utils.locations import get_locations  # noqa: E402
 
 NEW_USERS = 100
 LIKES_PER_USER = 50
@@ -97,6 +98,16 @@ def _pick_about() -> str:
     return random.choice(ABOUTS)
 
 
+def _pick_location() -> Tuple[str, str | None, str]:
+    locations = get_locations()
+    region = random.choice(list(locations.keys()))
+    districts = list(locations[region].keys())
+    district = random.choice(districts) if districts else None
+    settlements = locations[region].get(district, []) if district else []
+    settlement = random.choice(settlements) if settlements else region
+    return region, district, settlement
+
+
 async def seed_users_with_photos(session, count: int, start_tg: int) -> List[int]:
     users: List[User] = []
     for i in range(count):
@@ -105,6 +116,8 @@ async def seed_users_with_photos(session, count: int, start_tg: int) -> List[int
         first, last, full_name = _pick_name(gender)
         about = _pick_about()
         tg_id = start_tg + i
+        region, district, settlement = _pick_location()
+        search_scope = random.choice(["settlement", "district", "region", "country"])
 
         user = User(
             tg_id=tg_id,
@@ -116,9 +129,14 @@ async def seed_users_with_photos(session, count: int, start_tg: int) -> List[int
             age_filter_enabled=True,
             gender=gender,
             looking_for=looking_for,
-            city=random.choice(CITIES),
+            city=settlement,
+            region=region,
+            district=district,
+            settlement=settlement,
+            settlement_type="city",
+            search_scope=search_scope,
             about=about,
-            search_global=bool(random.getrandbits(1)),
+            search_global=search_scope != "settlement",
             active=True,
             is_banned=False,
         )

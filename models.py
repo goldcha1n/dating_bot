@@ -40,6 +40,12 @@ class User(Base):
     gender: Mapped[str] = mapped_column(String(1), nullable=False)  # 'M' or 'F'
     looking_for: Mapped[str] = mapped_column(String(1), nullable=False)  # 'M'/'F'/'A'
     city: Mapped[str] = mapped_column(String(128), nullable=False)
+    region: Mapped[str] = mapped_column(String(128), nullable=False, default="Kyiv")
+    district: Mapped[Optional[str]] = mapped_column(String(128), nullable=True)
+    hromada: Mapped[Optional[str]] = mapped_column(String(128), nullable=True)
+    settlement: Mapped[str] = mapped_column(String(128), nullable=False, default="Kyiv")
+    settlement_type: Mapped[str] = mapped_column(String(16), nullable=False, default="city")  # city/village
+    search_scope: Mapped[str] = mapped_column(String(16), nullable=False, default="region")  # settlement/district/region/country
     about: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     # True => search in any city; False => only in own city
@@ -65,7 +71,16 @@ class User(Base):
         CheckConstraint("age BETWEEN 16 AND 99", name="ck_users_age"),
         CheckConstraint("gender IN ('M','F')", name="ck_users_gender"),
         CheckConstraint("looking_for IN ('M','F','A')", name="ck_users_looking_for"),
+        CheckConstraint("settlement_type IN ('city','village')", name="ck_users_settlement_type"),
+        CheckConstraint(
+            "search_scope IN ('settlement','district','region','country')",
+            name="ck_users_search_scope",
+        ),
         Index("ix_users_city", "city"),
+        Index("ix_users_region", "region"),
+        Index("ix_users_region_district", "region", "district"),
+        Index("ix_users_region_district_settlement", "region", "district", "settlement"),
+        Index("ix_users_region_district_hromada", "region", "district", "hromada"),
     )
 
 
@@ -158,6 +173,25 @@ class AdminAction(Base):
     target_id: Mapped[Optional[int]] = mapped_column(Integer)
     payload_json: Mapped[Optional[str]] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class UaLocation(Base):
+    __tablename__ = "ua_locations"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=False)
+    level1: Mapped[Optional[str]] = mapped_column(String(32), index=True)
+    level2: Mapped[Optional[str]] = mapped_column(String(32), index=True)
+    level3: Mapped[Optional[str]] = mapped_column(String(32), index=True)
+    level4: Mapped[Optional[str]] = mapped_column(String(32), index=True)
+    level_extra: Mapped[Optional[str]] = mapped_column(String(32), index=True)
+    category: Mapped[Optional[str]] = mapped_column(String(2), index=True)
+    name: Mapped[str] = mapped_column(String(256), nullable=False)
+
+    __table_args__ = (
+        Index("ix_ua_locations_l1_l2", "level1", "level2"),
+        Index("ix_ua_locations_l1_l2_l3", "level1", "level2", "level3"),
+        Index("ix_ua_locations_l1_l2_l3_cat", "level1", "level2", "level3", "category"),
+    )
 
 
 class Complaint(Base):

@@ -38,6 +38,44 @@ def _main_photo_file_id(user: User) -> Optional[str]:
     return None
 
 
+def _location_filters(current: User) -> list:
+    """Повертає SQLAlchemy умови за обраним рівнем пошуку."""
+    scope = getattr(current, "search_scope", None)
+    if scope not in {"settlement", "district", "region", "country"}:
+        scope = "country" if getattr(current, "search_global", False) else "settlement"
+
+    region = getattr(current, "region", None)
+    district = getattr(current, "district", None)
+    hromada = getattr(current, "hromada", None)
+    settlement = getattr(current, "settlement", None)
+
+    if scope == "country" or getattr(current, "search_global", False):
+        return []
+
+    if scope == "region":
+        return [User.region == region] if region else []
+
+    if scope == "district":
+        if region and district:
+            filters = [User.region == region, User.district == district]
+            if hromada:
+                filters.append(User.hromada == hromada)
+            return filters
+        return [User.region == region] if region else []
+
+    # settlement
+    filters = []
+    if region:
+        filters.append(User.region == region)
+    if district:
+        filters.append(User.district == district)
+    if hromada:
+        filters.append(User.hromada == hromada)
+    if settlement:
+        filters.append(User.settlement == settlement)
+    return filters
+
+
 async def get_next_candidate(session: AsyncSession, current: User) -> Optional[User]:
     already_seen = exists(
         select(Like.id).where(and_(Like.from_user_id == current.id, Like.to_user_id == User.id))
@@ -62,8 +100,7 @@ async def get_next_candidate(session: AsyncSession, current: User) -> Optional[U
     if current.looking_for in ("M", "F"):
         conditions.append(User.gender == current.looking_for)
 
-    if not current.search_global:
-        conditions.append(User.city == current.city)
+    conditions.extend(_location_filters(current))
 
     # Віковий фільтр: за замовчуванням показуємо анкети від (age-3) до (age+2)
     if getattr(current, "age_filter_enabled", True):

@@ -43,8 +43,30 @@ def _looking_for_human(code: str) -> str:
     return {"M": "Хлопці", "F": "Дівчата", "A": "Усі"}.get(code, code)
 
 
+def format_location(user: User) -> str:
+    settlement = getattr(user, "settlement", None) or getattr(user, "city", "")
+    district = getattr(user, "district", None)
+    hromada = getattr(user, "hromada", None)
+    region = getattr(user, "region", None)
+    settlement_type = getattr(user, "settlement_type", "city")
+
+    parts = []
+    if settlement:
+        prefix = "с." if settlement_type == "village" else "м."
+        parts.append(f"{prefix} {settlement}")
+    if hromada:
+        parts.append(hromada)
+    if district:
+        parts.append(district)
+    if region:
+        parts.append(region)
+    if not parts and getattr(user, "city", None):
+        parts.append(user.city)
+    return ", ".join(parts) if parts else "—"
+
+
 def render_profile_caption(user: User) -> str:
-    title = f"<b>{user.name}, {user.age}</b> • {user.city}"
+    title = f"<b>{user.name}, {user.age}</b> • {format_location(user)}"
     meta = f"Стать: {_gender_human(user.gender)} • Шукаю: {_looking_for_human(user.looking_for)}"
     parts = [title, meta]
     if user.about:

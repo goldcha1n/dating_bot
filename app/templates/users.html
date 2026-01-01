@@ -4,12 +4,25 @@
     {%- set is_current = sort == field -%}
     {%- set next_order = 'desc' if is_current and order == 'asc' else 'asc' -%}
     {%- set indicator = '^' if is_current and order == 'asc' else ('v' if is_current and order == 'desc' else '') -%}
-    <a href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}">{{ label }}{{ ' ' + indicator if indicator else '' }}</a>
+    <a href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">{{ label }}{{ ' ' + indicator if indicator else '' }}</a>
 {%- endmacro %}
+
+{%- set scope_labels = {'settlement': 'Місто/село', 'district': 'Район', 'region': 'Область', 'country': 'Країна'} -%}
+{%- set type_labels = {'city': 'Місто', 'village': 'Село'} -%}
 
 <h1>Користувачі</h1>
 <form method="get" action="/admin/users" class="toolbar">
     <input type="text" name="q" value="{{ q }}" placeholder="Пошук за tg_id або нікнеймом" />
+    <input type="text" name="region" value="{{ region }}" placeholder="Область" />
+    <input type="text" name="district" value="{{ district }}" placeholder="Район" />
+    <input type="text" name="settlement" value="{{ settlement }}" placeholder="Населений пункт" />
+    <select name="search_scope">
+        <option value="" {% if not search_scope %}selected{% endif %}>Будь-яка зона</option>
+        <option value="settlement" {% if search_scope == 'settlement' %}selected{% endif %}>Місто/село</option>
+        <option value="district" {% if search_scope == 'district' %}selected{% endif %}>Район</option>
+        <option value="region" {% if search_scope == 'region' %}selected{% endif %}>Область</option>
+        <option value="country" {% if search_scope == 'country' %}selected{% endif %}>Країна</option>
+    </select>
     <input type="hidden" name="sort" value="{{ sort }}" />
     <input type="hidden" name="order" value="{{ order }}" />
     <button type="submit" class="btn">Шукати</button>
@@ -21,6 +34,11 @@
             <th>{{ sort_link('TG ID', 'tg_id') }}</th>
             <th>{{ sort_link('Нікнейм', 'username') }}</th>
             <th>{{ sort_link('Ім’я', 'name') }}</th>
+            <th>Область</th>
+            <th>Район</th>
+            <th>Населений пункт</th>
+            <th>Тип</th>
+            <th>Зона пошуку</th>
             <th>{{ sort_link('Бан', 'is_banned') }}</th>
             <th>{{ sort_link('Скарги', 'complaints') }}</th>
             <th>{{ sort_link('Створено', 'created_at') }}</th>
@@ -35,6 +53,11 @@
             <td>{{ user.tg_id }}</td>
             <td>{{ user.username or "-" }}</td>
             <td>{{ (user.first_name or user.name or "") }} {{ user.last_name or "" }}</td>
+            <td>{{ user.region }}</td>
+            <td>{{ user.district or "-" }}</td>
+            <td>{{ user.settlement }}</td>
+            <td>{{ type_labels.get(user.settlement_type, user.settlement_type) }}</td>
+            <td>{{ scope_labels.get(user.search_scope, user.search_scope) }}</td>
             <td>{{ "Так" if user.is_banned else "Ні" }}</td>
             <td><a href="/admin/complaints?target_user_id={{ user.id }}">{{ item.complaints }}</a></td>
             <td>{{ user.created_at }}</td>
@@ -53,7 +76,7 @@
         {% endfor %}
         {% if users|length == 0 %}
         <tr>
-            <td colspan="8" class="empty">Користувачів не знайдено</td>
+            <td colspan="13" class="empty">Користувачів не знайдено</td>
         </tr>
         {% endif %}
     </tbody>
@@ -62,10 +85,10 @@
     <span>Сторінка {{ page }} з {{ total_pages }}</span>
     <div class="pager">
         {% if page > 1 %}
-        <a href="/admin/users?page={{ page - 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}">Назад</a>
+        <a href="/admin/users?page={{ page - 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">Назад</a>
         {% endif %}
         {% if page < total_pages %}
-        <a href="/admin/users?page={{ page + 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}">Далі</a>
+        <a href="/admin/users?page={{ page + 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">Далі</a>
         {% endif %}
     </div>
 </div>

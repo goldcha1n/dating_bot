@@ -3,6 +3,16 @@
 <h1>Профілі</h1>
 <form method="get" action="/admin/profiles" class="toolbar">
     <input type="text" name="q" value="{{ q }}" placeholder="Ключові слова з \"Про себе\"" />
+    <input type="text" name="region" value="{{ region }}" placeholder="Область" />
+    <input type="text" name="district" value="{{ district }}" placeholder="Район" />
+    <input type="text" name="settlement" value="{{ settlement }}" placeholder="Населений пункт" />
+    <select name="search_scope">
+        <option value="" {% if not search_scope %}selected{% endif %}>Будь-яка зона</option>
+        <option value="settlement" {% if search_scope == 'settlement' %}selected{% endif %}>Місто/село</option>
+        <option value="district" {% if search_scope == 'district' %}selected{% endif %}>Район</option>
+        <option value="region" {% if search_scope == 'region' %}selected{% endif %}>Область</option>
+        <option value="country" {% if search_scope == 'country' %}selected{% endif %}>Країна</option>
+    </select>
     <button type="submit" class="btn">Шукати</button>
 </form>
 <table class="table">
@@ -16,7 +26,11 @@
             <th>Вік</th>
             <th>Стать</th>
             <th>Шукає</th>
-            <th>Місто</th>
+            <th>Область</th>
+            <th>Район</th>
+            <th>Населений пункт</th>
+            <th>Тип</th>
+            <th>Зона пошуку</th>
             <th>Про себе</th>
             <th>Створено</th>
         </tr>
@@ -41,7 +55,13 @@
             <td>{{ user.age }}</td>
             <td>{{ user.gender }}</td>
             <td>{{ user.looking_for }}</td>
-            <td>{{ user.city }}</td>
+            <td>{{ user.region }}</td>
+            <td>{{ user.district or "-" }}</td>
+            <td>{{ user.settlement }}</td>
+            <td>{{ 'Місто' if user.settlement_type == 'city' else 'Село' }}</td>
+            <td>
+                {% if user.search_scope == 'settlement' %}Місто/село{% elif user.search_scope == 'district' %}Район{% elif user.search_scope == 'region' %}Область{% elif user.search_scope == 'country' %}Країна{% else %}—{% endif %}
+            </td>
             <td class="about" title="{{ user.about or '' }}">
                 {% if user.about %}
                     {{ user.about[:140] + ('...' if user.about|length > 140 else '') }}
@@ -54,7 +74,7 @@
         {% endfor %}
         {% if profiles|length == 0 %}
         <tr>
-            <td colspan="11" class="empty">Профілів не знайдено</td>
+            <td colspan="14" class="empty">Профілів не знайдено</td>
         </tr>
         {% endif %}
     </tbody>
@@ -63,10 +83,10 @@
     <span>Сторінка {{ page }} з {{ total_pages }}</span>
     <div class="pager">
         {% if page > 1 %}
-        <a href="/admin/profiles?page={{ page - 1 }}&q={{ q }}">Назад</a>
+        <a href="/admin/profiles?page={{ page - 1 }}&q={{ q }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">Назад</a>
         {% endif %}
         {% if page < total_pages %}
-        <a href="/admin/profiles?page={{ page + 1 }}&q={{ q }}">Далі</a>
+        <a href="/admin/profiles?page={{ page + 1 }}&q={{ q }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">Далі</a>
         {% endif %}
     </div>
 </div>

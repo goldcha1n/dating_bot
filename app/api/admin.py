@@ -137,6 +137,10 @@ async def users_list(
     q: Optional[str] = Query(default=None),
     sort: Optional[str] = Query(default=None),
     order: Optional[str] = Query(default=None),
+    region: Optional[str] = Query(default=None),
+    district: Optional[str] = Query(default=None),
+    settlement: Optional[str] = Query(default=None),
+    search_scope: Optional[str] = Query(default=None),
     page: int = Query(default=1, ge=1),
     session: AsyncSession = Depends(get_session),
 ):
@@ -172,6 +176,14 @@ async def users_list(
             stmt = stmt.where(User.tg_id == int(q))
         else:
             stmt = stmt.where(User.username.ilike(f"%{q}%"))
+    if region:
+        stmt = stmt.where(func.lower(User.region) == region.strip().lower())
+    if district:
+        stmt = stmt.where(func.lower(User.district) == district.strip().lower())
+    if settlement:
+        stmt = stmt.where(func.lower(User.settlement) == settlement.strip().lower())
+    if search_scope in {"settlement", "district", "region", "country"}:
+        stmt = stmt.where(User.search_scope == search_scope)
     total = (await session.execute(select(func.count()).select_from(stmt.subquery()))).scalar_one()
     order_by_columns = [
         col.asc() if sort_order == "asc" else col.desc() for col in sort_map[sort_field]
@@ -192,6 +204,10 @@ async def users_list(
             "page": page,
             "total_pages": total_pages,
             "admin_username": admin_username,
+            "region": region or "",
+            "district": district or "",
+            "settlement": settlement or "",
+            "search_scope": search_scope or "",
         },
     )
 
@@ -201,6 +217,10 @@ async def profiles_list(
     request: Request,
     admin_username: str = Depends(require_admin),
     q: Optional[str] = Query(default=None),
+    region: Optional[str] = Query(default=None),
+    district: Optional[str] = Query(default=None),
+    settlement: Optional[str] = Query(default=None),
+    search_scope: Optional[str] = Query(default=None),
     page: int = Query(default=1, ge=1),
     session: AsyncSession = Depends(get_session),
 ):
@@ -211,6 +231,14 @@ async def profiles_list(
         about_field = func.lower(func.coalesce(User.about, ""))
         for term in search_terms:
             base_stmt = base_stmt.where(about_field.like(f"%{term}%"))
+    if region:
+        base_stmt = base_stmt.where(func.lower(User.region) == region.strip().lower())
+    if district:
+        base_stmt = base_stmt.where(func.lower(User.district) == district.strip().lower())
+    if settlement:
+        base_stmt = base_stmt.where(func.lower(User.settlement) == settlement.strip().lower())
+    if search_scope in {"settlement", "district", "region", "country"}:
+        base_stmt = base_stmt.where(User.search_scope == search_scope)
 
     total = (await session.execute(select(func.count()).select_from(base_stmt.subquery()))).scalar_one()
 
@@ -250,6 +278,10 @@ async def profiles_list(
             "page": page,
             "total_pages": total_pages,
             "admin_username": admin_username,
+            "region": region or "",
+            "district": district or "",
+            "settlement": settlement or "",
+            "search_scope": search_scope or "",
         },
     )
 
@@ -294,6 +326,10 @@ async def ban_user(
     q: Optional[str] = Query(default=None),
     sort: Optional[str] = Query(default=None),
     order: Optional[str] = Query(default=None),
+    region: Optional[str] = Query(default=None),
+    district: Optional[str] = Query(default=None),
+    settlement: Optional[str] = Query(default=None),
+    search_scope: Optional[str] = Query(default=None),
     session: AsyncSession = Depends(get_session),
 ):
     tg_id = (await session.execute(select(User.tg_id).where(User.id == user_id))).scalar_one_or_none()
@@ -310,6 +346,8 @@ async def ban_user(
     await session.commit()
     redirect_url = (
         f"/admin/users?page={page}&q={q or ''}&sort={sort or ''}&order={order or ''}"
+        f"&region={region or ''}&district={district or ''}&settlement={settlement or ''}"
+        f"&search_scope={search_scope or ''}"
     )
     if tg_id:
         asyncio.create_task(
@@ -331,6 +369,10 @@ async def unban_user(
     q: Optional[str] = Query(default=None),
     sort: Optional[str] = Query(default=None),
     order: Optional[str] = Query(default=None),
+    region: Optional[str] = Query(default=None),
+    district: Optional[str] = Query(default=None),
+    settlement: Optional[str] = Query(default=None),
+    search_scope: Optional[str] = Query(default=None),
     session: AsyncSession = Depends(get_session),
 ):
     tg_id = (await session.execute(select(User.tg_id).where(User.id == user_id))).scalar_one_or_none()
@@ -347,6 +389,8 @@ async def unban_user(
     await session.commit()
     redirect_url = (
         f"/admin/users?page={page}&q={q or ''}&sort={sort or ''}&order={order or ''}"
+        f"&region={region or ''}&district={district or ''}&settlement={settlement or ''}"
+        f"&search_scope={search_scope or ''}"
     )
     if tg_id:
         asyncio.create_task(

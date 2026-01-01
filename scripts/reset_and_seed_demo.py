@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import random
 import sys
 from pathlib import Path
@@ -13,6 +14,7 @@ from app.config import ensure_runtime_paths
 from db import create_engine, create_sessionmaker, init_db
 from models import Base, Like, Match, Photo, User
 from sqlalchemy import select
+from utils.locations import get_locations
 
 TOTAL_USERS = 100
 
@@ -94,6 +96,16 @@ def _pick_about() -> str:
     return random.choice(ABOUTS)
 
 
+def _pick_location() -> Tuple[str, str | None, str]:
+    locations = get_locations()
+    region = random.choice(list(locations.keys()))
+    districts = list(locations[region].keys())
+    district = random.choice(districts) if districts else None
+    settlements = locations[region].get(district, []) if district else []
+    settlement = random.choice(settlements) if settlements else region
+    return region, district, settlement
+
+
 async def seed_users_with_photos(session) -> int:
     users: List[User] = []
     base_tg = 1_000_000_000
@@ -103,6 +115,8 @@ async def seed_users_with_photos(session) -> int:
         looking_for = random.choice(["M", "F", "A"])
         first, last, full_name = _pick_name(gender)
         about = _pick_about()
+        region, district, settlement = _pick_location()
+        search_scope = random.choice(["settlement", "district", "region", "country"])
 
         user = User(
             tg_id=base_tg + i,
@@ -114,9 +128,14 @@ async def seed_users_with_photos(session) -> int:
             age_filter_enabled=True,
             gender=gender,
             looking_for=looking_for,
-            city=random.choice(CITIES),
+            city=settlement,
+            region=region,
+            district=district,
+            settlement=settlement,
+            settlement_type="city",
+            search_scope=search_scope,
             about=about,
-            search_global=bool(random.getrandbits(1)),
+            search_global=search_scope != "settlement",
             active=True,
             is_banned=False,
         )

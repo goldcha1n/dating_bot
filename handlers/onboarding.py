@@ -8,13 +8,24 @@ from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import Message, ReplyKeyboardRemove
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import Config
 from keyboards.main_menu import main_menu_kb
 from keyboards.inline_profiles import gender_kb, looking_for_kb, skip_about_kb, to_menu_inline_kb
+from keyboards.locations import (
+    districts_kb,
+    hromadas_kb,
+    regions_kb,
+    search_scope_kb,
+    settlement_type_kb,
+    settlements_kb,
+)
 from models import Photo, User
+from services.location_repo import LocationRepository
+from utils.locations import default_location, normalize_choice, normalize_text
 from utils.text import gender_to_code, looking_for_to_code, render_profile_caption
 
 logger = logging.getLogger(__name__)
@@ -26,7 +37,16 @@ class Registration(StatesGroup):
     age = State()
     gender = State()
     looking_for = State()
-    city = State()
+    region = State()
+    region_manual = State()
+    district = State()
+    district_manual = State()
+    hromada = State()
+    hromada_manual = State()
+    settlement = State()
+    settlement_manual = State()
+    settlement_type = State()
+    search_scope = State()
     about = State()
     photos = State()
 
@@ -34,6 +54,146 @@ class Registration(StatesGroup):
 async def _get_user_by_tg(session: AsyncSession, tg_id: int) -> Optional[User]:
     res = await session.execute(select(User).where(User.tg_id == tg_id))
     return res.scalar_one_or_none()
+
+
+def _clip(text: str, max_len: int = 128) -> str:
+    return normalize_text(text)[:max_len]
+
+
+async def _prompt_region(message: Message, state: FSMContext, session: AsyncSession) -> None:
+    repo = LocationRepository(session)
+    regions = await repo.list_regions()
+    await state.update_data(region_options=regions)
+    await message.answer(
+        "<b>Крок 5/12</b> — обери область кнопкою або введи вручну:",
+        reply_markup=regions_kb([r.name for r in regions]),
+    )
+    await state.set_state(Registration.region)
+
+
+async def _prompt_district(message: Message, state: FSMContext, session: AsyncSession, region_code: str) -> None:
+    repo = LocationRepository(session)
+    districts = await repo.list_districts(region_code)
+    capital_by_region = {
+        "UA05000000000010236": "Вінниця",
+        "UA07000000000024379": "Луцьк",
+        "UA12000000000090473": "Дніпро",
+        "UA14000000000091971": "Донецьк",
+        "UA18000000000041385": "Житомир",
+        "UA21000000000011690": "Ужгород",
+        "UA23000000000064947": "Запоріжжя",
+        "UA26000000000069363": "Івано-Франківськ",
+        "UA32000000000030281": "Київ",
+        "UA35000000000011652": "Кропивницький",
+        "UA44000000000083927": "Луганськ",
+        "UA46000000000029445": "Львів",
+        "UA48000000000048728": "Миколаїв",
+        "UA51000000000079904": "Одеса",
+        "UA53000000000013155": "Полтава",
+        "UA56000000000091048": "Рівне",
+        "UA59000000000081506": "Суми",
+        "UA61000000000096553": "Тернопіль",
+        "UA63000000000011007": "Харків",
+        "UA65000000000073443": "Херсон",
+        "UA68000000000039046": "Хмельницький",
+        "UA71000000000019648": "Черкаси",
+        "UA73000000000003266": "Чернівці",
+        "UA74000000000058614": "Чернігів",
+        "UA01000000000013043": "Сімферополь",
+        "UA85000000000065278": "Севастополь",
+        "UA80000000000093317": "Київ",
+    }
+    capital = capital_by_region.get(region_code)
+    await state.update_data(district_options=districts, region_capital=capital)
+
+    if districts:
+        # Побудуємо клавіатуру з першим варіантом — обласний центр (якщо є)
+        if capital:
+            builder = InlineKeyboardBuilder()
+            builder.button(text=f"м. {capital}", callback_data="loc:d:capital")
+            for idx, d in enumerate(districts):
+                builder.button(text=d.name, callback_data=f"loc:d:{idx}")
+            builder.button(text="Без району", callback_data="loc:d:none")
+            builder.button(text="Інший (введу сам)", callback_data="loc:d:other")
+            builder.adjust(2)
+            kb = builder.as_markup()
+        else:
+            kb = districts_kb([d.name for d in districts])
+
+        await message.answer(
+            "<b>Крок 6/12</b> — обери район (кнопкою) або «Без району»/«Інше»:",
+            reply_markup=kb,
+        )
+        await state.set_state(Registration.district)
+    else:
+        await message.answer(
+            "<b>Крок 6/12</b> — введи район або напиши «Без району», якщо місто обласного значення:",
+            reply_markup=ReplyKeyboardRemove(),
+        )
+        await state.set_state(Registration.district_manual)
+
+
+async def _prompt_hromada(
+    message: Message, state: FSMContext, session: AsyncSession, region_code: str, district_code: Optional[str]
+) -> None:
+    repo = LocationRepository(session)
+    hromadas = await repo.list_hromadas(region_code, district_code or "")
+    await state.update_data(hromada_options=hromadas)
+
+    if hromadas:
+        await message.answer(
+            "<b>Крок 7/12</b> — обери громаду (кнопкою) або введи вручну:",
+            reply_markup=hromadas_kb([h.name for h in hromadas]),
+        )
+        await state.set_state(Registration.hromada)
+    else:
+        await message.answer(
+            "<b>Крок 7/12</b> — введи громаду або залиш поле порожнім, якщо її немає:",
+            reply_markup=ReplyKeyboardRemove(),
+        )
+        await state.set_state(Registration.hromada_manual)
+
+
+async def _prompt_settlement(
+    message: Message,
+    state: FSMContext,
+    session: AsyncSession,
+    region_code: str,
+    district_code: Optional[str],
+    hromada_code: Optional[str],
+    categories: set[str] | None = None,
+) -> None:
+    repo = LocationRepository(session)
+    settlements = await repo.list_settlements(region_code, district_code or None, hromada_code or None, categories=categories)
+    if not settlements and district_code:
+        settlements = await repo.list_settlements_by_district(region_code, district_code, categories=categories)
+    await state.update_data(settlement_options=settlements)
+
+    if settlements:
+        await message.answer(
+            "<b>Крок 8/12</b> — обери населений пункт (кнопкою) або «Інший»:",
+            reply_markup=settlements_kb([s.name for s in settlements]),
+        )
+        await state.set_state(Registration.settlement)
+    else:
+        await message.answer(
+            "<b>Крок 8/12</b> — введи назву населеного пункту:",
+            reply_markup=ReplyKeyboardRemove(),
+        )
+        await state.set_state(Registration.settlement_manual)
+
+
+async def _prompt_settlement_type(message: Message, state: FSMContext) -> None:
+    await message.answer("<b>Крок 9/12</b> — це місто чи село?", reply_markup=settlement_type_kb())
+    await state.set_state(Registration.settlement_type)
+
+
+async def _prompt_search_scope(message: Message, state: FSMContext, current: str | None = None) -> None:
+    await message.answer(
+        "<b>Крок 10/12</b> — де шукаємо людей?",
+        reply_markup=search_scope_kb(current),
+    )
+    await state.set_state(Registration.search_scope)
 
 
 @router.message(CommandStart())
@@ -47,7 +207,7 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession, 
     await state.clear()
     await message.answer(
         "Привіт! Давай швидко заповнимо анкету.\n\n"
-        "<b>Крок 1/7</b> — як тебе звати?",
+        "<b>Крок 1/12</b> — як тебе звати?",
         reply_markup=ReplyKeyboardRemove(),
     )
     await state.set_state(Registration.name)
@@ -61,7 +221,7 @@ async def reg_name(message: Message, state: FSMContext) -> None:
         return
 
     await state.update_data(name=text)
-    await message.answer("<b>Крок 2/7</b> — скільки тобі років? (16–99)")
+    await message.answer("<b>Крок 2/12</b> — скільки тобі років? (16–99)")
     await state.set_state(Registration.age)
 
 
@@ -79,7 +239,7 @@ async def reg_age(message: Message, state: FSMContext) -> None:
         return
 
     await state.update_data(age=age)
-    await message.answer("<b>Крок 3/7</b> — оберіть стать:", reply_markup=gender_kb())
+    await message.answer("<b>Крок 3/12</b> — оберіть стать:", reply_markup=gender_kb())
     await state.set_state(Registration.gender)
 
 
@@ -91,32 +251,227 @@ async def reg_gender(message: Message, state: FSMContext) -> None:
         return
 
     await state.update_data(gender=code)
-    await message.answer("<b>Крок 4/7</b> — кого шукаєте?", reply_markup=looking_for_kb())
+    await message.answer("<b>Крок 4/12</b> — кого шукаєте?", reply_markup=looking_for_kb())
     await state.set_state(Registration.looking_for)
 
 
 @router.message(Registration.looking_for)
-async def reg_looking_for(message: Message, state: FSMContext) -> None:
+async def reg_looking_for(message: Message, state: FSMContext, session: AsyncSession) -> None:
     code = looking_for_to_code((message.text or "").strip())
     if not code:
         await message.answer("Оберіть варіант кнопкою нижче:", reply_markup=looking_for_kb())
         return
 
     await state.update_data(looking_for=code)
-    await message.answer("<b>Крок 5/7</b> — ваше місто?")
-    await state.set_state(Registration.city)
+    await _prompt_region(message, state, session)
 
 
-@router.message(Registration.city)
-async def reg_city(message: Message, state: FSMContext) -> None:
-    city = (message.text or "").strip()
-    if not city:
-        await message.answer("Місто не може бути порожнім. Вкажіть місто.")
+@router.callback_query(Registration.region, F.data.startswith("loc:r:"))
+async def region_pick(call, state: FSMContext, session: AsyncSession) -> None:
+    await call.answer()
+    parts = call.data.split(":")
+    action = parts[2]
+    data = await state.get_data()
+    regions = data.get("region_options", [])
+
+    if action == "other":
+        await state.set_state(Registration.region_manual)
+        await call.message.answer("Введіть область:", reply_markup=ReplyKeyboardRemove())
         return
 
-    await state.update_data(city=city)
-    await message.answer(
-        "<b>Крок 6/7</b> — кілька слів про себе (можна пропустити).",
+    try:
+        idx = int(action)
+        region_item = regions[idx]
+    except Exception:
+        await call.message.answer("Помилка вибору області. Введіть вручну.")
+        await state.set_state(Registration.region_manual)
+        return
+
+    await state.update_data(region=region_item.name, region_code=region_item.code)
+    await _prompt_district(call.message, state, session, region_item.code)
+
+
+@router.message(Registration.region)
+@router.message(Registration.region_manual)
+async def region_manual(message: Message, state: FSMContext, session: AsyncSession) -> None:
+    regions = (await state.get_data()).get("region_options", [])
+    region_names = [r.name for r in regions]
+    region = normalize_choice(message.text, region_names) or _clip(message.text)
+    if not region:
+        await message.answer("Область не може бути порожньою. Спробуйте ще раз.")
+        return
+
+    await state.update_data(region=region, region_code=None)
+    await _prompt_district(message, state, session, None)
+
+
+@router.callback_query(Registration.district, F.data.startswith("loc:d:"))
+async def district_pick(call, state: FSMContext, session: AsyncSession) -> None:
+    await call.answer()
+    parts = call.data.split(":")
+    action = parts[2]
+    idx_part = parts[3] if len(parts) > 3 else None
+    data = await state.get_data()
+    districts = data.get("district_options", [])
+    region_code = data.get("region_code")
+    capital = data.get("region_capital")
+
+    if action == "other":
+        await state.set_state(Registration.district_manual)
+        await call.message.answer("Введіть район:", reply_markup=ReplyKeyboardRemove())
+        return
+    if action == "none":
+        await state.update_data(district=None, district_code=None)
+        await _prompt_settlement(call.message, state, session, region_code, None, None)
+        return
+    if action == "capital" and capital:
+        await state.update_data(
+            district=None,
+            district_code=None,
+            hromada=None,
+            hromada_code=None,
+            settlement=capital,
+            settlement_code=None,
+            settlement_type="city",
+        )
+        await _prompt_search_scope(call.message, state)
+        return
+
+    try:
+        idx = int(idx_part or action)
+        district_item = districts[idx]
+    except Exception:
+        await call.message.answer("Помилка вибору району. Введіть вручну.")
+        await state.set_state(Registration.district_manual)
+        return
+
+    await state.update_data(district=district_item.name, district_code=district_item.code)
+    await _prompt_hromada(call.message, state, session, region_code, district_item.code)
+
+
+@router.message(Registration.district)
+@router.message(Registration.district_manual)
+async def district_manual(message: Message, state: FSMContext, session: AsyncSession) -> None:
+    data = await state.get_data()
+    districts = data.get("district_options", [])
+    district_names = [d.name for d in districts]
+    district = normalize_choice(message.text, district_names) or _clip(message.text)
+    if district.lower() in {"без району", "без района", "місто", "город"}:
+        district = None
+    await state.update_data(district=district, district_code=None)
+    region_code = data.get("region_code")
+    if district is None:
+        await _prompt_settlement(message, state, session, region_code, None, None)
+    else:
+        await _prompt_hromada(message, state, session, region_code, None)
+
+
+@router.callback_query(Registration.hromada, F.data.startswith("loc:h:"))
+async def hromada_pick(call, state: FSMContext, session: AsyncSession) -> None:
+    await call.answer()
+    _, _, raw = call.data.split(":", 2)
+    data = await state.get_data()
+    hromadas = data.get("hromada_options", [])
+
+    if raw == "other":
+        await state.set_state(Registration.hromada_manual)
+        await call.message.answer("Введіть громаду:", reply_markup=ReplyKeyboardRemove())
+        return
+
+    try:
+        idx = int(raw)
+        hromada_item = hromadas[idx]
+    except Exception:
+        await call.message.answer("Помилка вибору громади. Введіть вручну.")
+        await state.set_state(Registration.hromada_manual)
+        return
+
+    await state.update_data(hromada=hromada_item.name, hromada_code=hromada_item.code)
+    await _prompt_settlement(
+        call.message,
+        state,
+        session,
+        data.get("region_code"),
+        data.get("district_code"),
+        hromada_item.code,
+    )
+
+
+@router.message(Registration.hromada)
+@router.message(Registration.hromada_manual)
+async def hromada_manual(message: Message, state: FSMContext, session: AsyncSession) -> None:
+    data = await state.get_data()
+    hromadas = data.get("hromada_options", [])
+    hromada_names = [h.name for h in hromadas]
+    hromada = normalize_choice(message.text, hromada_names) or _clip(message.text)
+
+    await state.update_data(hromada=hromada or None, hromada_code=None)
+    await _prompt_settlement(
+        message,
+        state,
+        session,
+        data.get("region_code"),
+        data.get("district_code"),
+        None,
+    )
+
+
+@router.callback_query(Registration.settlement, F.data.startswith("loc:s:"))
+async def settlement_pick(call, state: FSMContext) -> None:
+    await call.answer()
+    _, _, raw = call.data.split(":", 2)
+    data = await state.get_data()
+    settlements = data.get("settlement_options", [])
+
+    if raw == "other":
+        await state.set_state(Registration.settlement_manual)
+        await call.message.answer("Введіть назву населеного пункту:", reply_markup=ReplyKeyboardRemove())
+        return
+
+    try:
+        idx = int(raw)
+        settlement_item = settlements[idx]
+    except Exception:
+        await call.message.answer("Помилка вибору. Введіть населений пункт вручну.")
+        await state.set_state(Registration.settlement_manual)
+        return
+
+    await state.update_data(settlement=settlement_item.name, settlement_code=settlement_item.code)
+    await _prompt_settlement_type(call.message, state)
+
+
+@router.message(Registration.settlement)
+@router.message(Registration.settlement_manual)
+async def settlement_manual(message: Message, state: FSMContext) -> None:
+    settlement = _clip(message.text)
+    if not settlement:
+        await message.answer("Назва не може бути порожньою. Спробуйте ще раз.")
+        return
+    await state.update_data(settlement=settlement, settlement_code=None)
+    await _prompt_settlement_type(message, state)
+
+
+@router.callback_query(Registration.settlement_type, F.data.startswith("loc:type:"))
+async def settlement_type_pick(call, state: FSMContext) -> None:
+    await call.answer()
+    _, _, value = call.data.split(":", 2)
+    if value not in {"city", "village"}:
+        await call.message.answer("Оберіть із кнопок: місто чи село.")
+        return
+    await state.update_data(settlement_type=value)
+    await _prompt_search_scope(call.message, state)
+
+
+@router.callback_query(Registration.search_scope, F.data.startswith("loc:scope:"))
+async def search_scope_pick(call, state: FSMContext) -> None:
+    await call.answer()
+    _, _, scope = call.data.split(":", 2)
+    if scope not in {"settlement", "district", "region", "country"}:
+        await call.message.answer("Оберіть варіант із кнопок.")
+        return
+    await state.update_data(search_scope=scope)
+    await call.message.answer(
+        "<b>Крок 11/12</b> — кілька слів про себе (можна пропустити).",
         reply_markup=skip_about_kb(),
     )
     await state.set_state(Registration.about)
@@ -126,19 +481,20 @@ async def reg_city(message: Message, state: FSMContext) -> None:
 async def reg_about(message: Message, state: FSMContext, cfg: Config) -> None:
     text = (message.text or "").strip()
 
-    if text.lower() in ("пропустить", "⏭️ пропустить", "пропустити", "⏭️ пропустити"):
+    skip_values = {"пропустить", "⏭️ пропустить", "пропустити", "⏭️ пропустити", "-"}
+    if text.lower() in skip_values:
         await state.update_data(about=None)
     else:
         if len(text) < cfg.about_min_len:
             await message.answer(
-                f"Закоротко. Мінімум {cfg.about_min_len} символів, або натисніть «Пропустити».",
+                f"Закоротко. Мінімум {cfg.about_min_len} символів або натисніть «Пропустити».",
                 reply_markup=skip_about_kb(),
             )
             return
         await state.update_data(about=text)
 
     await message.answer(
-        "<b>Крок 7/7</b> — надішліть фото (мінімум 1).",
+        "<b>Крок 12/12</b> — надішліть фото (мінімум 1).",
         reply_markup=ReplyKeyboardRemove(),
     )
     await state.set_state(Registration.photos)
@@ -168,6 +524,15 @@ async def _finish_registration(message: Message, state: FSMContext, session: Asy
     data = await state.get_data()
     tg = message.from_user
 
+    loc_defaults = default_location()
+    region = _clip(data.get("region") or loc_defaults["region"])
+    district = _clip(data.get("district") or "") or None
+    hromada = _clip(data.get("hromada") or "") or None
+    settlement = _clip(data.get("settlement") or loc_defaults["settlement"])
+    settlement_type = data.get("settlement_type") or loc_defaults["settlement_type"]
+    search_scope = data.get("search_scope") or loc_defaults["search_scope"]
+    search_global = search_scope != "settlement"
+
     user = User(
         tg_id=tg.id,
         username=tg.username,
@@ -177,9 +542,15 @@ async def _finish_registration(message: Message, state: FSMContext, session: Asy
         age=int(data["age"]),
         gender=data["gender"],
         looking_for=data["looking_for"],
-        city=data["city"],
+        city=settlement,
+        region=region,
+        district=district,
+        hromada=hromada,
+        settlement=settlement,
+        settlement_type=settlement_type,
+        search_scope=search_scope,
         about=data.get("about"),
-        search_global=False,
+        search_global=search_global,
         active=True,
     )
     session.add(user)

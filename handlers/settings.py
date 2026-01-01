@@ -7,8 +7,25 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from keyboards.main_menu import BTN_SETTINGS
 from keyboards.settings import open_settings_kb, settings_kb
 from services.matching import get_current_user_or_none
+from utils.text import format_location
 
 router = Router()
+
+
+def _scope_label(scope: str) -> str:
+    return {
+        "settlement": "🏠 Моє місто/село",
+        "district": "🗺️ Мій район",
+        "region": "📍 Моя область",
+        "country": "🌍 Уся країна",
+    }.get(scope, "🌍 Уся країна")
+
+
+def _current_scope(user) -> str:
+    scope = getattr(user, "search_scope", None)
+    if scope not in {"settlement", "district", "region", "country"}:
+        scope = "country" if getattr(user, "search_global", False) else "settlement"
+    return scope
 
 
 async def _send_settings(message_or_call, session: AsyncSession) -> None:
@@ -18,16 +35,21 @@ async def _send_settings(message_or_call, session: AsyncSession) -> None:
         await target.answer("Спочатку створіть анкету: /start")
         return
 
+    scope = _current_scope(cur)
     text = (
         "⚙️ <b>Налаштування</b>\n"
-        "• 📍 Тільки в моєму місті — показуємо анкети лише з вашого міста\n"
-        "• 🌍 У будь-якому місті — анкети з усіх міст\n"
-        "• 🎂 Віковий фільтр — показуємо анкети приблизно вашого віку\n"
-        "  (за замовчуванням: на 3 роки молодші і до 2 років старші)\n"
-        "• ⏸️ Пауза — ваша анкета прихована з пошуку"
+        f"Моя локація: {format_location(cur)}\n\n"
+        "🔎 Де шукаю:\n"
+        "• 🏠 Місто/село — тільки ваш населений пункт\n"
+        "• 🗺️ Район — усі населені пункти вашого району\n"
+        "• 📍 Область — вся область\n"
+        "• 🌍 Уся країна — без обмежень\n\n"
+        "🎂 Віковий фільтр — показуємо анкети приблизно вашого віку "
+        "(на 3 роки молодші і до 2 років старші)\n"
+        "⏸️ Пауза — ваша анкета прихована з пошуку"
     )
 
-    kb = settings_kb(cur.search_global, cur.active, getattr(cur, "age_filter_enabled", True))
+    kb = settings_kb(scope, cur.active, getattr(cur, "age_filter_enabled", True))
 
     if hasattr(message_or_call, "message"):  # CallbackQuery
         await message_or_call.message.answer(text, reply_markup=kb)
@@ -46,19 +68,27 @@ async def settings_open(call: CallbackQuery, session: AsyncSession) -> None:
     await _send_settings(call, session)
 
 
-@router.callback_query(F.data == "settings:toggle_city")
-async def toggle_city(call: CallbackQuery, session: AsyncSession) -> None:
+@router.callback_query(F.data == "settings:toggle_scope")
+async def toggle_scope(call: CallbackQuery, session: AsyncSession) -> None:
     await call.answer()
     cur = await get_current_user_or_none(session, call.from_user.id)
     if not cur:
         await call.message.answer("Спочатку створіть анкету: /start")
         return
 
-    cur.search_global = not cur.search_global
+    order = ["settlement", "district", "region", "country"]
+    scope = _current_scope(cur)
+    try:
+        next_scope = order[(order.index(scope) + 1) % len(order)]
+    except ValueError:
+        next_scope = "settlement"
+
+    cur.search_scope = next_scope
+    cur.search_global = next_scope != "settlement"
     await session.commit()
 
     await call.message.edit_reply_markup(
-        reply_markup=settings_kb(cur.search_global, cur.active, getattr(cur, "age_filter_enabled", True)),
+        reply_markup=settings_kb(next_scope, cur.active, getattr(cur, "age_filter_enabled", True)),
     )
 
 
@@ -74,7 +104,7 @@ async def toggle_active(call: CallbackQuery, session: AsyncSession) -> None:
     await session.commit()
 
     await call.message.edit_reply_markup(
-        reply_markup=settings_kb(cur.search_global, cur.active, getattr(cur, "age_filter_enabled", True)),
+        reply_markup=settings_kb(_current_scope(cur), cur.active, getattr(cur, "age_filter_enabled", True)),
     )
 
 
@@ -86,11 +116,10 @@ async def toggle_age_filter(call: CallbackQuery, session: AsyncSession) -> None:
         await call.message.answer("Спочатку створіть анкету: /start")
         return
 
-    # за замовчуванням True; колонка додана міграцією, тож страхуємося getattr/setattr
     current_val = getattr(cur, "age_filter_enabled", True)
     setattr(cur, "age_filter_enabled", not current_val)
     await session.commit()
 
     await call.message.edit_reply_markup(
-        reply_markup=settings_kb(cur.search_global, cur.active, getattr(cur, "age_filter_enabled", True)),
+        reply_markup=settings_kb(_current_scope(cur), cur.active, getattr(cur, "age_filter_enabled", True)),
     )

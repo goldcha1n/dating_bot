@@ -55,7 +55,7 @@ def profile_manage_kb() -> InlineKeyboardMarkup:
     builder.button(text="🎂 Вік", callback_data="profile:edit_age")
     builder.button(text="⚧ Стать", callback_data="profile:edit_gender")
     builder.button(text="🎯 Кого шукаю", callback_data="profile:edit_looking_for")
-    builder.button(text="📍 Місто", callback_data="profile:edit_city")
+    builder.button(text="📍 Локація", callback_data="profile:edit_city")
     builder.button(text="📝 Про себе", callback_data="profile:edit_about")
     builder.button(text="📸 Фото", callback_data="profile:edit_photo")
     builder.button(text="🗑️ Видалити профіль", callback_data="profile:delete")

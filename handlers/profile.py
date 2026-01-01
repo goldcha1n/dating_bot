@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import re
 
 from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
@@ -172,25 +173,47 @@ async def edit_looking_for_save(message: Message, session: AsyncSession, state: 
 async def edit_city(call: CallbackQuery, state: FSMContext) -> None:
     await call.answer()
     await state.set_state(EditProfile.city)
-    await call.message.answer("Введіть нове місто:", reply_markup=ReplyKeyboardRemove())
+    await call.message.answer(
+        "Введіть локацію у форматі:\n"
+        "Область, Район (опційно), Населений пункт\n\n"
+        "Наприклад:\n"
+        "Львівська, Дрогобицький, Трускавець\n"
+        "або просто: Київ\n\n"
+        "Якщо це село — додайте слово «село» в кінці.",
+        reply_markup=ReplyKeyboardRemove(),
+    )
 
 
 @router.message(EditProfile.city)
 async def edit_city_save(message: Message, session: AsyncSession, state: FSMContext) -> None:
-    city = (message.text or "").strip()
-    if not city:
-        await message.answer("Місто не може бути порожнім.")
+    raw = (message.text or "").strip()
+    parts = [p.strip() for p in re.split(r"[;,]", raw) if p.strip()]
+    if not parts:
+        await message.answer("Локація не може бути порожньою. Введіть ще раз.")
         return
+
+    if len(parts) == 1:
+        region, district, settlement = parts[0], None, parts[0]
+    elif len(parts) == 2:
+        region, district, settlement = parts[0], None, parts[1]
+    else:
+        region, district, settlement = parts[0], parts[1] or None, parts[2]
 
     user = await get_current_user_or_none(session, message.from_user.id)
     if not user:
         await message.answer("Спочатку створіть анкету: /start")
         return
 
-    user.city = city
+    is_village = raw.lower().endswith("село") or " село" in raw.lower()
+    user.city = settlement
+    user.region = region
+    user.district = district
+    user.hromada = None
+    user.settlement = settlement
+    user.settlement_type = "village" if is_village else getattr(user, "settlement_type", "city")
     await session.commit()
     await state.clear()
-    await message.answer("✅ Місто оновлено.", reply_markup=main_menu_kb())
+    await message.answer("✅ Локацію оновлено.", reply_markup=main_menu_kb())
 
 
 @router.callback_query(F.data == "profile:edit_about")

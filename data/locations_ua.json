@@ -1,0 +1,17 @@
+{
+  "Kyiv City": {
+    "Kyiv": ["Kyiv"]
+  },
+  "Kyiv Oblast": {
+    "Kyiv Raion": ["Vyshneve", "Boiarka", "Irpin"],
+    "Bila Tserkva Raion": ["Bila Tserkva", "Uzin", "Rokytne"]
+  },
+  "Lviv Oblast": {
+    "Lviv Raion": ["Lviv", "Pustomyty", "Dubliany"],
+    "Drohobych Raion": ["Drohobych", "Truskavets", "Boryslav"]
+  },
+  "Odesa Oblast": {
+    "Odesa Raion": ["Odesa", "Chornomorsk", "Teplodar"],
+    "Bilhorod-Dnistrovskyi Raion": ["Bilhorod-Dnistrovskyi", "Zatoka", "Serhiivka"]
+  }
+}
