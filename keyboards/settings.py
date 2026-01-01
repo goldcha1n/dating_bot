@@ -5,6 +5,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 def settings_kb(search_scope: str, active: bool, age_filter_enabled: bool) -> InlineKeyboardMarkup:
     scope_labels = {
         "settlement": "🏠 Моє місто/село",
+        "hromada": "🧭 Моя громада",
         "district": "🗺️ Мій район",
         "region": "📍 Моя область",
         "country": "🌍 Уся країна",

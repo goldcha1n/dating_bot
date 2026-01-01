@@ -15,6 +15,7 @@ router = Router()
 def _scope_label(scope: str) -> str:
     return {
         "settlement": "🏠 Моє місто/село",
+        "hromada": "🧭 Моя громада",
         "district": "🗺️ Мій район",
         "region": "📍 Моя область",
         "country": "🌍 Уся країна",
@@ -23,8 +24,13 @@ def _scope_label(scope: str) -> str:
 
 def _current_scope(user) -> str:
     scope = getattr(user, "search_scope", None)
-    if scope not in {"settlement", "district", "region", "country"}:
-        scope = "country" if getattr(user, "search_global", False) else "settlement"
+    allowed = {"settlement", "hromada", "district", "region", "country"}
+    search_global = getattr(user, "search_global", False)
+    if search_global and scope != "country":
+        # legacy data may have search_scope != country but search_global=True
+        return "country"
+    if scope not in allowed:
+        return "country" if search_global else "settlement"
     return scope
 
 
@@ -41,6 +47,7 @@ async def _send_settings(message_or_call, session: AsyncSession) -> None:
         f"Моя локація: {format_location(cur)}\n\n"
         "🔎 Де шукаю:\n"
         "• 🏠 Місто/село — тільки ваш населений пункт\n"
+        "• 🧭 Громада — усі населені пункти вашої громади\n"
         "• 🗺️ Район — усі населені пункти вашого району\n"
         "• 📍 Область — вся область\n"
         "• 🌍 Уся країна — без обмежень\n\n"
@@ -76,7 +83,7 @@ async def toggle_scope(call: CallbackQuery, session: AsyncSession) -> None:
         await call.message.answer("Спочатку створіть анкету: /start")
         return
 
-    order = ["settlement", "district", "region", "country"]
+    order = ["settlement", "hromada", "district", "region", "country"]
     scope = _current_scope(cur)
     try:
         next_scope = order[(order.index(scope) + 1) % len(order)]
@@ -84,7 +91,7 @@ async def toggle_scope(call: CallbackQuery, session: AsyncSession) -> None:
         next_scope = "settlement"
 
     cur.search_scope = next_scope
-    cur.search_global = next_scope != "settlement"
+    cur.search_global = next_scope == "country"
     await session.commit()
 
     await call.message.edit_reply_markup(

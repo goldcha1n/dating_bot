@@ -57,7 +57,7 @@ async def _send_next(message: Message, session: AsyncSession, cur: User, cfg: Co
         await message.answer(
             "Поки немає підхожих анкет.\n\n"
             "Що можна зробити:\n"
-            "• розширити зону пошуку (район/область/країна) у налаштуваннях\n"
+            "• розширити зону пошуку (громада/район/область/країна) у налаштуваннях\n"
             "• зайти пізніше",
             reply_markup=open_settings_kb(),
         )

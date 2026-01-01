@@ -9,6 +9,7 @@
     <select name="search_scope">
         <option value="" {% if not search_scope %}selected{% endif %}>Будь-яка зона</option>
         <option value="settlement" {% if search_scope == 'settlement' %}selected{% endif %}>Місто/село</option>
+        <option value="hromada" {% if search_scope == 'hromada' %}selected{% endif %}>Громада</option>
         <option value="district" {% if search_scope == 'district' %}selected{% endif %}>Район</option>
         <option value="region" {% if search_scope == 'region' %}selected{% endif %}>Область</option>
         <option value="country" {% if search_scope == 'country' %}selected{% endif %}>Країна</option>
@@ -60,7 +61,7 @@
             <td>{{ user.settlement }}</td>
             <td>{{ 'Місто' if user.settlement_type == 'city' else 'Село' }}</td>
             <td>
-                {% if user.search_scope == 'settlement' %}Місто/село{% elif user.search_scope == 'district' %}Район{% elif user.search_scope == 'region' %}Область{% elif user.search_scope == 'country' %}Країна{% else %}—{% endif %}
+                {% if user.search_scope == 'settlement' %}Місто/село{% elif user.search_scope == 'hromada' %}Громада{% elif user.search_scope == 'district' %}Район{% elif user.search_scope == 'region' %}Область{% elif user.search_scope == 'country' %}Країна{% else %}—{% endif %}
             </td>
             <td class="about" title="{{ user.about or '' }}">
                 {% if user.about %}

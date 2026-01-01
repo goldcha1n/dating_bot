@@ -182,7 +182,7 @@ async def users_list(
         stmt = stmt.where(func.lower(User.district) == district.strip().lower())
     if settlement:
         stmt = stmt.where(func.lower(User.settlement) == settlement.strip().lower())
-    if search_scope in {"settlement", "district", "region", "country"}:
+    if search_scope in {"settlement", "hromada", "district", "region", "country"}:
         stmt = stmt.where(User.search_scope == search_scope)
     total = (await session.execute(select(func.count()).select_from(stmt.subquery()))).scalar_one()
     order_by_columns = [
@@ -237,7 +237,7 @@ async def profiles_list(
         base_stmt = base_stmt.where(func.lower(User.district) == district.strip().lower())
     if settlement:
         base_stmt = base_stmt.where(func.lower(User.settlement) == settlement.strip().lower())
-    if search_scope in {"settlement", "district", "region", "country"}:
+    if search_scope in {"settlement", "hromada", "district", "region", "country"}:
         base_stmt = base_stmt.where(User.search_scope == search_scope)
 
     total = (await session.execute(select(func.count()).select_from(base_stmt.subquery()))).scalar_one()

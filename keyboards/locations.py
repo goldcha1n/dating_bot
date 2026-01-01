@@ -52,12 +52,13 @@ def settlement_type_kb() -> InlineKeyboardMarkup:
 def search_scope_kb(current: Optional[str] = None) -> InlineKeyboardMarkup:
     labels = {
         "settlement": "Тільки в цьому населеному пункті",
+        "hromada": "У громаді",
         "district": "У районі",
         "region": "У області",
         "country": "По всій країні",
     }
     builder = InlineKeyboardBuilder()
-    order = ["settlement", "district", "region", "country"]
+    order = ["settlement", "hromada", "district", "region", "country"]
     for scope in order:
         label = labels[scope]
         if current == scope:

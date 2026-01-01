@@ -420,7 +420,7 @@ async def settlement_type_back(message: Message, state: FSMContext, session: Asy
 async def search_scope_pick(call, state: FSMContext) -> None:
     await call.answer()
     _, _, scope = call.data.split(":", 2)
-    if scope not in {"settlement", "district", "region", "country"}:
+    if scope not in {"settlement", "hromada", "district", "region", "country"}:
         await call.message.answer("Оберіть варіант із кнопок.")
         return
     await state.update_data(search_scope=scope)
@@ -504,7 +504,10 @@ async def _finish_registration(message: Message, state: FSMContext, session: Asy
     settlement = _clip(data.get("settlement") or loc_defaults["settlement"])
     settlement_type = data.get("settlement_type") or loc_defaults["settlement_type"]
     search_scope = data.get("search_scope") or loc_defaults["search_scope"]
-    search_global = search_scope != "settlement"
+    allowed_scopes = {"settlement", "hromada", "district", "region", "country"}
+    if search_scope not in allowed_scopes:
+        search_scope = loc_defaults["search_scope"]
+    search_global = search_scope == "country"
 
     user = User(
         tg_id=tg.id,

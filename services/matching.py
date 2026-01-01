@@ -41,26 +41,37 @@ def _main_photo_file_id(user: User) -> Optional[str]:
 def _location_filters(current: User) -> list:
     """Повертає SQLAlchemy умови за обраним рівнем пошуку."""
     scope = getattr(current, "search_scope", None)
-    if scope not in {"settlement", "district", "region", "country"}:
-        scope = "country" if getattr(current, "search_global", False) else "settlement"
+    allowed = {"settlement", "hromada", "district", "region", "country"}
+    search_global = getattr(current, "search_global", False)
+    if search_global:
+        scope = "country"
+    elif scope not in allowed:
+        scope = "settlement"
 
     region = getattr(current, "region", None)
     district = getattr(current, "district", None)
     hromada = getattr(current, "hromada", None)
     settlement = getattr(current, "settlement", None)
 
-    if scope == "country" or getattr(current, "search_global", False):
+    if scope == "country":
         return []
 
     if scope == "region":
         return [User.region == region] if region else []
 
+    if scope == "hromada":
+        filters = []
+        if region:
+            filters.append(User.region == region)
+        if district:
+            filters.append(User.district == district)
+        if hromada:
+            filters.append(User.hromada == hromada)
+        return filters
+
     if scope == "district":
         if region and district:
-            filters = [User.region == region, User.district == district]
-            if hromada:
-                filters.append(User.hromada == hromada)
-            return filters
+            return [User.region == region, User.district == district]
         return [User.region == region] if region else []
 
     # settlement

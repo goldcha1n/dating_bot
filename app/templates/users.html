@@ -7,7 +7,13 @@
     <a href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">{{ label }}{{ ' ' + indicator if indicator else '' }}</a>
 {%- endmacro %}
 
-{%- set scope_labels = {'settlement': 'Місто/село', 'district': 'Район', 'region': 'Область', 'country': 'Країна'} -%}
+{%- set scope_labels = {
+    'settlement': 'Місто/село',
+    'hromada': 'Громада',
+    'district': 'Район',
+    'region': 'Область',
+    'country': 'Країна'
+} -%}
 {%- set type_labels = {'city': 'Місто', 'village': 'Село'} -%}
 
 <h1>Користувачі</h1>
@@ -19,6 +25,7 @@
     <select name="search_scope">
         <option value="" {% if not search_scope %}selected{% endif %}>Будь-яка зона</option>
         <option value="settlement" {% if search_scope == 'settlement' %}selected{% endif %}>Місто/село</option>
+        <option value="hromada" {% if search_scope == 'hromada' %}selected{% endif %}>Громада</option>
         <option value="district" {% if search_scope == 'district' %}selected{% endif %}>Район</option>
         <option value="region" {% if search_scope == 'region' %}selected{% endif %}>Область</option>
         <option value="country" {% if search_scope == 'country' %}selected{% endif %}>Країна</option>

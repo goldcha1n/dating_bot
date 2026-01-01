@@ -127,7 +127,7 @@ async def seed_users(session, count: int, existing_count: int) -> List[int]:
         first, last, full_name = _pick_name(gender)
         username = f"user{base_tg + i}"
         region, district, settlement = _pick_location()
-        search_scope = random.choice(["settlement", "district", "region", "country"])
+        search_scope = random.choice(["settlement", "hromada", "district", "region", "country"])
 
         user = User(
             tg_id=base_tg + i,
@@ -146,7 +146,7 @@ async def seed_users(session, count: int, existing_count: int) -> List[int]:
             settlement_type="city",
             search_scope=search_scope,
             about=_pick_about(),
-            search_global=search_scope != "settlement",
+            search_global=search_scope == "country",
             active=True,
             is_banned=False,
         )
