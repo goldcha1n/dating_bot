@@ -1,0 +1,18 @@
+async def edit_photo_save(message: Message, session: AsyncSession, state: FSMContext) -> None:
+    user = await _load_user(session, message.from_user.id)
+    if not user:
+        await message.answer("Спочатку створіть анкету: /start")
+        return
+
+    new_file_id = message.photo[-1].file_id
+
+    for p in user.photos:
+        p.is_main = False
+
+    session.add(Photo(user_id=user.id, file_id=new_file_id, is_main=True))
+    await session.commit()
+    await state.clear()
+
+    await message.answer("✅ Фото оновлено.", reply_markup=main_menu_kb())
+
+

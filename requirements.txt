@@ -9,3 +9,5 @@ jinja2~=3.1.4
 alembic~=1.13.2
 itsdangerous~=2.2.0
 python-multipart~=0.0.9
+pillow~=10.4.0
+nudenet~=3.4.2

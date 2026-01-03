@@ -6,6 +6,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message, ReplyKeyboardRemove
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from pathlib import Path
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -16,6 +17,7 @@ from keyboards.main_menu import BTN_PROFILE, main_menu_kb
 from keyboards.locations import districts_kb, hromadas_kb, regions_kb, settlements_kb
 from models import Photo, User
 from services.location_repo import LocationRepository
+from services.nsfw import download_photo_to_tmp, is_photo_nsfw
 from services.matching import delete_user_account, get_current_user_or_none
 from utils.text import gender_to_code, looking_for_to_code, render_profile_caption
 
@@ -477,6 +479,18 @@ async def edit_photo_save(message: Message, session: AsyncSession, state: FSMCon
         return
 
     new_file_id = message.photo[-1].file_id
+
+    tmp_path = await download_photo_to_tmp(message.bot, new_file_id)
+    try:
+        if await is_photo_nsfw(tmp_path):
+            await message.answer("🔞Цю фотографію неможливо завантажити.\n Спробуйте іншу фотографію.")
+            return
+    except Exception:
+        logger.exception("NSFW check failed for profile photo")
+        await message.answer("??????? ??????? ??? ??? ????????? ????. ????????? ???? ????, ???? ?????.")
+        return
+    finally:
+        Path(tmp_path).unlink(missing_ok=True)
 
     for p in user.photos:
         p.is_main = False

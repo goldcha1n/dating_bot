@@ -7121,3 +7121,734 @@ Traceback (most recent call last):
 asyncio.exceptions.CancelledError
 2026-01-03 21:32:30,114 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
 2026-01-03 21:32:30,114 [INFO] __main__: Shutdown complete
+2026-01-03 21:35:17,709 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-03 21:35:17,709 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-03 21:35:17,709 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-03 21:35:17,709 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-03 21:35:17,774 [INFO] __main__: api started
+2026-01-03 21:35:17,933 [INFO] db: DB initialized (create_all done)
+2026-01-03 21:35:18,122 [INFO] app.bot: bot started
+2026-01-03 21:35:18,122 [INFO] aiogram.dispatcher: Start polling
+2026-01-03 21:35:18,123 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 37481.9s
+2026-01-03 21:35:18,161 [INFO] db: DB initialized (create_all done)
+2026-01-03 21:35:18,281 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 21:35:18,522 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 75, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\browse.py", line 130, in browse_react
+    await call.answer("❤️ Надіслано" if action == "like" else "➡️ Далі")
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid
+2026-01-03 21:35:18,600 [INFO] aiogram.event: Update id=99610512 is not handled. Duration 281 ms by bot id=8308846710
+2026-01-03 21:35:18,601 [ERROR] aiogram.event: Cause exception while process update id=99610512 by bot id=8308846710
+TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 75, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\browse.py", line 130, in browse_react
+    await call.answer("❤️ Надіслано" if action == "like" else "➡️ Далі")
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 43, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 78, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\browse.py", line 130, in browse_react
+    await call.answer("❤️ Надіслано" if action == "like" else "➡️ Далі")
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid
+2026-01-03 21:35:23,196 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-03 21:35:23,196 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-03 21:35:23,197 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-03 21:35:23,197 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-03 21:35:23,199 [INFO] __main__: Shutdown complete
+2026-01-03 21:35:23,199 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 21:35:26,851 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-03 21:35:26,852 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-03 21:35:26,852 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-03 21:35:26,852 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-03 21:35:26,916 [INFO] __main__: api started
+2026-01-03 21:35:27,088 [INFO] db: DB initialized (create_all done)
+2026-01-03 21:35:27,275 [INFO] app.bot: bot started
+2026-01-03 21:35:27,275 [INFO] aiogram.dispatcher: Start polling
+2026-01-03 21:35:27,276 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 37472.7s
+2026-01-03 21:35:27,279 [INFO] db: DB initialized (create_all done)
+2026-01-03 21:35:27,409 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 21:35:31,062 [INFO] aiogram.event: Update id=99610513 is handled. Duration 203 ms by bot id=8308846710
+2026-01-03 21:35:33,009 [INFO] aiogram.event: Update id=99610514 is handled. Duration 983 ms by bot id=8308846710
+2026-01-03 21:35:35,159 [INFO] aiogram.event: Update id=99610515 is handled. Duration 563 ms by bot id=8308846710
+2026-01-03 21:36:12,503 [INFO] aiogram.event: Update id=99610516 is handled. Duration 62 ms by bot id=8308846710
+2026-01-03 21:36:13,909 [INFO] aiogram.event: Update id=99610517 is handled. Duration 63 ms by bot id=8308846710
+2026-01-03 21:36:17,945 [INFO] aiogram.event: Update id=99610518 is handled. Duration 77 ms by bot id=8308846710
+2026-01-03 21:36:20,423 [INFO] aiogram.event: Update id=99610519 is handled. Duration 78 ms by bot id=8308846710
+2026-01-03 21:36:21,952 [INFO] aiogram.event: Update id=99610520 is handled. Duration 77 ms by bot id=8308846710
+2026-01-03 21:36:22,851 [INFO] aiogram.event: Update id=99610521 is handled. Duration 93 ms by bot id=8308846710
+2026-01-03 21:36:25,203 [INFO] aiogram.event: Update id=99610522 is handled. Duration 250 ms by bot id=8308846710
+2026-01-03 21:36:27,544 [INFO] aiogram.event: Update id=99610523 is handled. Duration 233 ms by bot id=8308846710
+2026-01-03 21:36:28,893 [INFO] aiogram.event: Update id=99610524 is handled. Duration 125 ms by bot id=8308846710
+2026-01-03 21:36:31,649 [INFO] aiogram.event: Update id=99610525 is handled. Duration 141 ms by bot id=8308846710
+2026-01-03 21:36:39,188 [INFO] aiogram.event: Update id=99610526 is handled. Duration 250 ms by bot id=8308846710
+2026-01-03 21:37:00,506 [INFO] aiogram.event: Update id=99610527 is handled. Duration 77 ms by bot id=8308846710
+2026-01-03 21:37:04,762 [INFO] aiogram.event: Update id=99610528 is handled. Duration 93 ms by bot id=8308846710
+2026-01-03 21:37:12,202 [ERROR] db: Ban check failed (db error)
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\asyncpg\prepared_stmt.py", line 176, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\asyncpg\prepared_stmt.py", line 241, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\asyncpg\prepared_stmt.py", line 230, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg\protocol\protocol.pyx", line 207, in bind_execute
+asyncpg.exceptions.NotNullViolationError: значение NULL в столбце "settlement_type" отношения "users" нарушает ограничение NOT NULL
+DETAIL:  Ошибочная строка содержит (10015, 1109508382, goldcha1n, goldcha1n, null, f, Петя, 19, t, M, F, Городнє, Одеська, Болградський, Городнє, null, hromada, null, f, t, 2026-01-03 21:37:12.193542+02, Городненська).
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.IntegrityError: <class 'asyncpg.exceptions.NotNullViolationError'>: значение NULL в столбце "settlement_type" отношения "users" нарушает ограничение NOT NULL
+DETAIL:  Ошибочная строка содержит (10015, 1109508382, goldcha1n, goldcha1n, null, f, Петя, 19, t, M, F, Городнє, Одеська, Болградський, Городнє, null, hromada, null, f, t, 2026-01-03 21:37:12.193542+02, Городненська).
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\db.py", line 68, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\onboarding.py", line 453, in reg_photo
+    await _finish_registration(message, state, session)
+  File "C:\Python_Projects\dating_bot\handlers\onboarding.py", line 503, in _finish_registration
+    await session.flush()
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 787, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\session.py", line 4331, in flush
+    self._flush(objects)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\session.py", line 4466, in _flush
+    with util.safe_reraise():
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\session.py", line 4427, in _flush
+    flush_context.execute()
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.IntegrityError: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: значение NULL в столбце "settlement_type" отношения "users" нарушает ограничение NOT NULL
+DETAIL:  Ошибочная строка содержит (10015, 1109508382, goldcha1n, goldcha1n, null, f, Петя, 19, t, M, F, Городнє, Одеська, Болградський, Городнє, null, hromada, null, f, t, 2026-01-03 21:37:12.193542+02, Городненська).
+[SQL: INSERT INTO users (tg_id, username, first_name, last_name, is_banned, name, age, age_filter_enabled, gender, looking_for, city, region, district, hromada, settlement, search_scope, about, search_global, active) VALUES ($1::BIGINT, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::BOOLEAN, $6::VARCHAR, $7::INTEGER, $8::BOOLEAN, $9::VARCHAR, $10::VARCHAR, $11::VARCHAR, $12::VARCHAR, $13::VARCHAR, $14::VARCHAR, $15::VARCHAR, $16::VARCHAR, $17::VARCHAR, $18::BOOLEAN, $19::BOOLEAN) RETURNING users.id, users.created_at]
+[parameters: (1109508382, 'goldcha1n', 'goldcha1n', None, False, 'Петя', 19, True, 'M', 'F', 'Городнє', 'Одеська', 'Болградський', 'Городненська', 'Городнє', 'hromada', None, False, True)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-01-03 21:37:12,218 [INFO] aiogram.event: Update id=99610529 is not handled. Duration 30 ms by bot id=8308846710
+2026-01-03 21:37:12,218 [ERROR] aiogram.event: Cause exception while process update id=99610529 by bot id=8308846710
+PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: значение NULL в столбце "settlement_type" отношения "users" нарушает ограничение NOT NULL
+DETAIL:  Ошибочная строка содержит (10015, 1109508382, goldcha1n, goldcha1n, null, f, Петя, 19, t, M, F, Городнє, Одеська, Болградський, Городнє, null, hromada, null, f, t, 2026-01-03 21:37:12.193542+02, Городненська).
+[SQL: INSERT INTO users (tg_id, username, first_name, last_name, is_banned, name, age, age_filter_enabled, gender, looking_for, city, region, district, hromada, settlement, search_scope, about, search_global, active) VALUES ($1::BIGINT, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::BOOLEAN, $6::VARCHAR, $7::INTEGER, $8::BOOLEAN, $9::VARCHAR, $10::VARCHAR, $11::VARCHAR, $12::VARCHAR, $13::VARCHAR, $14::VARCHAR, $15::VARCHAR, $16::VARCHAR, $17::VARCHAR, $18::BOOLEAN, $19::BOOLEAN) RETURNING users.id, users.created_at]
+[parameters: (1109508382, 'goldcha1n', 'goldcha1n', None, False, 'Петя', 19, True, 'M', 'F', 'Городнє', 'Одеська', 'Болградський', 'Городненська', 'Городнє', 'hromada', None, False, True)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+Traceback (most recent call last):
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 43, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\db.py", line 78, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Python_Projects\dating_bot\handlers\onboarding.py", line 453, in reg_photo
+    await _finish_registration(message, state, session)
+  File "C:\Python_Projects\dating_bot\handlers\onboarding.py", line 503, in _finish_registration
+    await session.flush()
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 787, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\session.py", line 4331, in flush
+    self._flush(objects)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\session.py", line 4423, in _flush
+    flush_context.transaction = transaction = self._autobegin_t()._begin()
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _begin
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\sqlalchemy\orm\session.py", line 971, in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: значение NULL в столбце "settlement_type" отношения "users" нарушает ограничение NOT NULL
+DETAIL:  Ошибочная строка содержит (10015, 1109508382, goldcha1n, goldcha1n, null, f, Петя, 19, t, M, F, Городнє, Одеська, Болградський, Городнє, null, hromada, null, f, t, 2026-01-03 21:37:12.193542+02, Городненська).
+[SQL: INSERT INTO users (tg_id, username, first_name, last_name, is_banned, name, age, age_filter_enabled, gender, looking_for, city, region, district, hromada, settlement, search_scope, about, search_global, active) VALUES ($1::BIGINT, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::BOOLEAN, $6::VARCHAR, $7::INTEGER, $8::BOOLEAN, $9::VARCHAR, $10::VARCHAR, $11::VARCHAR, $12::VARCHAR, $13::VARCHAR, $14::VARCHAR, $15::VARCHAR, $16::VARCHAR, $17::VARCHAR, $18::BOOLEAN, $19::BOOLEAN) RETURNING users.id, users.created_at]
+[parameters: (1109508382, 'goldcha1n', 'goldcha1n', None, False, 'Петя', 19, True, 'M', 'F', 'Городнє', 'Одеська', 'Болградський', 'Городненська', 'Городнє', 'hromada', None, False, True)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+2026-01-03 21:38:37,227 [INFO] aiogram.event: Update id=99610530 is handled. Duration 141 ms by bot id=8308846710
+2026-01-03 21:38:58,382 [INFO] aiogram.event: Update id=99610531 is handled. Duration 125 ms by bot id=8308846710
+2026-01-03 21:42:46,408 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-03 21:42:46,409 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-03 21:42:46,409 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-03 21:42:46,409 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-03 21:42:46,411 [INFO] __main__: Shutdown complete
+2026-01-03 21:42:46,412 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 21:44:22,236 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-03 21:44:22,236 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-03 21:44:22,236 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-03 21:44:22,237 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-03 21:44:22,315 [INFO] __main__: api started
+2026-01-03 21:44:22,502 [INFO] db: DB initialized (create_all done)
+2026-01-03 21:44:22,505 [INFO] db: DB initialized (create_all done)
+2026-01-03 21:44:22,703 [INFO] app.bot: bot started
+2026-01-03 21:44:22,703 [INFO] aiogram.dispatcher: Start polling
+2026-01-03 21:44:22,705 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 36937.3s
+2026-01-03 21:44:22,858 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 21:44:27,665 [INFO] aiogram.event: Update id=99610532 is handled. Duration 203 ms by bot id=8308846710
+2026-01-03 21:44:29,783 [INFO] aiogram.event: Update id=99610533 is handled. Duration 78 ms by bot id=8308846710
+2026-01-03 21:44:31,781 [INFO] aiogram.event: Update id=99610534 is handled. Duration 63 ms by bot id=8308846710
+2026-01-03 21:44:33,033 [INFO] aiogram.event: Update id=99610535 is handled. Duration 110 ms by bot id=8308846710
+2026-01-03 21:44:33,869 [INFO] aiogram.event: Update id=99610536 is handled. Duration 93 ms by bot id=8308846710
+2026-01-03 21:44:35,583 [INFO] aiogram.event: Update id=99610537 is handled. Duration 250 ms by bot id=8308846710
+2026-01-03 21:44:36,897 [INFO] aiogram.event: Update id=99610538 is handled. Duration 203 ms by bot id=8308846710
+2026-01-03 21:44:38,368 [INFO] aiogram.event: Update id=99610539 is handled. Duration 328 ms by bot id=8308846710
+2026-01-03 21:44:39,697 [INFO] aiogram.event: Update id=99610540 is handled. Duration 125 ms by bot id=8308846710
+2026-01-03 21:44:42,442 [INFO] aiogram.event: Update id=99610541 is handled. Duration 125 ms by bot id=8308846710
+2026-01-03 21:44:46,744 [INFO] aiogram.event: Update id=99610542 is handled. Duration 78 ms by bot id=8308846710
+2026-01-03 21:44:49,322 [INFO] aiogram.event: Update id=99610543 is handled. Duration 62 ms by bot id=8308846710
+2026-01-03 21:44:53,266 [INFO] aiogram.event: Update id=99610544 is handled. Duration 156 ms by bot id=8308846710
+2026-01-03 21:44:55,752 [INFO] aiogram.event: Update id=99610545 is handled. Duration 157 ms by bot id=8308846710
+2026-01-03 21:45:01,480 [INFO] aiogram.event: Update id=99610546 is handled. Duration 171 ms by bot id=8308846710
+2026-01-03 21:45:03,283 [INFO] aiogram.event: Update id=99610547 is handled. Duration 141 ms by bot id=8308846710
+2026-01-03 21:45:04,489 [INFO] aiogram.event: Update id=99610548 is handled. Duration 141 ms by bot id=8308846710
+2026-01-03 21:45:05,814 [INFO] aiogram.event: Update id=99610549 is handled. Duration 172 ms by bot id=8308846710
+2026-01-03 21:45:07,036 [INFO] aiogram.event: Update id=99610550 is handled. Duration 297 ms by bot id=8308846710
+2026-01-03 21:45:08,190 [INFO] aiogram.event: Update id=99610551 is handled. Duration 125 ms by bot id=8308846710
+2026-01-03 21:45:13,855 [INFO] aiogram.event: Update id=99610552 is handled. Duration 437 ms by bot id=8308846710
+2026-01-03 21:45:18,254 [INFO] aiogram.event: Update id=99610553 is handled. Duration 141 ms by bot id=8308846710
+2026-01-03 21:45:24,443 [INFO] aiogram.event: Update id=99610554 is handled. Duration 110 ms by bot id=8308846710
+2026-01-03 21:47:02,749 [INFO] aiogram.event: Update id=99610555 is handled. Duration 78 ms by bot id=8308846710
+2026-01-03 21:47:13,349 [INFO] aiogram.event: Update id=99610556 is handled. Duration 77 ms by bot id=8308846710
+2026-01-03 21:47:21,934 [INFO] aiogram.event: Update id=99610557 is handled. Duration 141 ms by bot id=8308846710
+2026-01-03 21:47:23,690 [INFO] aiogram.event: Update id=99610558 is handled. Duration 109 ms by bot id=8308846710
+2026-01-03 21:47:26,782 [INFO] aiogram.event: Update id=99610559 is handled. Duration 422 ms by bot id=8308846710
+2026-01-03 21:47:29,547 [INFO] aiogram.event: Update id=99610560 is handled. Duration 514 ms by bot id=8308846710
+2026-01-03 21:47:31,720 [INFO] aiogram.event: Update id=99610561 is handled. Duration 108 ms by bot id=8308846710
+2026-01-03 21:47:33,241 [INFO] aiogram.event: Update id=99610562 is handled. Duration 187 ms by bot id=8308846710
+2026-01-03 21:50:26,389 [INFO] aiogram.event: Update id=99610563 is handled. Duration 139 ms by bot id=8308846710
+2026-01-03 21:50:27,856 [INFO] aiogram.event: Update id=99610564 is handled. Duration 266 ms by bot id=8308846710
+2026-01-03 21:50:29,881 [INFO] aiogram.event: Update id=99610565 is handled. Duration 172 ms by bot id=8308846710
+2026-01-03 21:50:34,042 [INFO] aiogram.event: Update id=99610566 is handled. Duration 139 ms by bot id=8308846710
+2026-01-03 21:50:52,827 [INFO] aiogram.event: Update id=99610567 is handled. Duration 93 ms by bot id=8308846710
+2026-01-03 21:51:15,071 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-03 21:51:15,072 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 21:51:15,073 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-03 21:51:15,081 [INFO] __main__: Shutdown complete
+2026-01-03 23:06:30,052 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-03 23:06:30,053 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-03 23:06:30,053 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-03 23:06:30,053 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-03 23:06:30,135 [INFO] __main__: api started
+2026-01-03 23:06:30,260 [INFO] db: DB initialized (create_all done)
+2026-01-03 23:06:30,261 [INFO] db: DB initialized (create_all done)
+2026-01-03 23:06:30,453 [INFO] app.bot: bot started
+2026-01-03 23:06:30,453 [INFO] aiogram.dispatcher: Start polling
+2026-01-03 23:06:30,454 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 32009.5s
+2026-01-03 23:06:30,601 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 23:06:31,199 [INFO] aiogram.event: Update id=99610568 is handled. Duration 546 ms by bot id=8308846710
+2026-01-03 23:08:11,265 [INFO] aiogram.event: Update id=99610569 is handled. Duration 77 ms by bot id=8308846710
+2026-01-03 23:08:13,199 [INFO] aiogram.event: Update id=99610570 is handled. Duration 110 ms by bot id=8308846710
+2026-01-03 23:08:13,784 [INFO] aiogram.event: Update id=99610571 is handled. Duration 93 ms by bot id=8308846710
+2026-01-03 23:08:15,730 [INFO] aiogram.event: Update id=99610572 is handled. Duration 171 ms by bot id=8308846710
+2026-01-03 23:08:23,468 [INFO] services.nsfw: NSFW detector loaded (NudeDetector)
+2026-01-03 23:08:23,584 [INFO] aiogram.event: Update id=99610573 is handled. Duration 500 ms by bot id=8308846710
+2026-01-03 23:08:55,582 [INFO] aiogram.event: Update id=99610574 is handled. Duration 62 ms by bot id=8308846710
+2026-01-03 23:08:56,938 [INFO] aiogram.event: Update id=99610575 is handled. Duration 125 ms by bot id=8308846710
+2026-01-03 23:09:01,337 [INFO] aiogram.event: Update id=99610576 is handled. Duration 296 ms by bot id=8308846710
+2026-01-03 23:09:08,464 [INFO] aiogram.event: Update id=99610577 is handled. Duration 77 ms by bot id=8308846710
+2026-01-03 23:09:45,414 [INFO] aiogram.event: Update id=99610578 is handled. Duration 171 ms by bot id=8308846710
+2026-01-03 23:09:50,634 [INFO] aiogram.event: Update id=99610579 is handled. Duration 281 ms by bot id=8308846710
+2026-01-03 23:13:17,848 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-03 23:13:17,848 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 23:13:17,849 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-03 23:13:17,857 [INFO] __main__: Shutdown complete
+2026-01-03 23:13:21,451 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-03 23:13:21,451 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-03 23:13:21,451 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-03 23:13:21,452 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-03 23:13:21,513 [INFO] __main__: api started
+2026-01-03 23:13:21,622 [INFO] db: DB initialized (create_all done)
+2026-01-03 23:13:21,809 [INFO] app.bot: bot started
+2026-01-03 23:13:21,809 [INFO] aiogram.dispatcher: Start polling
+2026-01-03 23:13:21,810 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 31598.2s
+2026-01-03 23:13:21,813 [INFO] db: DB initialized (create_all done)
+2026-01-03 23:13:21,964 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 23:13:34,744 [INFO] aiogram.event: Update id=99610580 is handled. Duration 312 ms by bot id=8308846710
+2026-01-03 23:13:42,385 [INFO] services.nsfw: NSFW detector loaded (NudeDetector)
+2026-01-03 23:13:42,489 [INFO] aiogram.event: Update id=99610581 is handled. Duration 312 ms by bot id=8308846710
+2026-01-03 23:14:35,084 [INFO] aiogram.event: Update id=99610582 is handled. Duration 311 ms by bot id=8308846710
+2026-01-03 23:15:25,874 [INFO] aiogram.event: Update id=99610583 is handled. Duration 282 ms by bot id=8308846710
+2026-01-03 23:15:33,103 [INFO] aiogram.event: Update id=99610584 is handled. Duration 296 ms by bot id=8308846710
+2026-01-03 23:15:44,823 [INFO] aiogram.event: Update id=99610585 is handled. Duration 218 ms by bot id=8308846710
+2026-01-03 23:15:56,490 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-03 23:15:56,491 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 23:15:56,491 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-03 23:15:56,499 [INFO] __main__: Shutdown complete
+2026-01-03 23:16:14,510 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-03 23:16:14,511 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-03 23:16:14,511 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-03 23:16:14,511 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-03 23:16:14,575 [INFO] __main__: api started
+2026-01-03 23:16:14,684 [INFO] db: DB initialized (create_all done)
+2026-01-03 23:16:14,871 [INFO] app.bot: bot started
+2026-01-03 23:16:14,872 [INFO] aiogram.dispatcher: Start polling
+2026-01-03 23:16:14,873 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 31425.1s
+2026-01-03 23:16:14,875 [INFO] db: DB initialized (create_all done)
+2026-01-03 23:16:15,025 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 23:16:18,516 [INFO] aiogram.event: Update id=99610586 is handled. Duration 187 ms by bot id=8308846710
+2026-01-03 23:16:21,102 [INFO] aiogram.event: Update id=99610587 is handled. Duration 171 ms by bot id=8308846710
+2026-01-03 23:16:25,219 [INFO] services.nsfw: NSFW detector loaded (NudeDetector)
+2026-01-03 23:16:25,327 [INFO] aiogram.event: Update id=99610588 is handled. Duration 327 ms by bot id=8308846710
+2026-01-03 23:16:35,836 [INFO] aiogram.event: Update id=99610589 is handled. Duration 264 ms by bot id=8308846710
+2026-01-03 23:16:42,128 [INFO] aiogram.event: Update id=99610590 is handled. Duration 391 ms by bot id=8308846710
+2026-01-03 23:16:51,315 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-03 23:16:51,316 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-03 23:16:51,316 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-03 23:16:51,316 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-03 23:16:51,318 [INFO] __main__: Shutdown complete
+2026-01-03 23:16:51,319 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 23:17:00,547 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-03 23:17:00,547 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-03 23:17:00,547 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-03 23:17:00,548 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-03 23:17:00,611 [INFO] __main__: api started
+2026-01-03 23:17:00,725 [INFO] db: DB initialized (create_all done)
+2026-01-03 23:17:00,912 [INFO] app.bot: bot started
+2026-01-03 23:17:00,912 [INFO] aiogram.dispatcher: Start polling
+2026-01-03 23:17:00,913 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 31379.1s
+2026-01-03 23:17:00,917 [INFO] db: DB initialized (create_all done)
+2026-01-03 23:17:01,066 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 23:17:03,796 [INFO] aiogram.event: Update id=99610591 is handled. Duration 187 ms by bot id=8308846710
+2026-01-03 23:17:05,014 [INFO] aiogram.event: Update id=99610592 is handled. Duration 202 ms by bot id=8308846710
+2026-01-03 23:17:09,873 [INFO] services.nsfw: NSFW detector loaded (NudeDetector)
+2026-01-03 23:17:09,979 [INFO] aiogram.event: Update id=99610593 is handled. Duration 327 ms by bot id=8308846710
+2026-01-03 23:17:23,180 [INFO] aiogram.event: Update id=99610594 is handled. Duration 359 ms by bot id=8308846710
+2026-01-03 23:17:27,192 [INFO] aiogram.event: Update id=99610595 is handled. Duration 78 ms by bot id=8308846710
+2026-01-03 23:17:29,375 [INFO] aiogram.event: Update id=99610596 is handled. Duration 125 ms by bot id=8308846710
+2026-01-03 23:17:48,180 [INFO] aiogram.event: Update id=99610597 is handled. Duration 375 ms by bot id=8308846710
+2026-01-03 23:18:00,757 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-03 23:18:00,757 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-03 23:18:00,758 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-03 23:18:00,766 [INFO] __main__: Shutdown complete
+2026-01-04 01:27:45,916 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 01:27:45,916 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 01:27:45,916 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 01:27:45,917 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 01:27:45,983 [INFO] __main__: api started
+2026-01-04 01:27:46,093 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:27:46,093 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:27:46,279 [INFO] app.bot: bot started
+2026-01-04 01:27:46,280 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 01:27:46,281 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 23533.7s
+2026-01-04 01:27:46,431 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:28:03,704 [INFO] aiogram.event: Update id=99610598 is not handled. Duration 0 ms by bot id=8308846710
+2026-01-04 01:28:13,506 [INFO] aiogram.event: Update id=99610599 is handled. Duration 187 ms by bot id=8308846710
+2026-01-04 01:28:15,062 [INFO] aiogram.event: Update id=99610600 is handled. Duration 78 ms by bot id=8308846710
+2026-01-04 01:28:16,466 [INFO] aiogram.event: Update id=99610601 is handled. Duration 155 ms by bot id=8308846710
+2026-01-04 01:28:18,547 [INFO] aiogram.event: Update id=99610602 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:28:22,496 [INFO] aiogram.event: Update id=99610603 is handled. Duration 297 ms by bot id=8308846710
+2026-01-04 01:28:29,925 [INFO] services.nsfw: NSFW detector loaded (NudeDetector)
+2026-01-04 01:28:30,040 [INFO] aiogram.event: Update id=99610604 is handled. Duration 843 ms by bot id=8308846710
+2026-01-04 01:28:37,824 [INFO] aiogram.event: Update id=99610605 is handled. Duration 343 ms by bot id=8308846710
+2026-01-04 01:28:42,220 [INFO] aiogram.event: Update id=99610606 is handled. Duration 280 ms by bot id=8308846710
+2026-01-04 01:28:47,008 [INFO] aiogram.event: Update id=99610607 is handled. Duration 297 ms by bot id=8308846710
+2026-01-04 01:28:50,456 [INFO] aiogram.event: Update id=99610608 is handled. Duration 360 ms by bot id=8308846710
+2026-01-04 01:28:54,401 [INFO] aiogram.event: Update id=99610609 is handled. Duration 360 ms by bot id=8308846710
+2026-01-04 01:29:03,983 [INFO] aiogram.event: Update id=99610610 is handled. Duration 77 ms by bot id=8308846710
+2026-01-04 01:29:06,697 [INFO] aiogram.event: Update id=99610611 is handled. Duration 140 ms by bot id=8308846710
+2026-01-04 01:29:10,595 [INFO] aiogram.event: Update id=99610612 is handled. Duration 296 ms by bot id=8308846710
+2026-01-04 01:29:11,843 [INFO] aiogram.event: Update id=99610613 is handled. Duration 77 ms by bot id=8308846710
+2026-01-04 01:29:17,186 [INFO] aiogram.event: Update id=99610614 is not handled. Duration 0 ms by bot id=8308846710
+2026-01-04 01:29:19,130 [INFO] aiogram.event: Update id=99610615 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:29:22,237 [INFO] aiogram.event: Update id=99610616 is handled. Duration 296 ms by bot id=8308846710
+2026-01-04 01:29:24,246 [INFO] aiogram.event: Update id=99610617 is handled. Duration 93 ms by bot id=8308846710
+2026-01-04 01:29:28,125 [INFO] aiogram.event: Update id=99610618 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:29:29,520 [INFO] aiogram.event: Update id=99610619 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:29:30,576 [INFO] aiogram.event: Update id=99610620 is handled. Duration 140 ms by bot id=8308846710
+2026-01-04 01:29:32,077 [INFO] aiogram.event: Update id=99610621 is handled. Duration 62 ms by bot id=8308846710
+2026-01-04 01:29:52,273 [INFO] aiogram.event: Update id=99610622 is handled. Duration 78 ms by bot id=8308846710
+2026-01-04 01:30:15,487 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 01:30:15,487 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 01:30:15,488 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-04 01:30:15,488 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-04 01:30:15,490 [INFO] __main__: Shutdown complete
+2026-01-04 01:30:15,490 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:32:02,926 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 01:32:02,926 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 01:32:02,926 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 01:32:02,926 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 01:32:02,995 [INFO] __main__: api started
+2026-01-04 01:32:03,118 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:32:03,120 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:32:03,311 [INFO] app.bot: bot started
+2026-01-04 01:32:03,311 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 01:32:03,312 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 23276.7s
+2026-01-04 01:32:03,456 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:33:14,485 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 01:33:14,485 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 01:33:14,486 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-04 01:33:14,486 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-04 01:33:14,488 [INFO] __main__: Shutdown complete
+2026-01-04 01:33:14,489 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:35:44,696 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 01:35:44,697 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 01:35:44,697 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 01:35:44,697 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 01:35:44,764 [INFO] __main__: api started
+2026-01-04 01:35:44,875 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:35:44,878 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:35:45,066 [INFO] app.bot: bot started
+2026-01-04 01:35:45,066 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 01:35:45,068 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 23054.9s
+2026-01-04 01:35:45,228 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:35:49,629 [INFO] aiogram.event: Update id=99610623 is handled. Duration 250 ms by bot id=8308846710
+2026-01-04 01:35:53,490 [INFO] aiogram.event: Update id=99610624 is handled. Duration 78 ms by bot id=8308846710
+2026-01-04 01:35:56,253 [INFO] aiogram.event: Update id=99610625 is handled. Duration 93 ms by bot id=8308846710
+2026-01-04 01:35:57,802 [INFO] aiogram.event: Update id=99610626 is handled. Duration 93 ms by bot id=8308846710
+2026-01-04 01:35:58,843 [INFO] aiogram.event: Update id=99610627 is handled. Duration 108 ms by bot id=8308846710
+2026-01-04 01:36:02,610 [INFO] aiogram.event: Update id=99610628 is handled. Duration 141 ms by bot id=8308846710
+2026-01-04 01:36:04,748 [INFO] aiogram.event: Update id=99610629 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:36:23,174 [INFO] aiogram.event: Update id=99610630 is handled. Duration 281 ms by bot id=8308846710
+2026-01-04 01:36:27,170 [INFO] aiogram.event: Update id=99610631 is handled. Duration 62 ms by bot id=8308846710
+2026-01-04 01:36:36,983 [INFO] services.nsfw: NSFW detector loaded (NudeDetector)
+2026-01-04 01:36:37,094 [INFO] aiogram.event: Update id=99610632 is handled. Duration 452 ms by bot id=8308846710
+2026-01-04 01:36:45,040 [INFO] aiogram.event: Update id=99610633 is handled. Duration 389 ms by bot id=8308846710
+2026-01-04 01:36:50,199 [INFO] aiogram.event: Update id=99610634 is handled. Duration 93 ms by bot id=8308846710
+2026-01-04 01:36:52,331 [INFO] aiogram.event: Update id=99610635 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:36:57,881 [INFO] aiogram.event: Update id=99610636 is handled. Duration 327 ms by bot id=8308846710
+2026-01-04 01:37:33,915 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 01:37:33,916 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:37:33,916 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 01:37:33,924 [INFO] __main__: Shutdown complete
+2026-01-04 01:37:37,845 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 01:37:37,845 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 01:37:37,846 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 01:37:37,846 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 01:37:37,910 [INFO] __main__: api started
+2026-01-04 01:37:38,019 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:37:38,021 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:37:38,211 [INFO] app.bot: bot started
+2026-01-04 01:37:38,212 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 01:37:38,213 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 22941.8s
+2026-01-04 01:37:38,356 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:38:53,834 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 01:38:53,834 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 01:38:53,834 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-04 01:38:53,835 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-04 01:38:53,837 [INFO] __main__: Shutdown complete
+2026-01-04 01:38:53,837 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:38:57,618 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 01:38:57,618 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 01:38:57,618 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 01:38:57,618 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 01:38:57,684 [INFO] __main__: api started
+2026-01-04 01:38:57,772 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:38:57,870 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:38:58,055 [INFO] app.bot: bot started
+2026-01-04 01:38:58,055 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 01:38:58,056 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 22861.9s
+2026-01-04 01:38:58,204 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:39:03,672 [INFO] aiogram.event: Update id=99610637 is handled. Duration 187 ms by bot id=8308846710
+2026-01-04 01:39:13,030 [INFO] aiogram.event: Update id=99610638 is handled. Duration 78 ms by bot id=8308846710
+2026-01-04 01:39:14,533 [INFO] aiogram.event: Update id=99610639 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:39:18,737 [INFO] services.nsfw: NSFW detector loaded (NudeDetector)
+2026-01-04 01:39:18,853 [INFO] aiogram.event: Update id=99610640 is handled. Duration 406 ms by bot id=8308846710
+2026-01-04 01:39:27,129 [INFO] aiogram.event: Update id=99610641 is handled. Duration 297 ms by bot id=8308846710
+2026-01-04 01:40:02,907 [INFO] aiogram.event: Update id=99610642 is handled. Duration 313 ms by bot id=8308846710
+2026-01-04 01:40:07,731 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 01:40:07,732 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:40:07,732 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 01:40:07,740 [INFO] __main__: Shutdown complete
+2026-01-04 01:40:30,338 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 01:40:30,338 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 01:40:30,338 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 01:40:30,339 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 01:40:30,402 [INFO] __main__: api started
+2026-01-04 01:40:30,509 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:40:30,512 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:40:30,699 [INFO] app.bot: bot started
+2026-01-04 01:40:30,699 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 01:40:30,700 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 22769.3s
+2026-01-04 01:40:30,851 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:40:35,206 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 01:40:35,206 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 01:40:35,207 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-04 01:40:35,207 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-04 01:40:35,209 [INFO] __main__: Shutdown complete
+2026-01-04 01:51:52,369 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 01:51:52,369 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 01:51:52,369 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 01:51:52,369 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 01:51:52,436 [INFO] __main__: api started
+2026-01-04 01:51:52,545 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:51:52,547 [INFO] db: DB initialized (create_all done)
+2026-01-04 01:51:52,734 [INFO] app.bot: bot started
+2026-01-04 01:51:52,734 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 01:51:52,735 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-04T08:00:00+02:00 (Europe/Kyiv), sleep 22087.3s
+2026-01-04 01:51:52,875 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:51:52,935 [INFO] aiogram.event: Update id=99610643 is not handled. Duration 16 ms by bot id=8308846710
+2026-01-04 01:51:53,103 [INFO] aiogram.event: Update id=99610644 is handled. Duration 187 ms by bot id=8308846710
+2026-01-04 01:51:56,149 [INFO] aiogram.event: Update id=99610645 is handled. Duration 78 ms by bot id=8308846710
+2026-01-04 01:51:58,954 [INFO] aiogram.event: Update id=99610646 is handled. Duration 140 ms by bot id=8308846710
+2026-01-04 01:52:15,345 [INFO] services.nsfw: NSFW detector loaded (NudeDetector)
+2026-01-04 01:52:15,453 [INFO] aiogram.event: Update id=99610647 is handled. Duration 390 ms by bot id=8308846710
+2026-01-04 01:52:17,042 [INFO] aiogram.event: Update id=99610648 is handled. Duration 139 ms by bot id=8308846710
+2026-01-04 01:52:25,579 [INFO] aiogram.event: Update id=99610649 is not handled. Duration 0 ms by bot id=8308846710
+2026-01-04 01:52:28,705 [INFO] aiogram.event: Update id=99610650 is handled. Duration 156 ms by bot id=8308846710
+2026-01-04 01:52:29,698 [INFO] aiogram.event: Update id=99610651 is handled. Duration 187 ms by bot id=8308846710
+2026-01-04 01:52:32,297 [INFO] aiogram.event: Update id=99610652 is handled. Duration 281 ms by bot id=8308846710
+2026-01-04 01:52:33,542 [INFO] aiogram.event: Update id=99610653 is handled. Duration 78 ms by bot id=8308846710
+2026-01-04 01:52:35,079 [INFO] aiogram.event: Update id=99610654 is handled. Duration 110 ms by bot id=8308846710
+2026-01-04 01:52:44,552 [INFO] aiogram.event: Update id=99610655 is handled. Duration 343 ms by bot id=8308846710
+2026-01-04 01:52:51,440 [INFO] aiogram.event: Update id=99610656 is handled. Duration 344 ms by bot id=8308846710
+2026-01-04 01:52:57,039 [INFO] aiogram.event: Update id=99610657 is handled. Duration 78 ms by bot id=8308846710
+2026-01-04 01:52:59,408 [INFO] aiogram.event: Update id=99610658 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:53:00,218 [INFO] aiogram.event: Update id=99610659 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:53:01,493 [INFO] aiogram.event: Update id=99610660 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:53:03,278 [INFO] aiogram.event: Update id=99610661 is handled. Duration 93 ms by bot id=8308846710
+2026-01-04 01:53:08,394 [INFO] aiogram.event: Update id=99610662 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:53:09,650 [INFO] aiogram.event: Update id=99610663 is handled. Duration 297 ms by bot id=8308846710
+2026-01-04 01:53:11,184 [INFO] aiogram.event: Update id=99610664 is handled. Duration 109 ms by bot id=8308846710
+2026-01-04 01:53:16,760 [INFO] aiogram.event: Update id=99610665 is handled. Duration 172 ms by bot id=8308846710
+2026-01-04 01:53:21,757 [INFO] aiogram.event: Update id=99610666 is handled. Duration 250 ms by bot id=8308846710
+2026-01-04 01:53:24,128 [INFO] aiogram.event: Update id=99610667 is handled. Duration 203 ms by bot id=8308846710
+2026-01-04 01:53:27,872 [INFO] aiogram.event: Update id=99610668 is handled. Duration 750 ms by bot id=8308846710
+2026-01-04 01:53:31,777 [INFO] aiogram.event: Update id=99610669 is handled. Duration 531 ms by bot id=8308846710
+2026-01-04 01:53:33,445 [INFO] aiogram.event: Update id=99610670 is handled. Duration 77 ms by bot id=8308846710
+2026-01-04 01:53:35,671 [INFO] aiogram.event: Update id=99610671 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:53:41,993 [INFO] aiogram.event: Update id=99610672 is handled. Duration 78 ms by bot id=8308846710
+2026-01-04 01:53:44,020 [INFO] aiogram.event: Update id=99610673 is handled. Duration 62 ms by bot id=8308846710
+2026-01-04 01:53:53,741 [INFO] aiogram.event: Update id=99610674 is handled. Duration 360 ms by bot id=8308846710
+2026-01-04 01:54:00,458 [INFO] aiogram.event: Update id=99610675 is handled. Duration 62 ms by bot id=8308846710
+2026-01-04 01:54:02,495 [INFO] aiogram.event: Update id=99610676 is handled. Duration 125 ms by bot id=8308846710
+2026-01-04 01:54:06,270 [INFO] aiogram.event: Update id=99610677 is handled. Duration 639 ms by bot id=8308846710
+2026-01-04 01:54:09,126 [INFO] aiogram.event: Update id=99610678 is handled. Duration 672 ms by bot id=8308846710
+2026-01-04 01:54:18,718 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 01:54:18,719 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 01:54:18,719 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 01:54:18,728 [INFO] __main__: Shutdown complete

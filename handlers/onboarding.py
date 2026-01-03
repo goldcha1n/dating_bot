@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 from typing import Optional
+from pathlib import Path
 
 from aiogram import F, Router
 from aiogram.filters import CommandStart
@@ -24,6 +25,7 @@ from keyboards.locations import (
 )
 from models import Photo, User
 from services.location_repo import LocationRepository
+from services.nsfw import download_photo_to_tmp, is_photo_nsfw
 from utils.locations import default_location, normalize_choice, normalize_text
 from utils.text import gender_to_code, looking_for_to_code, render_profile_caption
 
@@ -445,6 +447,19 @@ async def reg_photo(message: Message, state: FSMContext, session: AsyncSession) 
     file_ids = list(data.get("photo_file_ids", []))
 
     file_id = message.photo[-1].file_id
+
+    tmp_path = await download_photo_to_tmp(message.bot, file_id)
+    try:
+        if await is_photo_nsfw(tmp_path):
+            await message.answer("🔞Цю фотографію неможливо завантажити.\n Спробуйте іншу фотографію.")
+            return
+    except Exception:
+        logger.exception("NSFW check failed for onboarding photo")
+        await message.answer("Сталася помилка під час перевірки фото. Спробуйте інше фото, будь ласка.")
+        return
+    finally:
+        Path(tmp_path).unlink(missing_ok=True)
+
     file_ids.append(file_id)
 
     await state.update_data(photo_file_ids=file_ids)
