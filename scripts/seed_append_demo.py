@@ -133,7 +133,6 @@ async def seed_users_with_photos(session, count: int, start_tg: int) -> List[int
             region=region,
             district=district,
             settlement=settlement,
-            settlement_type="city",
             search_scope=search_scope,
             about=about,
             search_global=search_scope == "country",

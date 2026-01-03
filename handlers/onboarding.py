@@ -20,7 +20,6 @@ from keyboards.locations import (
     hromadas_kb,
     regions_kb,
     search_scope_kb,
-    settlement_type_kb,
     settlements_kb,
 )
 from models import Photo, User
@@ -45,7 +44,6 @@ class Registration(StatesGroup):
     district = State()
     hromada = State()
     settlement = State()
-    settlement_type = State()
     search_scope = State()
     about = State()
     photos = State()
@@ -65,7 +63,7 @@ async def _prompt_region(message: Message, state: FSMContext, session: AsyncSess
     regions = await repo.list_regions()
     await state.update_data(region_options=regions)
     await message.answer(
-        "<b>Крок 5/12</b> — обери область кнопкою або введи вручну:",
+        "<b>Крок 5/11</b> — обери область кнопкою або введи вручну:",
         reply_markup=regions_kb([r.name for r in regions]),
     )
     await state.set_state(Registration.region)
@@ -116,7 +114,7 @@ async def _prompt_district(message: Message, state: FSMContext, session: AsyncSe
     builder.adjust(2)
 
     await message.answer(
-        "<b>Крок 6/12</b> — обери район (кнопкою) або «Без району»/«Інше»:",
+        "<b>Крок 6/11</b> — обери район (кнопкою) або «Без району»/«Інше»:",
         reply_markup=builder.as_markup(),
     )
     await state.set_state(Registration.district)
@@ -131,7 +129,7 @@ async def _prompt_hromada(
 
     if hromadas:
         await message.answer(
-            "<b>Крок 7/12</b> — обери громаду (кнопкою) або натисни «Назад»:",
+            "<b>Крок 7/11</b> — обери громаду (кнопкою) або натисни «Назад»:",
             reply_markup=hromadas_kb([h.name for h in hromadas]),
         )
         await state.set_state(Registration.hromada)
@@ -160,7 +158,7 @@ async def _prompt_settlement(
 
     if settlements:
         await message.answer(
-            "<b>Крок 8/12</b> — обери населений пункт (кнопкою) або натисни «Назад»:",
+            "<b>Крок 8/11</b> — обери населений пункт (кнопкою) або натисни «Назад»:",
             reply_markup=settlements_kb([s.name for s in settlements]),
         )
         await state.set_state(Registration.settlement)
@@ -172,14 +170,9 @@ async def _prompt_settlement(
         await state.set_state(Registration.settlement)
 
 
-async def _prompt_settlement_type(message: Message, state: FSMContext) -> None:
-    await message.answer("<b>Крок 9/12</b> — це місто чи село?", reply_markup=settlement_type_kb())
-    await state.set_state(Registration.settlement_type)
-
-
 async def _prompt_search_scope(message: Message, state: FSMContext, current: str | None = None) -> None:
     await message.answer(
-        "<b>Крок 10/12</b> — де шукаємо людей?",
+        "<b>Крок 9/11</b> — де шукаємо людей?",
         reply_markup=search_scope_kb(current),
     )
     await state.set_state(Registration.search_scope)
@@ -196,7 +189,7 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession, 
     await state.clear()
     await message.answer(
         "Привіт! Давай швидко заповнимо анкету.\n\n"
-        "<b>Крок 1/12</b> — як тебе звати?",
+        "<b>Крок 1/11</b> — як тебе звати?",
         reply_markup=ReplyKeyboardRemove(),
     )
     await state.set_state(Registration.name)
@@ -210,7 +203,7 @@ async def reg_name(message: Message, state: FSMContext) -> None:
         return
 
     await state.update_data(name=text)
-    await message.answer("<b>Крок 2/12</b> — скільки тобі років? (16–99)")
+    await message.answer("<b>Крок 2/11</b> — скільки тобі років? (16–99)")
     await state.set_state(Registration.age)
 
 
@@ -232,14 +225,14 @@ async def reg_age(message: Message, state: FSMContext) -> None:
         return
 
     await state.update_data(age=age)
-    await message.answer("<b>Крок 3/12</b> — оберіть стать:", reply_markup=gender_kb())
+    await message.answer("<b>Крок 3/11</b> — оберіть стать:", reply_markup=gender_kb())
     await state.set_state(Registration.gender)
 
 
 @router.message(Registration.gender)
 async def reg_gender(message: Message, state: FSMContext) -> None:
     if _is_back(message):
-        await message.answer("<b>Крок 2/12</b> — скільки тобі років? (16–99)")
+        await message.answer("<b>Крок 2/11</b> — скільки тобі років? (16–99)")
         await state.set_state(Registration.age)
         return
     code = gender_to_code((message.text or "").strip())
@@ -248,14 +241,14 @@ async def reg_gender(message: Message, state: FSMContext) -> None:
         return
 
     await state.update_data(gender=code)
-    await message.answer("<b>Крок 4/12</b> — кого шукаєте?", reply_markup=looking_for_kb())
+    await message.answer("<b>Крок 4/11</b> — кого шукаєте?", reply_markup=looking_for_kb())
     await state.set_state(Registration.looking_for)
 
 
 @router.message(Registration.looking_for)
 async def reg_looking_for(message: Message, state: FSMContext, session: AsyncSession) -> None:
     if _is_back(message):
-        await message.answer("<b>Крок 3/12</b> — оберіть стать:", reply_markup=gender_kb())
+        await message.answer("<b>Крок 3/11</b> — оберіть стать:", reply_markup=gender_kb())
         await state.set_state(Registration.gender)
         return
     code = looking_for_to_code((message.text or "").strip())
@@ -276,7 +269,7 @@ async def region_pick(call, state: FSMContext, session: AsyncSession) -> None:
     regions = data.get("region_options", [])
 
     if action == "back":
-        await call.message.answer("<b>Крок 4/12</b> — кого шукаєте?", reply_markup=looking_for_kb())
+        await call.message.answer("<b>Крок 4/11</b> — кого шукаєте?", reply_markup=looking_for_kb())
         await state.set_state(Registration.looking_for)
         return
 
@@ -311,7 +304,6 @@ async def district_pick(call, state: FSMContext, session: AsyncSession) -> None:
             hromada_code=None,
             settlement=capital,
             settlement_code=None,
-            settlement_type="city",
         )
         await _prompt_search_scope(call.message, state)
         return
@@ -386,35 +378,7 @@ async def settlement_pick(call, state: FSMContext, session: AsyncSession) -> Non
         return
 
     await state.update_data(settlement=settlement_item.name, settlement_code=settlement_item.code)
-    await _prompt_settlement_type(call.message, state)
-
-
-@router.callback_query(Registration.settlement_type, F.data.startswith("loc:type:"))
-async def settlement_type_pick(call, state: FSMContext) -> None:
-    await call.answer()
-    _, _, value = call.data.split(":", 2)
-    if value not in {"city", "village"}:
-        await call.message.answer("Оберіть із кнопок: місто чи село.")
-        return
-    await state.update_data(settlement_type=value)
     await _prompt_search_scope(call.message, state)
-
-
-@router.message(Registration.settlement_type)
-async def settlement_type_back(message: Message, state: FSMContext, session: AsyncSession) -> None:
-    if _is_back(message):
-        data = await state.get_data()
-        await _prompt_settlement(
-            message,
-            state,
-            session,
-            data.get("region_code"),
-            data.get("district_code"),
-            data.get("hromada_code"),
-        )
-        return
-    await message.answer("Оберіть із кнопок: місто чи село.", reply_markup=settlement_type_kb())
-
 
 @router.callback_query(Registration.search_scope, F.data.startswith("loc:scope:"))
 async def search_scope_pick(call, state: FSMContext) -> None:
@@ -425,16 +389,24 @@ async def search_scope_pick(call, state: FSMContext) -> None:
         return
     await state.update_data(search_scope=scope)
     await call.message.answer(
-        "<b>Крок 11/12</b> — кілька слів про себе (можна пропустити).",
+        "<b>Крок 10/11</b> — кілька слів про себе (можна пропустити).",
         reply_markup=skip_about_kb(),
     )
     await state.set_state(Registration.about)
 
 
 @router.message(Registration.search_scope)
-async def search_scope_back(message: Message, state: FSMContext) -> None:
+async def search_scope_back(message: Message, state: FSMContext, session: AsyncSession) -> None:
     if _is_back(message):
-        await _prompt_settlement_type(message, state)
+        data = await state.get_data()
+        await _prompt_settlement(
+            message,
+            state,
+            session,
+            data.get("region_code"),
+            data.get("district_code"),
+            data.get("hromada_code"),
+        )
         return
     await message.answer("Оберіть варіант із кнопок нижче.", reply_markup=search_scope_kb())
 
@@ -460,7 +432,7 @@ async def reg_about(message: Message, state: FSMContext, cfg: Config) -> None:
         await state.update_data(about=text)
 
     await message.answer(
-        "<b>Крок 12/12</b> — надішліть фото (мінімум 1).",
+        "<b>Крок 11/11</b> — надішліть фото (мінімум 1).",
         reply_markup=ReplyKeyboardRemove(),
     )
     await state.set_state(Registration.photos)
@@ -485,7 +457,7 @@ async def reg_photo(message: Message, state: FSMContext, session: AsyncSession) 
 async def reg_photo_invalid(message: Message, state: FSMContext) -> None:
     if _is_back(message):
         await message.answer(
-            "<b>Крок 11/12</b> — кілька слів про себе (можна пропустити).",
+            "<b>Крок 10/11</b> — кілька слів про себе (можна пропустити).",
             reply_markup=skip_about_kb(),
         )
         await state.set_state(Registration.about)
@@ -502,7 +474,6 @@ async def _finish_registration(message: Message, state: FSMContext, session: Asy
     district = _clip(data.get("district") or "") or None
     hromada = _clip(data.get("hromada") or "") or None
     settlement = _clip(data.get("settlement") or loc_defaults["settlement"])
-    settlement_type = data.get("settlement_type") or loc_defaults["settlement_type"]
     search_scope = data.get("search_scope") or loc_defaults["search_scope"]
     allowed_scopes = {"settlement", "hromada", "district", "region", "country"}
     if search_scope not in allowed_scopes:
@@ -523,7 +494,6 @@ async def _finish_registration(message: Message, state: FSMContext, session: Asy
         district=district,
         hromada=hromada,
         settlement=settlement,
-        settlement_type=settlement_type,
         search_scope=search_scope,
         about=data.get("about"),
         search_global=search_global,

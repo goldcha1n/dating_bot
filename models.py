@@ -44,7 +44,6 @@ class User(Base):
     district: Mapped[Optional[str]] = mapped_column(String(128), nullable=True)
     hromada: Mapped[Optional[str]] = mapped_column(String(128), nullable=True)
     settlement: Mapped[str] = mapped_column(String(128), nullable=False, default="Kyiv")
-    settlement_type: Mapped[str] = mapped_column(String(16), nullable=False, default="city")  # city/village
     search_scope: Mapped[str] = mapped_column(
         String(16), nullable=False, default="region"
     )  # settlement/hromada/district/region/country
@@ -73,7 +72,6 @@ class User(Base):
         CheckConstraint("age BETWEEN 16 AND 99", name="ck_users_age"),
         CheckConstraint("gender IN ('M','F')", name="ck_users_gender"),
         CheckConstraint("looking_for IN ('M','F','A')", name="ck_users_looking_for"),
-        CheckConstraint("settlement_type IN ('city','village')", name="ck_users_settlement_type"),
         CheckConstraint(
             "search_scope IN ('settlement','hromada','district','region','country')",
             name="ck_users_search_scope",

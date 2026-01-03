@@ -74,6 +74,5 @@ def default_location() -> dict:
         "district": None,
         "hromada": None,
         "settlement": "Kyiv",
-        "settlement_type": "city",
         "search_scope": "region",
     }

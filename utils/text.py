@@ -48,12 +48,10 @@ def format_location(user: User) -> str:
     district = getattr(user, "district", None)
     hromada = getattr(user, "hromada", None)
     region = getattr(user, "region", None)
-    settlement_type = getattr(user, "settlement_type", "city")
 
     parts = []
     if settlement:
-        prefix = "с." if settlement_type == "village" else "м."
-        parts.append(f"{prefix} {settlement}")
+        parts.append(settlement)
     if hromada:
         parts.append(hromada)
     if district:
@@ -62,7 +60,7 @@ def format_location(user: User) -> str:
         parts.append(region)
     if not parts and getattr(user, "city", None):
         parts.append(user.city)
-    return ", ".join(parts) if parts else "—"
+    return ", ".join(parts) if parts else "-"
 
 
 def render_profile_caption(user: User) -> str:

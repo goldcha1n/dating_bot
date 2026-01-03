@@ -14,8 +14,6 @@
     'region': 'Область',
     'country': 'Країна'
 } -%}
-{%- set type_labels = {'city': 'Місто', 'village': 'Село'} -%}
-
 <h1>Користувачі</h1>
 <form method="get" action="/admin/users" class="toolbar">
     <input type="text" name="q" value="{{ q }}" placeholder="Пошук за tg_id або нікнеймом" />
@@ -44,7 +42,6 @@
             <th>Область</th>
             <th>Район</th>
             <th>Населений пункт</th>
-            <th>Тип</th>
             <th>Зона пошуку</th>
             <th>{{ sort_link('Бан', 'is_banned') }}</th>
             <th>{{ sort_link('Скарги', 'complaints') }}</th>
@@ -63,7 +60,6 @@
             <td>{{ user.region }}</td>
             <td>{{ user.district or "-" }}</td>
             <td>{{ user.settlement }}</td>
-            <td>{{ type_labels.get(user.settlement_type, user.settlement_type) }}</td>
             <td>{{ scope_labels.get(user.search_scope, user.search_scope) }}</td>
             <td>{{ "Так" if user.is_banned else "Ні" }}</td>
             <td><a href="/admin/complaints?target_user_id={{ user.id }}">{{ item.complaints }}</a></td>
@@ -83,7 +79,7 @@
         {% endfor %}
         {% if users|length == 0 %}
         <tr>
-            <td colspan="13" class="empty">Користувачів не знайдено</td>
+            <td colspan="12" class="empty">Користувачів не знайдено</td>
         </tr>
         {% endif %}
     </tbody>

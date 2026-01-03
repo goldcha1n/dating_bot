@@ -13,7 +13,7 @@ from sqlalchemy.orm import selectinload
 from app.config import Config
 from keyboards.inline_profiles import confirm_delete_kb, gender_kb, looking_for_kb, profile_manage_kb
 from keyboards.main_menu import BTN_PROFILE, main_menu_kb
-from keyboards.locations import districts_kb, hromadas_kb, regions_kb, settlement_type_kb, settlements_kb
+from keyboards.locations import districts_kb, hromadas_kb, regions_kb, settlements_kb
 from models import Photo, User
 from services.location_repo import LocationRepository
 from services.matching import delete_user_account, get_current_user_or_none
@@ -37,7 +37,6 @@ class EditProfile(StatesGroup):
     district = State()
     hromada = State()
     settlement = State()
-    settlement_type = State()
     about = State()
     photo = State()
 
@@ -312,7 +311,6 @@ async def _save_location_and_finish(message: Message, state: FSMContext, session
     settlement = data.get("settlement")
     user.settlement = settlement
     user.city = settlement
-    user.settlement_type = data.get("settlement_type") or "city"
 
     await session.commit()
     await state.clear()
@@ -361,7 +359,6 @@ async def district_pick(call: CallbackQuery, state: FSMContext, session: AsyncSe
             hromada_code=None,
             settlement=capital,
             settlement_code=None,
-            settlement_type="city",
         )
         await _save_location_and_finish(call.message, state, session)
         return
@@ -432,21 +429,7 @@ async def settlement_pick(call: CallbackQuery, state: FSMContext, session: Async
         return
 
     await state.update_data(settlement=settlement_item.name, settlement_code=settlement_item.code)
-    await call.message.answer("Це місто чи село?", reply_markup=settlement_type_kb())
-    await state.set_state(EditProfile.settlement_type)
-
-
-@router.callback_query(EditProfile.settlement_type, F.data.startswith("loc:type:"))
-async def settlement_type_pick(call: CallbackQuery, state: FSMContext, session: AsyncSession) -> None:
-    await call.answer()
-    _, _, value = call.data.split(":", 2)
-    if value not in {"city", "village"}:
-        await call.message.answer("Оберіть кнопку: місто чи село.", reply_markup=settlement_type_kb())
-        return
-
-    await state.update_data(settlement_type=value)
     await _save_location_and_finish(call.message, state, session)
-
 
 @router.callback_query(F.data == "profile:edit_about")
 async def edit_about(call: CallbackQuery, state: FSMContext, cfg: Config) -> None:

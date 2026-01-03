@@ -30,7 +30,6 @@
             <th>Область</th>
             <th>Район</th>
             <th>Населений пункт</th>
-            <th>Тип</th>
             <th>Зона пошуку</th>
             <th>Про себе</th>
             <th>Створено</th>
@@ -59,7 +58,6 @@
             <td>{{ user.region }}</td>
             <td>{{ user.district or "-" }}</td>
             <td>{{ user.settlement }}</td>
-            <td>{{ 'Місто' if user.settlement_type == 'city' else 'Село' }}</td>
             <td>
                 {% if user.search_scope == 'settlement' %}Місто/село{% elif user.search_scope == 'hromada' %}Громада{% elif user.search_scope == 'district' %}Район{% elif user.search_scope == 'region' %}Область{% elif user.search_scope == 'country' %}Країна{% else %}—{% endif %}
             </td>

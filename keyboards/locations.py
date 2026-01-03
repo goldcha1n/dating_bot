@@ -41,14 +41,6 @@ def settlements_kb(settlements: list[str]) -> InlineKeyboardMarkup:
     return builder.as_markup()
 
 
-def settlement_type_kb() -> InlineKeyboardMarkup:
-    builder = InlineKeyboardBuilder()
-    builder.button(text="Місто", callback_data="loc:type:city")
-    builder.button(text="Село/селище", callback_data="loc:type:village")
-    builder.adjust(2)
-    return builder.as_markup()
-
-
 def search_scope_kb(current: Optional[str] = None) -> InlineKeyboardMarkup:
     labels = {
         "settlement": "Тільки в цьому населеному пункті",

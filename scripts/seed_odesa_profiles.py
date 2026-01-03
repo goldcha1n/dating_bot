@@ -136,7 +136,6 @@ async def seed_users(session, region_name: str, settlements: Sequence[SettRecord
             district=settlement.district,
             hromada=settlement.hromada,
             settlement=settlement.name,
-            settlement_type="city",
             search_scope=scope,
             about=about,
             search_global=search_global,

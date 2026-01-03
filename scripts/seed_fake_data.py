@@ -143,7 +143,6 @@ async def seed_users(session, count: int, existing_count: int) -> List[int]:
             region=region,
             district=district,
             settlement=settlement,
-            settlement_type="city",
             search_scope=search_scope,
             about=_pick_about(),
             search_global=search_scope == "country",
