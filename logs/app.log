@@ -8053,3 +8053,20 @@ DETAIL:  Ошибочная строка содержит (10015, 1109508382, go
 2026-01-04 12:43:19,191 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
 2026-01-04 12:43:19,193 [INFO] __main__: Shutdown complete
 2026-01-04 12:43:19,194 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 12:45:12,964 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 12:45:12,964 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 12:45:12,964 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 12:45:12,964 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 12:45:13,032 [INFO] __main__: api started
+2026-01-04 12:45:13,143 [INFO] db: DB initialized (create_all done)
+2026-01-04 12:45:13,331 [INFO] app.bot: bot started
+2026-01-04 12:45:13,331 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 12:45:13,332 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-05T08:00:00+02:00 (Europe/Kyiv), sleep 69286.7s
+2026-01-04 12:45:13,336 [INFO] db: DB initialized (create_all done)
+2026-01-04 12:45:13,477 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 12:45:13,739 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 12:45:13,739 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 12:45:13,740 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-04 12:45:13,740 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-04 12:45:13,742 [INFO] __main__: Shutdown complete
+2026-01-04 12:45:13,742 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'

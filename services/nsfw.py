@@ -93,6 +93,7 @@ async def is_photo_nsfw(
     return False
 
 
+
 async def download_photo_to_tmp(bot: Bot, file_id: str) -> str:
     """Download Telegram file to a temporary JPEG path and return it."""
     tg_file = await bot.get_file(file_id)
