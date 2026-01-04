@@ -165,6 +165,7 @@ async def users_list(
         "name": (User.first_name, User.last_name, User.name),
         "is_banned": (User.is_banned,),
         "created_at": (User.created_at,),
+        "last_activity_at": (User.last_activity_at,),
         "complaints": (func.coalesce(complaints_subq.c.complaints, 0), User.id),
     }
     if sort_field not in sort_map:

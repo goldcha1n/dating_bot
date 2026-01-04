@@ -46,6 +46,7 @@
             <th>{{ sort_link('Бан', 'is_banned') }}</th>
             <th>{{ sort_link('Скарги', 'complaints') }}</th>
             <th>{{ sort_link('Створено', 'created_at') }}</th>
+            <th>{{ sort_link('Остання активність', 'last_activity_at') }}</th>
             <th>{{ sort_link('Дії', 'id') }}</th>
         </tr>
     </thead>
@@ -64,6 +65,7 @@
             <td>{{ "Так" if user.is_banned else "Ні" }}</td>
             <td><a href="/admin/complaints?target_user_id={{ user.id }}">{{ item.complaints }}</a></td>
             <td>{{ user.created_at }}</td>
+            <td>{{ user.last_activity_at or "—" }}</td>
             <td>
                 {% if user.is_banned %}
                 <form method="post" action="/admin/users/{{ user.id }}/unban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}">

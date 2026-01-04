@@ -56,6 +56,7 @@ class User(Base):
     active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    last_activity_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
 
     photos: Mapped[List["Photo"]] = relationship(
         back_populates="user",
@@ -86,6 +87,7 @@ class User(Base):
         Index("ix_users_region_district", "region", "district"),
         Index("ix_users_region_district_settlement", "region", "district", "settlement"),
         Index("ix_users_region_district_hromada", "region", "district", "hromada"),
+        Index("ix_users_last_activity", "last_activity_at"),
     )
 
 

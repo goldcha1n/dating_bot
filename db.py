@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from aiogram import BaseMiddleware
@@ -70,6 +71,17 @@ class BanCheckMiddleware(BaseMiddleware):
             if getattr(user, "is_banned", False):
                 logger.info("Ignore update from banned user tg_id=%s", from_user.id)
                 return None
+
+            # Update last activity no more than once per hour to avoid extra writes.
+            last_seen = getattr(user, "last_activity_at", None)
+            now = datetime.now(timezone.utc)
+            if last_seen is None or now - last_seen >= timedelta(hours=1):
+                user.last_activity_at = now
+                try:
+                    await session.commit()
+                except Exception:
+                    await session.rollback()
+                    logger.exception("Failed to update last_activity_at for tg_id=%s", from_user.id)
 
             data.setdefault("user", user)
             return await handler(event, data)
