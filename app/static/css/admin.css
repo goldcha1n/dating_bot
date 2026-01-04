@@ -202,6 +202,39 @@ select {
     color: var(--accent);
 }
 
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.badge-status.status-new { background: #2563eb; }
+.badge-status.status-in_progress { background: #eab308; color: #1f1f1f; }
+.badge-status.status-done { background: #16a34a; }
+.badge-cat.cat-issue { background: #b42318; }
+.badge-cat.cat-idea { background: #7c3aed; }
+.badge-cat.cat-general { background: #1f6feb; }
+.badge-cat.cat-other { background: #6b7280; }
+
+.inline-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+details summary {
+    cursor: pointer;
+    color: var(--text);
+}
+details .full-text {
+    margin-top: 6px;
+    white-space: pre-wrap;
+}
+
 .photo {
     width: 110px;
 }

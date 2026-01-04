@@ -145,6 +145,7 @@ async def users_list(
     district: Optional[str] = Query(default=None),
     settlement: Optional[str] = Query(default=None),
     search_scope: Optional[str] = Query(default=None),
+    active_hours: Optional[int] = Query(default=None, ge=1),
     page: int = Query(default=1, ge=1),
     session: AsyncSession = Depends(get_session),
 ):
@@ -189,6 +190,12 @@ async def users_list(
         stmt = stmt.where(func.lower(User.settlement) == settlement.strip().lower())
     if search_scope in {"settlement", "hromada", "district", "region", "country"}:
         stmt = stmt.where(User.search_scope == search_scope)
+    if active_hours:
+        try:
+            hours = max(1, int(active_hours))
+            stmt = stmt.where(User.last_activity_at >= func.now() - func.make_interval(hours=hours))
+        except Exception:
+            pass
     total = (await session.execute(select(func.count()).select_from(stmt.subquery()))).scalar_one()
     order_by_columns = [
         col.asc() if sort_order == "asc" else col.desc() for col in sort_map[sort_field]
@@ -204,17 +211,18 @@ async def users_list(
             "users": users,
             "q": q or "",
             "sort": sort_field,
-            "order": sort_order,
-            "complaints_sort_value": "complaints",
-            "page": page,
-            "total_pages": total_pages,
-            "admin_username": admin_username,
-            "region": region or "",
-            "district": district or "",
-            "settlement": settlement or "",
-            "search_scope": search_scope or "",
-        },
-    )
+        "order": sort_order,
+        "complaints_sort_value": "complaints",
+        "page": page,
+        "total_pages": total_pages,
+        "admin_username": admin_username,
+        "region": region or "",
+        "district": district or "",
+        "settlement": settlement or "",
+        "search_scope": search_scope or "",
+        "active_hours": str(active_hours) if active_hours is not None else "",
+    },
+)
 
 
 @router.get("/admin/profiles", response_class=HTMLResponse)

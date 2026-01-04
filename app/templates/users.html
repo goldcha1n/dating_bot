@@ -4,7 +4,7 @@
     {%- set is_current = sort == field -%}
     {%- set next_order = 'desc' if is_current and order == 'asc' else 'asc' -%}
     {%- set indicator = '^' if is_current and order == 'asc' else ('v' if is_current and order == 'desc' else '') -%}
-    <a href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">{{ label }}{{ ' ' + indicator if indicator else '' }}</a>
+    <a href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">{{ label }}{{ ' ' + indicator if indicator else '' }}</a>
 {%- endmacro %}
 
 {%- set scope_labels = {
@@ -27,6 +27,11 @@
         <option value="district" {% if search_scope == 'district' %}selected{% endif %}>Район</option>
         <option value="region" {% if search_scope == 'region' %}selected{% endif %}>Область</option>
         <option value="country" {% if search_scope == 'country' %}selected{% endif %}>Країна</option>
+    </select>
+    <select name="active_hours">
+        <option value="" {% if not active_hours %}selected{% endif %}>Активні: будь-коли</option>
+        <option value="24" {% if active_hours == '24' %}selected{% endif %}>За 24 години</option>
+        <option value="168" {% if active_hours == '168' %}selected{% endif %}>За 7 днів</option>
     </select>
     <input type="hidden" name="sort" value="{{ sort }}" />
     <input type="hidden" name="order" value="{{ order }}" />
@@ -68,11 +73,11 @@
             <td>{{ user.last_activity_at or "—" }}</td>
             <td>
                 {% if user.is_banned %}
-                <form method="post" action="/admin/users/{{ user.id }}/unban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}">
+                <form method="post" action="/admin/users/{{ user.id }}/unban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">
                     <button type="submit" class="btn small">Розблокувати</button>
                 </form>
                 {% else %}
-                <form method="post" action="/admin/users/{{ user.id }}/ban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}">
+                <form method="post" action="/admin/users/{{ user.id }}/ban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">
                     <button type="submit" class="btn small danger">Заблокувати</button>
                 </form>
                 {% endif %}
@@ -90,10 +95,10 @@
     <span>Сторінка {{ page }} з {{ total_pages }}</span>
     <div class="pager">
         {% if page > 1 %}
-        <a href="/admin/users?page={{ page - 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">Назад</a>
+        <a href="/admin/users?page={{ page - 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">Назад</a>
         {% endif %}
         {% if page < total_pages %}
-        <a href="/admin/users?page={{ page + 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">Далі</a>
+        <a href="/admin/users?page={{ page + 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">Далі</a>
         {% endif %}
     </div>
 </div>
