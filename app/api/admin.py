@@ -391,8 +391,10 @@ async def profiles_list(
     q: Optional[str] = Query(default=None),
     region: Optional[str] = Query(default=None),
     district: Optional[str] = Query(default=None),
+    hromada: Optional[str] = Query(default=None),
     settlement: Optional[str] = Query(default=None),
     search_scope: Optional[str] = Query(default=None),
+    active_hours: Optional[str] = Query(default=None),
     page: int = Query(default=1, ge=1),
     session: AsyncSession = Depends(get_session),
 ):
@@ -407,10 +409,18 @@ async def profiles_list(
         base_stmt = base_stmt.where(func.lower(User.region) == region.strip().lower())
     if district:
         base_stmt = base_stmt.where(func.lower(User.district) == district.strip().lower())
+    if hromada:
+        base_stmt = base_stmt.where(func.lower(User.hromada) == hromada.strip().lower())
     if settlement:
         base_stmt = base_stmt.where(func.lower(User.settlement) == settlement.strip().lower())
     if search_scope in {"settlement", "hromada", "district", "region", "country"}:
         base_stmt = base_stmt.where(User.search_scope == search_scope)
+    if active_hours:
+        try:
+            hours = max(1, int(active_hours))
+            base_stmt = base_stmt.where(User.last_activity_at >= func.now() - func.make_interval(hours=hours))
+        except Exception:
+            pass
 
     total = (await session.execute(select(func.count()).select_from(base_stmt.subquery()))).scalar_one()
 
@@ -452,8 +462,10 @@ async def profiles_list(
             "admin_username": admin_username,
             "region": region or "",
             "district": district or "",
+            "hromada": hromada or "",
             "settlement": settlement or "",
             "search_scope": search_scope or "",
+            "active_hours": active_hours or "",
         },
     )
 

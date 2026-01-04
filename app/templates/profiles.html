@@ -3,9 +3,18 @@
 <h1>Профілі</h1>
 <form method="get" action="/admin/profiles" class="toolbar">
     <input type="text" name="q" value="{{ q }}" placeholder="Ключові слова з \"Про себе\"" />
-    <input type="text" name="region" value="{{ region }}" placeholder="Область" />
-    <input type="text" name="district" value="{{ district }}" placeholder="Район" />
-    <input type="text" name="settlement" value="{{ settlement }}" placeholder="Населений пункт" />
+    <select id="region-select" name="region">
+        <option value="">{{ 'Область' }}</option>
+    </select>
+    <select id="district-select" name="district" disabled>
+        <option value="">{{ 'Район' }}</option>
+    </select>
+    <select id="hromada-select" name="hromada" disabled>
+        <option value="">{{ 'Громада' }}</option>
+    </select>
+    <select id="settlement-select" name="settlement" disabled>
+        <option value="">{{ 'Населений пункт' }}</option>
+    </select>
     <select name="search_scope">
         <option value="" {% if not search_scope %}selected{% endif %}>Будь-яка зона</option>
         <option value="settlement" {% if search_scope == 'settlement' %}selected{% endif %}>Місто/село</option>
@@ -14,13 +23,20 @@
         <option value="region" {% if search_scope == 'region' %}selected{% endif %}>Область</option>
         <option value="country" {% if search_scope == 'country' %}selected{% endif %}>Країна</option>
     </select>
+    <select name="active_hours">
+        <option value="" {% if not active_hours %}selected{% endif %}>Активні: будь-коли</option>
+        <option value="24" {% if active_hours == '24' %}selected{% endif %}>За 24 години</option>
+        <option value="168" {% if active_hours == '168' %}selected{% endif %}>За 7 днів</option>
+    </select>
+    <input type="hidden" name="sort" value="created_at" />
+    <input type="hidden" name="order" value="desc" />
     <button type="submit" class="btn">Шукати</button>
 </form>
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Фото</th>
+            <th>ID</th>
             <th>TG ID</th>
             <th>Нікнейм</th>
             <th>Ім’я</th>
@@ -29,9 +45,9 @@
             <th>Шукає</th>
             <th>Область</th>
             <th>Район</th>
+            <th>Громада</th>
             <th>Населений пункт</th>
             <th>Зона пошуку</th>
-            <th>Про себе</th>
             <th>Створено</th>
         </tr>
     </thead>
@@ -39,7 +55,6 @@
         {% for profile in profiles %}
         {% set user = profile.user %}
         <tr>
-            <td>{{ user.id }}</td>
             <td class="photo">
                 {% if profile.photo_id %}
                     <img src="/admin/photos/{{ profile.photo_id }}" alt="Фото {{ user.id }}" class="photo-thumb" loading="lazy" />
@@ -49,6 +64,7 @@
                     -
                 {% endif %}
             </td>
+            <td>{{ user.id }}</td>
             <td>{{ user.tg_id }}</td>
             <td>{{ user.username or "-" }}</td>
             <td>{{ user.name }}</td>
@@ -57,19 +73,20 @@
             <td>{{ user.looking_for }}</td>
             <td>{{ user.region }}</td>
             <td>{{ user.district or "-" }}</td>
+            <td>{{ user.hromada or "-" }}</td>
             <td>{{ user.settlement }}</td>
             <td>
                 {% if user.search_scope == 'settlement' %}Місто/село{% elif user.search_scope == 'hromada' %}Громада{% elif user.search_scope == 'district' %}Район{% elif user.search_scope == 'region' %}Область{% elif user.search_scope == 'country' %}Країна{% else %}—{% endif %}
             </td>
-            <td class="about" title="{{ user.about or '' }}">
-                {% if user.about %}
-                    {{ user.about[:140] + ('...' if user.about|length > 140 else '') }}
-                {% else %}
-                    -
-                {% endif %}
-            </td>
             <td>{{ user.created_at }}</td>
         </tr>
+        {% if user.about %}
+        <tr class="row-about">
+            <td colspan="14" class="about-full" title="{{ user.about }}">
+                {{ user.about }}
+            </td>
+        </tr>
+        {% endif %}
         {% endfor %}
         {% if profiles|length == 0 %}
         <tr>
@@ -82,11 +99,138 @@
     <span>Сторінка {{ page }} з {{ total_pages }}</span>
     <div class="pager">
         {% if page > 1 %}
-        <a href="/admin/profiles?page={{ page - 1 }}&q={{ q }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">Назад</a>
+        <a href="/admin/profiles?page={{ page - 1 }}&q={{ q }}&region={{ region }}&district={{ district }}&hromada={{ hromada }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">Назад</a>
         {% endif %}
         {% if page < total_pages %}
-        <a href="/admin/profiles?page={{ page + 1 }}&q={{ q }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}">Далі</a>
+        <a href="/admin/profiles?page={{ page + 1 }}&q={{ q }}&region={{ region }}&district={{ district }}&hromada={{ hromada }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">Далі</a>
         {% endif %}
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const regionSelect = document.getElementById("region-select");
+        const districtSelect = document.getElementById("district-select");
+        const hromadaSelect = document.getElementById("hromada-select");
+        const settlementSelect = document.getElementById("settlement-select");
+
+        const currentRegion = "{{ region }}";
+        const currentDistrict = "{{ district }}";
+        const currentHromada = "{{ hromada }}";
+        const currentSettlement = "{{ settlement }}";
+
+        function fillOptions(select, items, current, placeholder) {
+            select.innerHTML = "";
+            const opt = document.createElement("option");
+            opt.value = "";
+            opt.textContent = placeholder;
+            select.appendChild(opt);
+            (items || []).forEach((item) => {
+                const o = document.createElement("option");
+                o.value = item;
+                o.textContent = item;
+                if (current && current.toLowerCase() === item.toLowerCase()) {
+                    o.selected = true;
+                }
+                select.appendChild(o);
+            });
+        }
+
+        async function fetchDistricts(region) {
+            districtSelect.disabled = true;
+            hromadaSelect.disabled = true;
+            settlementSelect.disabled = true;
+            fillOptions(districtSelect, [], "", "Район");
+            fillOptions(hromadaSelect, [], "", "Громада");
+            fillOptions(settlementSelect, [], "", "Населений пункт");
+            if (!region) return;
+            const res = await fetch("/admin/filters/districts?region=" + encodeURIComponent(region));
+            const data = await res.json();
+            fillOptions(districtSelect, data.items || [], currentDistrict, "Район");
+            districtSelect.disabled = false;
+            if (currentDistrict) {
+                await fetchHromadas(region, currentDistrict);
+            }
+        }
+
+        async function fetchHromadas(region, district) {
+            hromadaSelect.disabled = true;
+            settlementSelect.disabled = true;
+            fillOptions(hromadaSelect, [], "", "Громада");
+            fillOptions(settlementSelect, [], "", "Населений пункт");
+            if (!region || !district) return;
+            const res = await fetch("/admin/filters/hromadas?region=" + encodeURIComponent(region) + "&district=" + encodeURIComponent(district));
+            const data = await res.json();
+            fillOptions(hromadaSelect, data.items || [], currentHromada, "Громада");
+            hromadaSelect.disabled = false;
+            if (currentHromada) {
+                await fetchSettlements(region, district, currentHromada);
+            }
+        }
+
+        async function fetchSettlements(region, district, hromada) {
+            settlementSelect.disabled = true;
+            fillOptions(settlementSelect, [], "", "Населений пункт");
+            if (!region || !district) return;
+            const url = "/admin/filters/settlements?region=" + encodeURIComponent(region) + "&district=" + encodeURIComponent(district) + (hromada ? "&hromada=" + encodeURIComponent(hromada) : "");
+            const res = await fetch(url);
+            const data = await res.json();
+            fillOptions(settlementSelect, data.items || [], currentSettlement, "Населений пункт");
+            settlementSelect.disabled = false;
+        }
+
+        const regionsList = [
+            "Автономна Республіка Крим",
+            "Вінницька",
+            "Волинська",
+            "Дніпропетровська",
+            "Донецька",
+            "Житомирська",
+            "Закарпатська",
+            "Запорізька",
+            "Івано-Франківська",
+            "Київська",
+            "Кіровоградська",
+            "Луганська",
+            "Львівська",
+            "Миколаївська",
+            "Одеська",
+            "Полтавська",
+            "Рівненська",
+            "Сумська",
+            "Тернопільська",
+            "Харківська",
+            "Херсонська",
+            "Хмельницька",
+            "Черкаська",
+            "Чернівецька",
+            "Чернігівська",
+        ];
+        fillOptions(regionSelect, regionsList, currentRegion, "Область");
+        regionSelect.disabled = false;
+        if (currentRegion) {
+            fetchDistricts(currentRegion);
+        }
+
+        regionSelect.addEventListener("change", async (e) => {
+            const region = e.target.value;
+            districtSelect.value = "";
+            hromadaSelect.value = "";
+            settlementSelect.value = "";
+            await fetchDistricts(region);
+        });
+
+        districtSelect.addEventListener("change", async (e) => {
+            const district = e.target.value;
+            hromadaSelect.value = "";
+            settlementSelect.value = "";
+            await fetchHromadas(regionSelect.value, district);
+        });
+
+        hromadaSelect.addEventListener("change", async (e) => {
+            const hromada = e.target.value;
+            settlementSelect.value = "";
+            await fetchSettlements(regionSelect.value, districtSelect.value, hromada);
+        });
+    });
+</script>
 {% endblock %}

@@ -218,6 +218,14 @@ select {
     white-space: pre-wrap;
     word-break: break-word;
 }
+.about-full {
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--muted);
+    font-size: 13px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+}
 
 .payload {
     max-width: 220px;
@@ -246,6 +254,10 @@ select {
     margin-left: 10px;
     text-decoration: none;
     color: var(--accent);
+}
+
+.row-about td {
+    border-top: none;
 }
 
 .badge {
