@@ -58,6 +58,7 @@
             <th>{{ sort_link('Ім’я', 'name') }}</th>
             <th>Область</th>
             <th>Район</th>
+            <th>Громада</th>
             <th>Населений пункт</th>
             <th>Зона пошуку</th>
             <th>{{ sort_link('Бан', 'is_banned') }}</th>
@@ -77,6 +78,7 @@
             <td>{{ (user.first_name or user.name or "") }} {{ user.last_name or "" }}</td>
             <td>{{ user.region }}</td>
             <td>{{ user.district or "-" }}</td>
+            <td>{{ user.hromada or "-" }}</td>
             <td>{{ user.settlement }}</td>
             <td>{{ scope_labels.get(user.search_scope, user.search_scope) }}</td>
             <td>{{ "Так" if user.is_banned else "Ні" }}</td>
