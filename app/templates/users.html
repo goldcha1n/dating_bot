@@ -6,7 +6,7 @@
     {%- set indicator = '↑' if is_current and order == 'asc' else ('↓' if is_current and order == 'desc' else '↕') -%}
     <div class="th-header">
         <span class="th-label">{{ label }}</span>
-        <a class="sort-link" href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">{{ indicator }}</a>
+        <a class="sort-link" href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}&region={{ region }}&district={{ district }}&hromada={{ hromada }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">{{ indicator }}</a>
     </div>
 {%- endmacro %}
 
@@ -20,9 +20,18 @@
 <h1>Користувачі</h1>
 <form method="get" action="/admin/users" class="toolbar">
     <input type="text" name="q" value="{{ q }}" placeholder="Пошук за tg_id або нікнеймом" />
-    <input type="text" name="region" value="{{ region }}" placeholder="Область" />
-    <input type="text" name="district" value="{{ district }}" placeholder="Район" />
-    <input type="text" name="settlement" value="{{ settlement }}" placeholder="Населений пункт" />
+    <select id="region-select" name="region">
+        <option value="">{{ 'Область' }}</option>
+    </select>
+    <select id="district-select" name="district" disabled>
+        <option value="">{{ 'Район' }}</option>
+    </select>
+    <select id="hromada-select" name="hromada" disabled>
+        <option value="">{{ 'Громада' }}</option>
+    </select>
+    <select id="settlement-select" name="settlement" disabled>
+        <option value="">{{ 'Населений пункт' }}</option>
+    </select>
     <select name="search_scope">
         <option value="" {% if not search_scope %}selected{% endif %}>Будь-яка зона</option>
         <option value="settlement" {% if search_scope == 'settlement' %}selected{% endif %}>Місто/село</option>
@@ -76,11 +85,11 @@
             <td>{{ user.last_activity_at or "—" }}</td>
             <td>
                 {% if user.is_banned %}
-                <form method="post" action="/admin/users/{{ user.id }}/unban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">
+                 <form method="post" action="/admin/users/{{ user.id }}/unban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&hromada={{ hromada }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">
                     <button type="submit" class="btn small">Розблокувати</button>
                 </form>
                 {% else %}
-                <form method="post" action="/admin/users/{{ user.id }}/ban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">
+                 <form method="post" action="/admin/users/{{ user.id }}/ban?page={{ page }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&hromada={{ hromada }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">
                     <button type="submit" class="btn small danger">Заблокувати</button>
                 </form>
                 {% endif %}
@@ -98,11 +107,140 @@
     <span>Сторінка {{ page }} з {{ total_pages }}</span>
     <div class="pager">
         {% if page > 1 %}
-        <a href="/admin/users?page={{ page - 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">Назад</a>
+        <a href="/admin/users?page={{ page - 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&hromada={{ hromada }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">Назад</a>
         {% endif %}
         {% if page < total_pages %}
-        <a href="/admin/users?page={{ page + 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">Далі</a>
+        <a href="/admin/users?page={{ page + 1 }}&q={{ q }}&sort={{ sort }}&order={{ order }}&region={{ region }}&district={{ district }}&hromada={{ hromada }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">Далі</a>
         {% endif %}
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const regionSelect = document.getElementById("region-select");
+    const districtSelect = document.getElementById("district-select");
+    const hromadaSelect = document.getElementById("hromada-select");
+    const settlementSelect = document.getElementById("settlement-select");
+
+    const currentRegion = "{{ region }}";
+    const currentDistrict = "{{ district }}";
+    const currentHromada = "{{ hromada }}";
+    const currentSettlement = "{{ settlement }}";
+
+    function fillOptions(select, items, current, placeholder) {
+        select.innerHTML = "";
+        const opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = placeholder;
+        select.appendChild(opt);
+        items.forEach((item) => {
+            const o = document.createElement("option");
+            o.value = item;
+            o.textContent = item;
+            if (current && current.toLowerCase() === item.toLowerCase()) {
+                o.selected = true;
+            }
+            select.appendChild(o);
+        });
+    }
+
+    async function fetchDistricts(region) {
+        districtSelect.disabled = true;
+        hromadaSelect.disabled = true;
+        settlementSelect.disabled = true;
+        fillOptions(districtSelect, [], "", "Район");
+        fillOptions(hromadaSelect, [], "", "Громада");
+        fillOptions(settlementSelect, [], "", "Населений пункт");
+        if (!region) return;
+        const res = await fetch("/admin/filters/districts?region=" + encodeURIComponent(region));
+        const data = await res.json();
+        fillOptions(districtSelect, data.items || [], currentDistrict, "Район");
+        districtSelect.disabled = false;
+        if (currentDistrict) {
+            await fetchHromadas(region, currentDistrict);
+        }
+    }
+
+    async function fetchHromadas(region, district) {
+        hromadaSelect.disabled = true;
+        settlementSelect.disabled = true;
+        fillOptions(hromadaSelect, [], "", "Громада");
+        fillOptions(settlementSelect, [], "", "Населений пункт");
+        if (!region || !district) return;
+        const res = await fetch("/admin/filters/hromadas?region=" + encodeURIComponent(region) + "&district=" + encodeURIComponent(district));
+        const data = await res.json();
+        fillOptions(hromadaSelect, data.items || [], currentHromada, "Громада");
+        hromadaSelect.disabled = false;
+        if (currentHromada) {
+            await fetchSettlements(region, district, currentHromada);
+        }
+    }
+
+    async function fetchSettlements(region, district, hromada) {
+        settlementSelect.disabled = true;
+        fillOptions(settlementSelect, [], "", "Населений пункт");
+        if (!region || !district) return;
+        const url = "/admin/filters/settlements?region=" + encodeURIComponent(region) + "&district=" + encodeURIComponent(district) + (hromada ? "&hromada=" + encodeURIComponent(hromada) : "");
+        const res = await fetch(url);
+        const data = await res.json();
+        fillOptions(settlementSelect, data.items || [], currentSettlement, "Населений пункт");
+        settlementSelect.disabled = false;
+    }
+
+    const regionsList = [
+        "Автономна Республіка Крим",
+        "Вінницька",
+        "Волинська",
+        "Дніпропетровська",
+        "Донецька",
+        "Житомирська",
+        "Закарпатська",
+        "Запорізька",
+        "Івано-Франківська",
+        "Київська",
+        "Кіровоградська",
+        "Луганська",
+        "Львівська",
+        "Миколаївська",
+        "Одеська",
+        "Полтавська",
+        "Рівненська",
+        "Сумська",
+        "Тернопільська",
+        "Харківська",
+        "Херсонська",
+        "Хмельницька",
+        "Черкаська",
+        "Чернівецька",
+        "Чернігівська",
+    ];
+    fillOptions(regionSelect, regionsList, currentRegion, "Область");
+    regionSelect.disabled = false;
+    if (currentRegion) {
+        fetchDistricts(currentRegion);
+    }
+
+    regionSelect.addEventListener("change", async (e) => {
+        const region = e.target.value;
+        districtSelect.value = "";
+        hromadaSelect.value = "";
+        settlementSelect.value = "";
+        await fetchDistricts(region);
+    });
+
+    districtSelect.addEventListener("change", async (e) => {
+        const district = e.target.value;
+        hromadaSelect.value = "";
+        settlementSelect.value = "";
+        await fetchHromadas(regionSelect.value, district);
+    });
+
+    hromadaSelect.addEventListener("change", async (e) => {
+        const hromada = e.target.value;
+        settlementSelect.value = "";
+        await fetchSettlements(regionSelect.value, districtSelect.value, hromada);
+    });
+
+    // init already populated above
+    });
+</script>
 {% endblock %}

@@ -11,6 +11,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
+from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy import and_, func, or_, select, update
 from sqlalchemy.exc import OperationalError
@@ -19,7 +20,8 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from app.auth import create_session_token, read_session_token, verify_credentials
 from app.config import Settings, TEMPLATES_DIR
 from app.db import session_scope
-from app.models import AdminAction, Complaint, Feedback, Message, Photo, User
+from app.models import AdminAction, Complaint, Feedback, Message, Photo, UaLocation, User
+from services.location_repo import DISTRICT_CATEGORIES, HROMADA_CATEGORIES, SETTLEMENT_CATEGORIES
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
@@ -27,6 +29,53 @@ logger = logging.getLogger(__name__)
 
 FEEDBACK_STATUSES = ("new", "in_progress", "done")
 FEEDBACK_CATEGORIES = ("general", "issue", "idea", "other")
+
+
+async def _get_region_code(session: AsyncSession, name: str | None) -> str | None:
+    if not name:
+        return None
+    region_name = name.strip().lower()
+    res = await session.execute(
+        select(UaLocation.level1)
+        .where(UaLocation.category == "O", func.lower(func.trim(UaLocation.name)) == region_name)
+        .limit(1)
+    )
+    return res.scalar_one_or_none()
+
+
+async def _get_district_code(session: AsyncSession, region_code: str | None, name: str | None) -> str | None:
+    if not region_code or not name:
+        return None
+    district_name = name.strip().lower()
+    res = await session.execute(
+        select(UaLocation.level2)
+        .where(
+            UaLocation.level1 == region_code,
+            UaLocation.category.in_(DISTRICT_CATEGORIES),
+            func.lower(func.trim(UaLocation.name)) == district_name,
+        )
+        .limit(1)
+    )
+    return res.scalar_one_or_none()
+
+
+async def _get_hromada_code(
+    session: AsyncSession, region_code: str | None, district_code: str | None, name: str | None
+) -> str | None:
+    if not region_code or not district_code or not name:
+        return None
+    hromada_name = name.strip().lower()
+    res = await session.execute(
+        select(UaLocation.level3)
+        .where(
+            UaLocation.level1 == region_code,
+            UaLocation.level2 == district_code,
+            UaLocation.category.in_(HROMADA_CATEGORIES),
+            func.lower(func.trim(UaLocation.name)) == hromada_name,
+        )
+        .limit(1)
+    )
+    return res.scalar_one_or_none()
 
 
 async def notify_user(bot_token: str, tg_id: int, text: str) -> None:
@@ -144,6 +193,7 @@ async def users_list(
     region: Optional[str] = Query(default=None),
     district: Optional[str] = Query(default=None),
     settlement: Optional[str] = Query(default=None),
+    hromada: Optional[str] = Query(default=None),
     search_scope: Optional[str] = Query(default=None),
     active_hours: Optional[str] = Query(default=None),
     page: int = Query(default=1, ge=1),
@@ -186,6 +236,8 @@ async def users_list(
         stmt = stmt.where(func.lower(User.region) == region.strip().lower())
     if district:
         stmt = stmt.where(func.lower(User.district) == district.strip().lower())
+    if hromada:
+        stmt = stmt.where(func.lower(User.hromada) == hromada.strip().lower())
     if settlement:
         stmt = stmt.where(func.lower(User.settlement) == settlement.strip().lower())
     if search_scope in {"settlement", "hromada", "district", "region", "country"}:
@@ -219,10 +271,117 @@ async def users_list(
         "region": region or "",
         "district": district or "",
         "settlement": settlement or "",
+        "hromada": hromada or "",
         "search_scope": search_scope or "",
         "active_hours": active_hours or "",
     },
 )
+
+
+@router.get("/admin/filters/regions")
+async def filter_regions(
+    admin_username: str = Depends(require_admin),
+    session: AsyncSession = Depends(get_session),
+) -> JSONResponse:
+    region_expr = func.trim(UaLocation.name)
+    rows = (
+        await session.execute(
+            select(region_expr)
+            .where(UaLocation.category == "O")
+            .distinct()
+            .order_by(region_expr)
+        )
+    ).scalars()
+    return JSONResponse({"items": [r for r in rows if r]})
+
+
+@router.get("/admin/filters/districts")
+async def filter_districts(
+    admin_username: str = Depends(require_admin),
+    region: Optional[str] = Query(default=None),
+    session: AsyncSession = Depends(get_session),
+) -> JSONResponse:
+    if not region:
+        return JSONResponse({"items": []})
+    region_code = await _get_region_code(session, region)
+    if not region_code:
+        return JSONResponse({"items": []})
+    district_expr = func.trim(UaLocation.name)
+    rows = (
+        await session.execute(
+            select(district_expr)
+            .where(
+                UaLocation.level1 == region_code,
+                UaLocation.category.in_(DISTRICT_CATEGORIES),
+            )
+            .distinct()
+            .order_by(district_expr)
+        )
+    ).scalars()
+    return JSONResponse({"items": [r for r in rows if r]})
+
+
+@router.get("/admin/filters/settlements")
+async def filter_settlements(
+    admin_username: str = Depends(require_admin),
+    region: Optional[str] = Query(default=None),
+    district: Optional[str] = Query(default=None),
+    hromada: Optional[str] = Query(default=None),
+    session: AsyncSession = Depends(get_session),
+) -> JSONResponse:
+    if not region or not district:
+        return JSONResponse({"items": []})
+    region_code = await _get_region_code(session, region)
+    district_code = await _get_district_code(session, region_code, district)
+    hromada_code = await _get_hromada_code(session, region_code, district_code, hromada) if hromada else None
+    if not region_code or not district_code:
+        return JSONResponse({"items": []})
+    settlement_expr = func.trim(UaLocation.name)
+    rows = (
+        await session.execute(
+            select(settlement_expr)
+            .where(
+                UaLocation.level1 == region_code,
+                UaLocation.level2 == district_code,
+                (UaLocation.level3 == hromada_code if hromada_code else True),
+                UaLocation.category.in_(SETTLEMENT_CATEGORIES),
+            )
+            .distinct()
+            .order_by(settlement_expr)
+        )
+    ).scalars()
+    return JSONResponse({"items": [r for r in rows if r]})
+
+
+@router.get("/admin/filters/hromadas")
+async def filter_hromadas(
+    admin_username: str = Depends(require_admin),
+    region: Optional[str] = Query(default=None),
+    district: Optional[str] = Query(default=None),
+    session: AsyncSession = Depends(get_session),
+) -> JSONResponse:
+    if not region or not district:
+        return JSONResponse({"items": []})
+    region_code = await _get_region_code(session, region)
+    district_code = await _get_district_code(session, region_code, district)
+    if not region_code or not district_code:
+        return JSONResponse({"items": []})
+    hromada_expr = func.trim(UaLocation.name)
+    rows = (
+        await session.execute(
+            select(hromada_expr)
+            .where(
+                UaLocation.level1 == region_code,
+                UaLocation.level2 == district_code,
+                UaLocation.category.in_(HROMADA_CATEGORIES),
+                UaLocation.name.isnot(None),
+                UaLocation.name != "",
+            )
+            .distinct()
+            .order_by(hromada_expr)
+        )
+    ).scalars()
+    return JSONResponse({"items": [r for r in rows if r]})
 
 
 @router.get("/admin/profiles", response_class=HTMLResponse)
