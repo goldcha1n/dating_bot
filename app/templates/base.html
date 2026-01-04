@@ -20,12 +20,34 @@
                 <a href="/admin/actions">Дії</a>
                 <a href="/admin/logout">Вихід</a>
             </nav>
-            <div class="admin">{{ admin_username }}</div>
+            <div class="topbar-actions">
+                <button id="theme-toggle" class="btn ghost" aria-label="Змінити тему">🌗</button>
+                <div class="admin">{{ admin_username }}</div>
+            </div>
             {% endif %}
         </header>
         <main class="content">
             {% block content %}{% endblock %}
         </main>
     </div>
+    <script>
+        (() => {
+            const key = "admin-theme";
+            const apply = (v) => document.documentElement.setAttribute("data-theme", v);
+            const stored = localStorage.getItem(key) || "dark";
+            apply(stored);
+            const btn = document.getElementById("theme-toggle");
+            if (btn) {
+                btn.textContent = stored === "dark" ? "🌙" : "🌞";
+                btn.addEventListener("click", () => {
+                    const current = document.documentElement.getAttribute("data-theme") || "dark";
+                    const next = current === "dark" ? "light" : "dark";
+                    apply(next);
+                    localStorage.setItem(key, next);
+                    btn.textContent = next === "dark" ? "🌙" : "🌞";
+                });
+            }
+        })();
+    </script>
 </body>
 </html>

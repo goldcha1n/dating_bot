@@ -145,7 +145,7 @@ async def users_list(
     district: Optional[str] = Query(default=None),
     settlement: Optional[str] = Query(default=None),
     search_scope: Optional[str] = Query(default=None),
-    active_hours: Optional[int] = Query(default=None, ge=1),
+    active_hours: Optional[str] = Query(default=None),
     page: int = Query(default=1, ge=1),
     session: AsyncSession = Depends(get_session),
 ):
@@ -220,7 +220,7 @@ async def users_list(
         "district": district or "",
         "settlement": settlement or "",
         "search_scope": search_scope or "",
-        "active_hours": str(active_hours) if active_hours is not None else "",
+        "active_hours": active_hours or "",
     },
 )
 

@@ -8102,3 +8102,103 @@ DETAIL:  Ошибочная строка содержит (10015, 1109508382, go
 2026-01-04 13:02:56,331 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
 2026-01-04 13:02:56,333 [INFO] __main__: Shutdown complete
 2026-01-04 13:02:56,334 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 13:08:46,186 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 13:08:46,186 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 13:08:46,186 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 13:08:46,187 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 13:08:46,254 [INFO] __main__: api started
+2026-01-04 13:08:46,365 [INFO] db: DB initialized (create_all done)
+2026-01-04 13:08:46,368 [INFO] db: DB initialized (create_all done)
+2026-01-04 13:08:46,555 [INFO] app.bot: bot started
+2026-01-04 13:08:46,555 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 13:08:46,556 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-05T08:00:00+02:00 (Europe/Kyiv), sleep 67873.4s
+2026-01-04 13:08:46,718 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 13:12:19,243 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 13:12:19,243 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 13:12:19,244 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 13:12:19,245 [INFO] __main__: Shutdown complete
+2026-01-04 13:12:22,833 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 13:12:22,834 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 13:12:22,834 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 13:12:22,834 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 13:12:22,903 [INFO] __main__: api started
+2026-01-04 13:12:23,015 [INFO] db: DB initialized (create_all done)
+2026-01-04 13:12:23,017 [INFO] db: DB initialized (create_all done)
+2026-01-04 13:12:23,204 [INFO] app.bot: bot started
+2026-01-04 13:12:23,204 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 13:12:23,205 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-05T08:00:00+02:00 (Europe/Kyiv), sleep 67656.8s
+2026-01-04 13:12:23,373 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 13:17:16,310 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 13:17:16,311 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 13:17:16,311 [ERROR] aiogram.dispatcher: Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2026-01-04 13:17:16,311 [WARNING] aiogram.dispatcher: Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8308846710)
+2026-01-04 13:17:16,313 [INFO] __main__: Shutdown complete
+2026-01-04 13:17:16,314 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 13:17:20,018 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 13:17:20,018 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 13:17:20,019 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 13:17:20,019 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 13:17:20,086 [INFO] __main__: api started
+2026-01-04 13:17:20,196 [INFO] db: DB initialized (create_all done)
+2026-01-04 13:17:20,199 [INFO] db: DB initialized (create_all done)
+2026-01-04 13:17:20,387 [INFO] app.bot: bot started
+2026-01-04 13:17:20,387 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 13:17:20,388 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-05T08:00:00+02:00 (Europe/Kyiv), sleep 67359.6s
+2026-01-04 13:17:20,550 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 13:20:02,869 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 13:20:02,870 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 13:20:02,870 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 13:20:02,878 [INFO] __main__: Shutdown complete
+2026-01-04 13:20:06,514 [INFO] __main__: Repo root: C:\Python_Projects\dating_bot
+2026-01-04 13:20:06,514 [INFO] __main__: .env path: C:\Python_Projects\dating_bot\.env
+2026-01-04 13:20:06,514 [INFO] __main__: DB url: postgresql+asyncpg://appuser:strongpass@localhost:5432/dating_bot
+2026-01-04 13:20:06,515 [INFO] __main__: API listening: http://127.0.0.1:8000
+2026-01-04 13:20:06,584 [INFO] __main__: api started
+2026-01-04 13:20:06,697 [INFO] db: DB initialized (create_all done)
+2026-01-04 13:20:06,885 [INFO] app.bot: bot started
+2026-01-04 13:20:06,886 [INFO] aiogram.dispatcher: Start polling
+2026-01-04 13:20:06,887 [INFO] services.daily_reset: Daily reset scheduled at 2026-01-05T08:00:00+02:00 (Europe/Kyiv), sleep 67193.1s
+2026-01-04 13:20:06,889 [INFO] db: DB initialized (create_all done)
+2026-01-04 13:20:07,046 [INFO] aiogram.dispatcher: Run polling for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 13:20:42,089 [ERROR] app.api.admin: Failed to notify user tg_id=8322046970
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\app\api\admin.py", line 35, in notify_user
+    await bot.send_message(tg_id, text)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 2925, in send_message
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2026-01-04 13:20:45,972 [ERROR] app.api.admin: Failed to notify user tg_id=8322046970
+Traceback (most recent call last):
+  File "C:\Python_Projects\dating_bot\app\api\admin.py", line 35, in notify_user
+    await bot.send_message(tg_id, text)
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 2925, in send_message
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JK\anaconda3\envs\dating_bot\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: chat not found
+2026-01-04 13:21:22,565 [INFO] aiogram.dispatcher: Polling stopped
+2026-01-04 13:21:22,566 [INFO] aiogram.dispatcher: Polling stopped for bot @senderdatingtest_bot id=8308846710 - 'ЗнайомстваUA — спілкування без меж!'
+2026-01-04 13:21:22,566 [INFO] __main__: Shutdown requested, cancelling services...
+2026-01-04 13:21:22,568 [INFO] __main__: Shutdown complete

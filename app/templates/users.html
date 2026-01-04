@@ -3,8 +3,11 @@
 {% macro sort_link(label, field) -%}
     {%- set is_current = sort == field -%}
     {%- set next_order = 'desc' if is_current and order == 'asc' else 'asc' -%}
-    {%- set indicator = '^' if is_current and order == 'asc' else ('v' if is_current and order == 'desc' else '') -%}
-    <a href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">{{ label }}{{ ' ' + indicator if indicator else '' }}</a>
+    {%- set indicator = '↑' if is_current and order == 'asc' else ('↓' if is_current and order == 'desc' else '↕') -%}
+    <div class="th-header">
+        <span class="th-label">{{ label }}</span>
+        <a class="sort-link" href="/admin/users?sort={{ field }}&order={{ next_order }}&q={{ q }}&page={{ page }}&region={{ region }}&district={{ district }}&settlement={{ settlement }}&search_scope={{ search_scope }}&active_hours={{ active_hours }}">{{ indicator }}</a>
+    </div>
 {%- endmacro %}
 
 {%- set scope_labels = {
