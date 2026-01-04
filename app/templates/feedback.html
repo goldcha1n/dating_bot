@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Feedback</h1>
+<form method="get" action="/admin/feedback" class="toolbar">
+    <input type="number" name="user_id" value="{{ user_id }}" placeholder="ID користувача" />
+    <input type="number" name="tg_id" value="{{ tg_id }}" placeholder="Telegram ID" />
+    <input type="text" name="q" value="{{ q }}" placeholder="Текст або username" />
+    <select name="status">
+        <option value="">Статус</option>
+        {% for s in status_options %}
+        <option value="{{ s }}" {% if status == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+    </select>
+    <select name="category">
+        <option value="">Тип</option>
+        {% for c in category_options %}
+        <option value="{{ c }}" {% if category == c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+    </select>
+    <input type="date" name="from_date" value="{{ from_date }}" />
+    <input type="date" name="to_date" value="{{ to_date }}" />
+    <button type="submit" class="btn">Фільтр</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>TG</th>
+            <th>Username</th>
+            <th>Тип</th>
+            <th>Статус</th>
+            <th>Опис</th>
+            <th>Створено</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in feedback_items %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td><a href="/admin/feedback?user_id={{ item.user_id }}">{{ item.user_id }}</a></td>
+            <td>{{ item.tg_id }}</td>
+            <td>{{ item.username or "—" }}</td>
+            <td>{{ item.category }}</td>
+            <td>
+                <form method="post" action="/admin/feedback/{{ item.id }}/status">
+                    <select name="status">
+                        {% for s in status_options %}
+                        <option value="{{ s }}" {% if item.status == s %}selected{% endif %}>{{ s }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn small">OK</button>
+                </form>
+            </td>
+            <td title="{{ item.description }}">{{ item.description[:120] + ('...' if item.description|length > 120 else '') }}</td>
+            <td>{{ item.created_at }}</td>
+        </tr>
+        {% endfor %}
+        {% if feedback_items|length == 0 %}
+        <tr>
+            <td colspan="8" class="empty">Записів немає</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+<div class="pagination">
+    <span>Сторінка {{ page }} з {{ total_pages }}</span>
+    <div class="pager">
+        {% if page > 1 %}
+        <a href="/admin/feedback?page={{ page - 1 }}&user_id={{ user_id }}&tg_id={{ tg_id }}&status={{ status }}&category={{ category }}&q={{ q }}&from_date={{ from_date }}&to_date={{ to_date }}">Назад</a>
+        {% endif %}
+        {% if page < total_pages %}
+        <a href="/admin/feedback?page={{ page + 1 }}&user_id={{ user_id }}&tg_id={{ tg_id }}&status={{ status }}&category={{ category }}&q={{ q }}&from_date={{ from_date }}&to_date={{ to_date }}">Далі</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

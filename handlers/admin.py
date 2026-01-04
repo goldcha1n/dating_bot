@@ -120,6 +120,7 @@ async def reset_db_confirm(call: CallbackQuery, session: AsyncSession, cfg: Conf
         "<b>Базу очищено</b>\n"
         f"Анкет: {res.users}\n"
         f"Фото: {res.photos}\n"
+        f"Feedback: {res.feedback}\n"
         f"Лайки/скіпи: {res.likes}\n"
         f"Match: {res.matches}\n"
         f"Логи дій: {res.action_logs}"

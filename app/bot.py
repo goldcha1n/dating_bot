@@ -17,6 +17,7 @@ from handlers.matches import router as matches_router
 from handlers.complaints import router as complaints_router
 from handlers.onboarding import router as onboarding_router
 from handlers.profile import router as profile_router
+from handlers.feedback import router as feedback_router
 from handlers.settings import router as settings_router
 from services.daily_reset import daily_reset_loop
 
@@ -37,6 +38,7 @@ def _build_dispatcher(sessionmaker):
     dp.include_router(browse_router)
     dp.include_router(matches_router)
     dp.include_router(complaints_router)
+    dp.include_router(feedback_router)
     dp.include_router(settings_router)
     dp.include_router(admin_router)
     return dp

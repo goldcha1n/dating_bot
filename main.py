@@ -17,6 +17,7 @@ from handlers.profile import router as profile_router
 from handlers.browse import router as browse_router
 from handlers.matches import router as matches_router
 from handlers.settings import router as settings_router
+from handlers.feedback import router as feedback_router
 from handlers.admin import router as admin_router
 from handlers.common import router as common_router
 
@@ -46,6 +47,7 @@ async def main() -> None:
     dp.include_router(profile_router)
     dp.include_router(browse_router)
     dp.include_router(matches_router)
+    dp.include_router(feedback_router)
     dp.include_router(settings_router)
     dp.include_router(admin_router)
 

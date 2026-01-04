@@ -67,6 +67,11 @@ class User(Base):
         cascade="all, delete-orphan",
         lazy="selectin",
     )
+    feedbacks: Mapped[List["Feedback"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+        lazy="selectin",
+    )
 
     __table_args__ = (
         CheckConstraint("age BETWEEN 16 AND 99", name="ck_users_age"),
@@ -210,4 +215,24 @@ class Complaint(Base):
     __table_args__ = (
         UniqueConstraint("reporter_user_id", "target_user_id", name="uq_complaints_reporter_target"),
         Index("ix_complaints_target_created", "target_user_id", "created_at"),
+    )
+
+
+class Feedback(Base):
+    __tablename__ = "feedback"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    tg_id: Mapped[int] = mapped_column(BigInteger, nullable=False, index=True)
+    username: Mapped[Optional[str]] = mapped_column(String(64), nullable=True, index=True)
+    category: Mapped[str] = mapped_column(String(24), nullable=False, default="general")
+    status: Mapped[str] = mapped_column(String(24), nullable=False, default="new")
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+    user: Mapped["User"] = relationship(back_populates="feedbacks")
+
+    __table_args__ = (
+        Index("ix_feedback_user_status", "user_id", "status", "created_at"),
+        Index("ix_feedback_status_created", "status", "created_at"),
     )

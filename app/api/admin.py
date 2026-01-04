@@ -12,18 +12,21 @@ from aiogram.enums import ParseMode
 from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import and_, func, select, update
+from sqlalchemy import and_, func, or_, select, update
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.auth import create_session_token, read_session_token, verify_credentials
 from app.config import Settings, TEMPLATES_DIR
 from app.db import session_scope
-from app.models import AdminAction, Complaint, Message, Photo, User
+from app.models import AdminAction, Complaint, Feedback, Message, Photo, User
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 logger = logging.getLogger(__name__)
+
+FEEDBACK_STATUSES = ("new", "in_progress", "done")
+FEEDBACK_CATEGORIES = ("general", "issue", "idea", "other")
 
 
 async def notify_user(bot_token: str, tg_id: int, text: str) -> None:
@@ -116,12 +119,13 @@ async def dashboard(
     admin_username: str = Depends(require_admin),
     session: AsyncSession = Depends(get_session),
 ):
-    counts = {"users": 0, "messages": 0, "actions": 0, "complaints": 0}
+    counts = {"users": 0, "messages": 0, "actions": 0, "complaints": 0, "feedback": 0}
     try:
         counts["users"] = (await session.execute(select(func.count(User.id)))).scalar_one()
         counts["messages"] = (await session.execute(select(func.count(Message.id)))).scalar_one()
         counts["actions"] = (await session.execute(select(func.count(AdminAction.id)))).scalar_one()
         counts["complaints"] = (await session.execute(select(func.count(Complaint.id)))).scalar_one()
+        counts["feedback"] = (await session.execute(select(func.count(Feedback.id)))).scalar_one()
     except OperationalError:
         pass
     return templates.TemplateResponse(
@@ -446,6 +450,98 @@ async def actions_log(
         "admin_username": admin_username,
     },
 )
+
+
+@router.get("/admin/feedback", response_class=HTMLResponse)
+async def feedback_list(
+    request: Request,
+    admin_username: str = Depends(require_admin),
+    user_id: Optional[int] = Query(default=None),
+    tg_id: Optional[int] = Query(default=None),
+    status: Optional[str] = Query(default=None),
+    category: Optional[str] = Query(default=None),
+    q: Optional[str] = Query(default=None),
+    from_date: Optional[str] = Query(default=None),
+    to_date: Optional[str] = Query(default=None),
+    page: int = Query(default=1, ge=1),
+    session: AsyncSession = Depends(get_session),
+):
+    per_page = 20
+    stmt = select(Feedback)
+    if user_id:
+        stmt = stmt.where(Feedback.user_id == user_id)
+    if tg_id:
+        stmt = stmt.where(Feedback.tg_id == tg_id)
+    if status and status in FEEDBACK_STATUSES:
+        stmt = stmt.where(Feedback.status == status)
+    if category and category in FEEDBACK_CATEGORIES:
+        stmt = stmt.where(Feedback.category == category)
+    if q:
+        stmt = stmt.where(or_(Feedback.description.ilike(f"%{q}%"), Feedback.username.ilike(f"%{q}%")))
+    if from_date:
+        try:
+            from_dt = datetime.fromisoformat(from_date)
+            stmt = stmt.where(Feedback.created_at >= from_dt)
+        except ValueError:
+            pass
+    if to_date:
+        try:
+            to_dt = datetime.fromisoformat(to_date)
+            stmt = stmt.where(Feedback.created_at <= to_dt)
+        except ValueError:
+            pass
+
+    total = (await session.execute(select(func.count()).select_from(stmt.subquery()))).scalar_one()
+    stmt = stmt.order_by(Feedback.created_at.desc()).offset((page - 1) * per_page).limit(per_page)
+    feedback_items = (await session.execute(stmt)).scalars().all()
+    total_pages = max(1, (total + per_page - 1) // per_page)
+    return templates.TemplateResponse(
+        "feedback.html",
+        {
+            "request": request,
+            "feedback_items": feedback_items,
+            "user_id": user_id or "",
+            "tg_id": tg_id or "",
+            "status": status or "",
+            "category": category or "",
+            "q": q or "",
+            "from_date": from_date or "",
+            "to_date": to_date or "",
+            "page": page,
+            "total_pages": total_pages,
+            "status_options": FEEDBACK_STATUSES,
+            "category_options": FEEDBACK_CATEGORIES,
+            "admin_username": admin_username,
+        },
+    )
+
+
+@router.post("/admin/feedback/{feedback_id}/status")
+async def feedback_update_status(
+    feedback_id: int,
+    status: str = Form(...),
+    admin_username: str = Depends(require_admin),
+    session: AsyncSession = Depends(get_session),
+):
+    if status not in FEEDBACK_STATUSES:
+        raise HTTPException(status_code=400, detail="Unknown status")
+
+    exists_stmt = select(func.count()).select_from(Feedback).where(Feedback.id == feedback_id)
+    if (await session.execute(exists_stmt)).scalar_one() == 0:
+        raise HTTPException(status_code=404, detail="Feedback not found")
+
+    await session.execute(update(Feedback).where(Feedback.id == feedback_id).values(status=status))
+    session.add(
+        AdminAction(
+            admin_username=admin_username,
+            action="feedback_status",
+            target_type="feedback",
+            target_id=feedback_id,
+            payload_json=status,
+        )
+    )
+    await session.commit()
+    return RedirectResponse(url="/admin/feedback", status_code=303)
 
 
 @router.get("/admin/complaints", response_class=HTMLResponse)
